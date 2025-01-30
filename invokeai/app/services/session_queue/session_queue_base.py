@@ -6,16 +6,19 @@ from invokeai.app.services.session_queue.session_queue_common import (
     Batch,
     BatchStatus,
     CancelByBatchIDsResult,
+    CancelByDestinationResult,
     CancelByQueueIDResult,
     ClearResult,
     EnqueueBatchResult,
     IsEmptyResult,
     IsFullResult,
     PruneResult,
+    SessionQueueCountsByDestination,
     SessionQueueItem,
     SessionQueueItemDTO,
     SessionQueueStatus,
 )
+from invokeai.app.services.shared.graph import GraphExecutionState
 from invokeai.app.services.shared.pagination import CursorPaginatedResults
 
 
@@ -68,18 +71,40 @@ class SessionQueueBase(ABC):
         pass
 
     @abstractmethod
+    def get_counts_by_destination(self, queue_id: str, destination: str) -> SessionQueueCountsByDestination:
+        """Gets the counts of queue items by destination"""
+        pass
+
+    @abstractmethod
     def get_batch_status(self, queue_id: str, batch_id: str) -> BatchStatus:
         """Gets the status of a batch"""
         pass
 
     @abstractmethod
-    def cancel_queue_item(self, item_id: int, error: Optional[str] = None) -> SessionQueueItem:
+    def complete_queue_item(self, item_id: int) -> SessionQueueItem:
+        """Completes a session queue item"""
+        pass
+
+    @abstractmethod
+    def cancel_queue_item(self, item_id: int) -> SessionQueueItem:
         """Cancels a session queue item"""
+        pass
+
+    @abstractmethod
+    def fail_queue_item(
+        self, item_id: int, error_type: str, error_message: str, error_traceback: str
+    ) -> SessionQueueItem:
+        """Fails a session queue item"""
         pass
 
     @abstractmethod
     def cancel_by_batch_ids(self, queue_id: str, batch_ids: list[str]) -> CancelByBatchIDsResult:
         """Cancels all queue items with matching batch IDs"""
+        pass
+
+    @abstractmethod
+    def cancel_by_destination(self, queue_id: str, destination: str) -> CancelByDestinationResult:
+        """Cancels all queue items with the given batch destination"""
         pass
 
     @abstractmethod
@@ -102,4 +127,9 @@ class SessionQueueBase(ABC):
     @abstractmethod
     def get_queue_item(self, item_id: int) -> SessionQueueItem:
         """Gets a session queue item by ID"""
+        pass
+
+    @abstractmethod
+    def set_queue_item_session(self, item_id: int, session: GraphExecutionState) -> SessionQueueItem:
+        """Sets the session for a session queue item. Use this to update the session state."""
         pass

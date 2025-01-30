@@ -1,30 +1,21 @@
+import { useStore } from '@nanostores/react';
 import { createSelector } from '@reduxjs/toolkit';
 import { useAppSelector } from 'app/store/storeHooks';
-import { selectNodesSlice } from 'features/nodes/store/nodesSlice';
-import { makeConnectionErrorSelector } from 'features/nodes/store/util/makeIsConnectionValidSelector';
+import { $edgePendingUpdate, $pendingConnection, $templates } from 'features/nodes/store/nodesSlice';
+import { selectNodesSlice } from 'features/nodes/store/selectors';
+import { makeConnectionErrorSelector } from 'features/nodes/store/util/makeConnectionErrorSelector';
 import { useMemo } from 'react';
 
-import { useFieldType } from './useFieldType.ts';
-
-const selectIsConnectionInProgress = createSelector(
-  selectNodesSlice,
-  (nodes) =>
-    nodes.connectionStartFieldType !== null &&
-    nodes.connectionStartParams !== null
-);
-
-export type UseConnectionStateProps = {
+type UseConnectionStateProps = {
   nodeId: string;
   fieldName: string;
-  kind: 'input' | 'output';
+  kind: 'inputs' | 'outputs';
 };
 
-export const useConnectionState = ({
-  nodeId,
-  fieldName,
-  kind,
-}: UseConnectionStateProps) => {
-  const fieldType = useFieldType(nodeId, fieldName, kind);
+export const useConnectionState = ({ nodeId, fieldName, kind }: UseConnectionStateProps) => {
+  const pendingConnection = useStore($pendingConnection);
+  const templates = useStore($templates);
+  const edgePendingUpdate = useStore($edgePendingUpdate);
 
   const selectIsConnected = useMemo(
     () =>
@@ -32,9 +23,8 @@ export const useConnectionState = ({
         Boolean(
           nodes.edges.filter((edge) => {
             return (
-              (kind === 'input' ? edge.target : edge.source) === nodeId &&
-              (kind === 'input' ? edge.targetHandle : edge.sourceHandle) ===
-                fieldName
+              (kind === 'inputs' ? edge.target : edge.source) === nodeId &&
+              (kind === 'inputs' ? edge.targetHandle : edge.sourceHandle) === fieldName
             );
           }).length
         )
@@ -42,48 +32,35 @@ export const useConnectionState = ({
     [fieldName, kind, nodeId]
   );
 
-  const selectConnectionError = useMemo(
-    () =>
-      makeConnectionErrorSelector(
-        nodeId,
-        fieldName,
-        kind === 'input' ? 'target' : 'source',
-        fieldType
-      ),
-    [nodeId, fieldName, kind, fieldType]
-  );
-
-  const selectIsConnectionStartField = useMemo(
-    () =>
-      createSelector(selectNodesSlice, (nodes) =>
-        Boolean(
-          nodes.connectionStartParams?.nodeId === nodeId &&
-            nodes.connectionStartParams?.handleId === fieldName &&
-            nodes.connectionStartParams?.handleType ===
-              { input: 'target', output: 'source' }[kind]
-        )
-      ),
-    [fieldName, kind, nodeId]
+  const selectValidationResult = useMemo(
+    () => makeConnectionErrorSelector(templates, nodeId, fieldName, kind === 'inputs' ? 'target' : 'source'),
+    [templates, nodeId, fieldName, kind]
   );
 
   const isConnected = useAppSelector(selectIsConnected);
-  const isConnectionInProgress = useAppSelector(selectIsConnectionInProgress);
-  const isConnectionStartField = useAppSelector(selectIsConnectionStartField);
-  const connectionError = useAppSelector(selectConnectionError);
+  const isConnectionInProgress = useMemo(() => Boolean(pendingConnection), [pendingConnection]);
+  const isConnectionStartField = useMemo(() => {
+    if (!pendingConnection) {
+      return false;
+    }
+    return (
+      pendingConnection.nodeId === nodeId &&
+      pendingConnection.handleId === fieldName &&
+      pendingConnection.fieldTemplate.fieldKind === { inputs: 'input', outputs: 'output' }[kind]
+    );
+  }, [fieldName, kind, nodeId, pendingConnection]);
+  const validationResult = useAppSelector((s) => selectValidationResult(s, pendingConnection, edgePendingUpdate));
 
   const shouldDim = useMemo(
-    () =>
-      Boolean(
-        isConnectionInProgress && connectionError && !isConnectionStartField
-      ),
-    [connectionError, isConnectionInProgress, isConnectionStartField]
+    () => Boolean(isConnectionInProgress && !validationResult.isValid && !isConnectionStartField),
+    [validationResult, isConnectionInProgress, isConnectionStartField]
   );
 
   return {
     isConnected,
     isConnectionInProgress,
     isConnectionStartField,
-    connectionError,
+    validationResult,
     shouldDim,
   };
 };

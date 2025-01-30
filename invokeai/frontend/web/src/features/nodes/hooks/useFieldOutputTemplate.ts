@@ -1,29 +1,9 @@
-import { createMemoizedSelector } from 'app/store/createMemoizedSelector';
-import { useAppSelector } from 'app/store/storeHooks';
-import { selectNodesSlice } from 'features/nodes/store/nodesSlice';
-import { selectNodeTemplatesSlice } from 'features/nodes/store/nodeTemplatesSlice';
-import { isInvocationNode } from 'features/nodes/types/invocation';
+import { useNodeTemplate } from 'features/nodes/hooks/useNodeTemplate';
+import type { FieldOutputTemplate } from 'features/nodes/types/field';
 import { useMemo } from 'react';
 
-export const useFieldOutputTemplate = (nodeId: string, fieldName: string) => {
-  const selector = useMemo(
-    () =>
-      createMemoizedSelector(
-        selectNodesSlice,
-        selectNodeTemplatesSlice,
-        (nodes, nodeTemplates) => {
-          const node = nodes.nodes.find((node) => node.id === nodeId);
-          if (!isInvocationNode(node)) {
-            return;
-          }
-          const nodeTemplate = nodeTemplates.templates[node?.data.type ?? ''];
-          return nodeTemplate?.outputs[fieldName];
-        }
-      ),
-    [fieldName, nodeId]
-  );
-
-  const fieldTemplate = useAppSelector(selector);
-
+export const useFieldOutputTemplate = (nodeId: string, fieldName: string): FieldOutputTemplate | null => {
+  const template = useNodeTemplate(nodeId);
+  const fieldTemplate = useMemo(() => template.outputs[fieldName] ?? null, [fieldName, template.outputs]);
   return fieldTemplate;
 };

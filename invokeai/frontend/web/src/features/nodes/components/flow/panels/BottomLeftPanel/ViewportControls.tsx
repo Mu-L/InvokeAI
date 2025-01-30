@@ -1,9 +1,9 @@
-import { ButtonGroup, IconButton } from '@invoke-ai/ui';
+import { ButtonGroup, IconButton } from '@invoke-ai/ui-library';
 import { useAppDispatch, useAppSelector } from 'app/store/storeHooks';
 import {
-  // shouldShowFieldTypeLegendChanged,
+  selectShouldShowMinimapPanel,
   shouldShowMinimapPanelChanged,
-} from 'features/nodes/store/nodesSlice';
+} from 'features/nodes/store/workflowSettingsSlice';
 import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -18,28 +18,19 @@ const ViewportControls = () => {
   const { t } = useTranslation();
   const { zoomIn, zoomOut, fitView } = useReactFlow();
   const dispatch = useAppDispatch();
-  // const shouldShowFieldTypeLegend = useAppSelector(
-  //   (s) => s.nodes.shouldShowFieldTypeLegend
-  // );
-  const shouldShowMinimapPanel = useAppSelector(
-    (s) => s.nodes.shouldShowMinimapPanel
-  );
+  const shouldShowMinimapPanel = useAppSelector(selectShouldShowMinimapPanel);
 
   const handleClickedZoomIn = useCallback(() => {
-    zoomIn();
+    zoomIn({ duration: 300 });
   }, [zoomIn]);
 
   const handleClickedZoomOut = useCallback(() => {
-    zoomOut();
+    zoomOut({ duration: 300 });
   }, [zoomOut]);
 
   const handleClickedFitView = useCallback(() => {
-    fitView();
+    fitView({ duration: 300 });
   }, [fitView]);
-
-  // const handleClickedToggleFieldTypeLegend = useCallback(() => {
-  //   dispatch(shouldShowFieldTypeLegendChanged(!shouldShowFieldTypeLegend));
-  // }, [shouldShowFieldTypeLegend, dispatch]);
 
   const handleClickedToggleMiniMapPanel = useCallback(() => {
     dispatch(shouldShowMinimapPanelChanged(!shouldShowMinimapPanel));
@@ -80,16 +71,8 @@ const ViewportControls = () => {
         />
       </Tooltip> */}
       <IconButton
-        tooltip={
-          shouldShowMinimapPanel
-            ? t('nodes.hideMinimapnodes')
-            : t('nodes.showMinimapnodes')
-        }
-        aria-label={
-          shouldShowMinimapPanel
-            ? t('nodes.hideMinimapnodes')
-            : t('nodes.showMinimapnodes')
-        }
+        tooltip={shouldShowMinimapPanel ? t('nodes.hideMinimapnodes') : t('nodes.showMinimapnodes')}
+        aria-label={shouldShowMinimapPanel ? t('nodes.hideMinimapnodes') : t('nodes.showMinimapnodes')}
         isChecked={shouldShowMinimapPanel}
         onClick={handleClickedToggleMiniMapPanel}
         icon={<PiMapPinBold />}

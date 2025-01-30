@@ -1,6 +1,11 @@
 import { parseify } from 'common/util/serialize';
-import type { InvocationTemplate } from 'features/nodes/types/invocation';
-import type { WorkflowV2 } from 'features/nodes/types/workflow';
+import type { Templates } from 'features/nodes/store/types';
+import {
+  isBoardFieldInputInstance,
+  isImageFieldInputInstance,
+  isModelIdentifierFieldInputInstance,
+} from 'features/nodes/types/field';
+import type { WorkflowV3 } from 'features/nodes/types/workflow';
 import { isWorkflowInvocationNode } from 'features/nodes/types/workflow';
 import { getNeedsUpdate } from 'features/nodes/util/node/nodeUpdate';
 import { t } from 'i18next';
@@ -16,9 +21,24 @@ type WorkflowWarning = {
 };
 
 type ValidateWorkflowResult = {
-  workflow: WorkflowV2;
+  workflow: WorkflowV3;
   warnings: WorkflowWarning[];
 };
+
+const MODEL_FIELD_TYPES = [
+  'ModelIdentifier',
+  'MainModelField',
+  'SDXLMainModelField',
+  'FluxMainModelField',
+  'SD3MainModelField',
+  'SDXLRefinerModelField',
+  'VAEModelField',
+  'LoRAModelField',
+  'ControlNetModelField',
+  'IPAdapterModelField',
+  'T2IAdapterModelField',
+  'SpandrelImageToImageModelField',
+];
 
 /**
  * Parses and validates a workflow:
@@ -27,14 +47,17 @@ type ValidateWorkflowResult = {
  * - Attempts to update nodes which have a mismatched version.
  * - Removes edges which are invalid.
  * @param workflow The raw workflow object (e.g. JSON.parse(stringifiedWorklow))
- * @param invocationTemplates The node templates to validate against.
+ * @param templates The node templates to validate against.
  * @throws {WorkflowVersionError} If the workflow version is not recognized.
  * @throws {z.ZodError} If there is a validation error.
  */
-export const validateWorkflow = (
+export const validateWorkflow = async (
   workflow: unknown,
-  invocationTemplates: Record<string, InvocationTemplate>
-): ValidateWorkflowResult => {
+  templates: Templates,
+  checkImageAccess: (name: string) => Promise<boolean>,
+  checkBoardAccess: (id: string) => Promise<boolean>,
+  checkModelAccess: (key: string) => Promise<boolean>
+): Promise<ValidateWorkflowResult> => {
   // Parse the raw workflow data & migrate it to the latest version
   const _workflow = parseAndMigrateWorkflow(workflow);
 
@@ -53,8 +76,8 @@ export const validateWorkflow = (
   const invocationNodes = nodes.filter(isWorkflowInvocationNode);
   const keyedNodes = keyBy(invocationNodes, 'id');
 
-  invocationNodes.forEach((node) => {
-    const template = invocationTemplates[node.data.type];
+  for (const node of Object.values(invocationNodes)) {
+    const template = templates[node.data.type];
     if (!template) {
       // This node's type template does not exist
       const message = t('nodes.missingTemplate', {
@@ -65,10 +88,10 @@ export const validateWorkflow = (
         message,
         data: parseify(node),
       });
-      return;
+      continue;
     }
 
-    if (getNeedsUpdate(node, template)) {
+    if (getNeedsUpdate(node.data, template)) {
       // This node needs to be updated, based on comparison of its version to the template version
       const message = t('nodes.mismatchedVersion', {
         node: node.id,
@@ -78,19 +101,59 @@ export const validateWorkflow = (
         message,
         data: parseify({ node, nodeTemplate: template }),
       });
-      return;
+      continue;
     }
-  });
+
+    for (const input of Object.values(node.data.inputs)) {
+      const fieldTemplate = template.inputs[input.name];
+
+      if (!fieldTemplate) {
+        const message = t('nodes.missingFieldTemplate');
+        warnings.push({
+          message,
+          data: parseify({ node, nodeTemplate: template, input }),
+        });
+        continue;
+      }
+
+      // We need to confirm that all images, boards and models are accessible before loading,
+      // else the workflow could end up with stale data an an error state.
+      if (fieldTemplate.type.name === 'ImageField' && isImageFieldInputInstance(input) && input.value) {
+        const hasAccess = await checkImageAccess(input.value.image_name);
+        if (!hasAccess) {
+          const message = t('nodes.imageAccessError', { image_name: input.value.image_name });
+          warnings.push({ message, data: parseify({ node, nodeTemplate: template, input }) });
+          input.value = undefined;
+        }
+      }
+      if (fieldTemplate.type.name === 'BoardField' && isBoardFieldInputInstance(input) && input.value) {
+        const hasAccess = await checkBoardAccess(input.value.board_id);
+        if (!hasAccess) {
+          const message = t('nodes.boardAccessError', { board_id: input.value.board_id });
+          warnings.push({ message, data: parseify({ node, nodeTemplate: template, input }) });
+          input.value = undefined;
+        }
+      }
+      if (
+        MODEL_FIELD_TYPES.includes(fieldTemplate.type.name) &&
+        isModelIdentifierFieldInputInstance(input) &&
+        input.value
+      ) {
+        const hasAccess = await checkModelAccess(input.value.key);
+        if (!hasAccess) {
+          const message = t('nodes.modelAccessError', { key: input.value.key });
+          warnings.push({ message, data: parseify({ node, nodeTemplate: template, input }) });
+          input.value = undefined;
+        }
+      }
+    }
+  }
   edges.forEach((edge, i) => {
     // Validate each edge. If the edge is invalid, we must remove it to prevent runtime errors with reactflow.
     const sourceNode = keyedNodes[edge.source];
     const targetNode = keyedNodes[edge.target];
-    const sourceTemplate = sourceNode
-      ? invocationTemplates[sourceNode.data.type]
-      : undefined;
-    const targetTemplate = targetNode
-      ? invocationTemplates[targetNode.data.type]
-      : undefined;
+    const sourceTemplate = sourceNode ? templates[sourceNode.data.type] : undefined;
+    const targetTemplate = targetNode ? templates[targetNode.data.type] : undefined;
     const issues: string[] = [];
 
     if (!sourceNode) {
@@ -112,12 +175,7 @@ export const validateWorkflow = (
       );
     }
 
-    if (
-      sourceNode &&
-      sourceTemplate &&
-      edge.type === 'default' &&
-      !(edge.sourceHandle in sourceTemplate.outputs)
-    ) {
+    if (sourceNode && sourceTemplate && edge.type === 'default' && !(edge.sourceHandle in sourceTemplate.outputs)) {
       // The edge's source/output node field does not exist
       issues.push(
         t('nodes.sourceNodeFieldDoesNotExist', {
@@ -146,12 +204,7 @@ export const validateWorkflow = (
       );
     }
 
-    if (
-      targetNode &&
-      targetTemplate &&
-      edge.type === 'default' &&
-      !(edge.targetHandle in targetTemplate.inputs)
-    ) {
+    if (targetNode && targetTemplate && edge.type === 'default' && !(edge.targetHandle in targetTemplate.inputs)) {
       // The edge's target/input node field does not exist
       issues.push(
         t('nodes.targetNodeFieldDoesNotExist', {
@@ -164,14 +217,8 @@ export const validateWorkflow = (
     if (issues.length) {
       // This edge has some issues. Remove it.
       delete edges[i];
-      const source =
-        edge.type === 'default'
-          ? `${edge.source}.${edge.sourceHandle}`
-          : edge.source;
-      const target =
-        edge.type === 'default'
-          ? `${edge.source}.${edge.targetHandle}`
-          : edge.target;
+      const source = edge.type === 'default' ? `${edge.source}.${edge.sourceHandle}` : edge.source;
+      const target = edge.type === 'default' ? `${edge.source}.${edge.targetHandle}` : edge.target;
       warnings.push({
         message: t('nodes.deletedInvalidEdge', { source, target }),
         issues,

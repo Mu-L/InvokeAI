@@ -5,89 +5,31 @@
         "reportBugLabel": "反馈错误",
         "settingsLabel": "设置",
         "img2img": "图生图",
-        "unifiedCanvas": "统一画布",
-        "nodes": "工作流编辑器",
-        "langSimplifiedChinese": "简体中文",
-        "nodesDesc": "一个基于节点的图像生成系统目前正在开发中。请持续关注关于这一功能的更新。",
-        "postProcessing": "后期处理",
-        "postProcessDesc1": "Invoke AI 提供各种各样的后期处理功能。图像放大和面部修复在网页界面中已经可用。你可以从文生图和图生图页面的高级选项菜单中访问它们。你也可以直接使用图像显示上方或查看器中的图像操作按钮处理图像。",
-        "postProcessDesc2": "一个专门的界面将很快发布，新的界面能够处理更复杂的后期处理流程。",
-        "postProcessDesc3": "Invoke AI 命令行界面提供例如 Embiggen 的各种其他功能。",
-        "training": "训练",
-        "trainingDesc1": "一个专门用于从 Web UI 使用 Textual Inversion 和 Dreambooth 训练自己的 Embedding 和 checkpoint 的工作流。",
-        "trainingDesc2": "InvokeAI 已经支持使用主脚本中的 Textual Inversion 来训练自定义 embeddouring。",
+        "nodes": "工作流",
         "upload": "上传",
-        "close": "关闭",
         "load": "加载",
-        "statusConnected": "已连接",
         "statusDisconnected": "未连接",
-        "statusError": "错误",
-        "statusPreparing": "准备中",
-        "statusProcessingCanceled": "处理已取消",
-        "statusProcessingComplete": "处理完成",
-        "statusGenerating": "生成中",
-        "statusGeneratingTextToImage": "文生图生成中",
-        "statusGeneratingImageToImage": "图生图生成中",
-        "statusGeneratingInpainting": "(Inpainting) 内补生成中",
-        "statusGeneratingOutpainting": "(Outpainting) 外扩生成中",
-        "statusGenerationComplete": "生成完成",
-        "statusIterationComplete": "迭代完成",
-        "statusSavingImage": "图像保存中",
-        "statusRestoringFaces": "面部修复中",
-        "statusRestoringFacesGFPGAN": "面部修复中 (GFPGAN)",
-        "statusRestoringFacesCodeFormer": "面部修复中 (CodeFormer)",
-        "statusUpscaling": "放大中",
-        "statusUpscalingESRGAN": "放大中 (ESRGAN)",
-        "statusLoadingModel": "模型加载中",
-        "statusModelChanged": "模型已切换",
         "accept": "同意",
         "cancel": "取消",
         "dontAskMeAgain": "不要再次询问",
         "areYouSure": "你确认吗？",
-        "imagePrompt": "图片提示词",
-        "langKorean": "朝鲜语",
-        "langPortuguese": "葡萄牙语",
         "random": "随机",
-        "generate": "生成",
         "openInNewTab": "在新的标签页打开",
-        "langUkranian": "乌克兰语",
         "back": "返回",
-        "statusMergedModels": "模型已合并",
-        "statusConvertingModel": "转换模型中",
-        "statusModelConverted": "模型转换完成",
-        "statusMergingModels": "合并模型",
         "githubLabel": "GitHub",
         "discordLabel": "Discord",
-        "langPolish": "波兰语",
-        "langBrPortuguese": "葡萄牙语（巴西）",
-        "langDutch": "荷兰语",
-        "langFrench": "法语",
-        "langRussian": "俄语",
-        "langGerman": "德语",
-        "langHebrew": "希伯来语",
-        "langItalian": "意大利语",
-        "langJapanese": "日语",
-        "langSpanish": "西班牙语",
-        "langEnglish": "英语",
-        "langArabic": "阿拉伯语",
         "txt2img": "文生图",
         "postprocessing": "后期处理",
         "loading": "加载中",
-        "loadingInvokeAI": "Invoke AI 加载中",
         "linear": "线性的",
         "batch": "批次管理器",
         "communityLabel": "社区",
         "modelManager": "模型管理器",
-        "nodeEditor": "节点编辑器",
-        "statusProcessing": "处理中",
         "imageFailedToLoad": "无法加载图像",
-        "lightMode": "浅色模式",
         "learnMore": "了解更多",
-        "darkMode": "深色模式",
         "advanced": "高级",
         "t2iAdapter": "T2I Adapter",
         "ipAdapter": "IP Adapter",
-        "controlAdapter": "Control Adapter",
         "controlNet": "ControlNet",
         "on": "开",
         "auto": "自动",
@@ -120,29 +62,50 @@
         "orderBy": "排序方式：",
         "nextPage": "下一页",
         "saveAs": "保存为",
-        "unsaved": "未保存",
         "ai": "ai",
-        "preferencesLabel": "首选项",
         "or": "或",
-        "advancedOptions": "高级选项",
-        "free": "自由"
+        "aboutDesc": "使用 Invoke 工作？来看看：",
+        "add": "添加",
+        "copy": "复制",
+        "localSystem": "本地系统",
+        "aboutHeading": "掌握你的创造力",
+        "enabled": "已启用",
+        "disabled": "已禁用",
+        "red": "红",
+        "editor": "编辑器",
+        "positivePrompt": "正向提示词",
+        "negativePrompt": "反向提示词",
+        "selected": "选中的",
+        "green": "绿",
+        "blue": "蓝",
+        "goTo": "前往",
+        "dontShowMeThese": "请勿显示这些内容",
+        "beta": "测试版",
+        "toResolve": "解决",
+        "tab": "标签页",
+        "apply": "应用",
+        "edit": "编辑",
+        "off": "关",
+        "loadingImage": "正在加载图片",
+        "ok": "确定",
+        "placeholderSelectAModel": "选择一个模型",
+        "close": "关闭",
+        "reset": "重设",
+        "none": "无",
+        "new": "新建",
+        "view": "视图",
+        "alpha": "透明度通道",
+        "openInViewer": "在查看器中打开",
+        "clipboard": "剪贴板",
+        "loadingModel": "加载模型",
+        "generating": "生成中"
     },
     "gallery": {
-        "generations": "生成的图像",
-        "showGenerations": "显示生成的图像",
-        "uploads": "上传的图像",
-        "showUploads": "显示上传的图像",
         "galleryImageSize": "预览大小",
-        "galleryImageResetSize": "重置预览大小",
         "gallerySettings": "预览设置",
-        "maintainAspectRatio": "保持纵横比",
         "autoSwitchNewImages": "自动切换到新图像",
-        "singleColumnLayout": "单列布局",
-        "allImagesLoaded": "所有图像已加载",
-        "loadMore": "加载更多",
         "noImagesInGallery": "无图像可用于显示",
-        "deleteImage": "删除图片",
-        "deleteImageBin": "被删除的图片会发送到你操作系统的回收站。",
+        "deleteImage_other": "删除{{count}}张图片",
         "deleteImagePermanent": "删除的图片无法被恢复。",
         "assets": "素材",
         "autoAssignBoardOnClick": "点击后自动分配面板",
@@ -152,9 +115,6 @@
         "currentlyInUse": "该图像目前在以下功能中使用：",
         "copy": "复制",
         "download": "下载",
-        "setCurrentImage": "设为当前图像",
-        "preparingDownload": "准备下载",
-        "preparingDownloadFailed": "准备下载时出现问题",
         "downloadSelection": "下载所选内容",
         "noImageSelected": "无选中的图像",
         "deleteSelection": "删除所选内容",
@@ -162,274 +122,379 @@
         "drop": "弃用",
         "dropOrUpload": "$t(gallery.drop) 或上传",
         "dropToUpload": "$t(gallery.drop) 以上传",
-        "problemDeletingImagesDesc": "有一张或多张图像无法被删除",
-        "problemDeletingImages": "删除图像时出现问题",
         "unstarImage": "取消收藏图像",
-        "starImage": "收藏图像"
+        "starImage": "收藏图像",
+        "alwaysShowImageSizeBadge": "始终显示图像尺寸",
+        "selectForCompare": "选择以比较",
+        "selectAnImageToCompare": "选择一个图像进行比较",
+        "slider": "滑块",
+        "sideBySide": "并排",
+        "bulkDownloadFailed": "下载失败",
+        "bulkDownloadRequested": "准备下载",
+        "bulkDownloadRequestedDesc": "您的下载请求正在准备中，这可能需要一些时间。",
+        "bulkDownloadRequestFailed": "下载准备过程中出现问题",
+        "viewerImage": "查看器图像",
+        "compareImage": "对比图像",
+        "openInViewer": "在查看器中打开",
+        "hover": "悬停",
+        "selectAllOnPage": "选择本页全部",
+        "swapImages": "交换图像",
+        "exitBoardSearch": "退出面板搜索",
+        "exitSearch": "退出图像搜索",
+        "oldestFirst": "最旧在前",
+        "sortDirection": "排序方向",
+        "showStarredImagesFirst": "优先显示收藏的图片",
+        "compareHelp3": "按 <Kbd>C</Kbd> 键对调正在比较的图片。",
+        "showArchivedBoards": "显示已归档的面板",
+        "newestFirst": "最新在前",
+        "compareHelp4": "按 <Kbd>Z</Kbd>或 <Kbd>Esc</Kbd> 键退出。",
+        "searchImages": "按元数据搜索",
+        "jump": "跳过",
+        "compareHelp2": "按 <Kbd>M</Kbd> 键切换不同的比较模式。",
+        "displayBoardSearch": "板块搜索",
+        "displaySearch": "图像搜索",
+        "stretchToFit": "拉伸以适应",
+        "exitCompare": "退出对比",
+        "compareHelp1": "在点击图库中的图片或使用箭头键切换比较图片时，请按住<Kbd>Alt</Kbd> 键。",
+        "go": "运行",
+        "boardsSettings": "画板设置",
+        "imagesSettings": "画廊图片设置",
+        "gallery": "画廊",
+        "move": "移动",
+        "imagesTab": "您在Invoke中创建和保存的图片。",
+        "openViewer": "打开查看器",
+        "closeViewer": "关闭查看器",
+        "assetsTab": "您已上传用于项目的文件。"
     },
     "hotkeys": {
-        "keyboardShortcuts": "快捷键",
-        "appHotkeys": "应用",
-        "generalHotkeys": "一般",
-        "galleryHotkeys": "图库",
-        "unifiedCanvasHotkeys": "统一画布",
-        "invoke": {
-            "title": "Invoke",
-            "desc": "生成图像"
-        },
-        "cancel": {
-            "title": "取消",
-            "desc": "取消当前队列项目"
-        },
-        "focusPrompt": {
-            "title": "打开提示词框",
-            "desc": "打开提示词文本框"
-        },
-        "toggleOptions": {
-            "title": "切换选项卡",
-            "desc": "打开或关闭选项浮窗"
-        },
-        "pinOptions": {
-            "title": "常开选项卡",
-            "desc": "保持选项浮窗常开"
-        },
-        "toggleGallery": {
-            "title": "切换图库",
-            "desc": "打开或关闭图库"
-        },
-        "maximizeWorkSpace": {
-            "title": "工作区最大化",
-            "desc": "关闭所有浮窗，将工作区域最大化"
-        },
-        "changeTabs": {
-            "title": "切换选项卡",
-            "desc": "切换到另一个工作区"
-        },
-        "consoleToggle": {
-            "title": "切换命令行",
-            "desc": "打开或关闭命令行"
-        },
-        "setPrompt": {
-            "title": "使用当前提示词",
-            "desc": "使用当前图像的提示词"
-        },
-        "setSeed": {
-            "title": "使用种子",
-            "desc": "使用当前图像的种子"
-        },
-        "setParameters": {
-            "title": "使用当前参数",
-            "desc": "使用当前图像的所有参数"
-        },
-        "restoreFaces": {
-            "title": "面部修复",
-            "desc": "对当前图像进行面部修复"
-        },
-        "upscale": {
-            "title": "放大",
-            "desc": "对当前图像进行放大"
-        },
-        "showInfo": {
-            "title": "显示信息",
-            "desc": "显示当前图像的元数据"
-        },
-        "sendToImageToImage": {
-            "title": "发送到图生图",
-            "desc": "发送当前图像到图生图"
-        },
-        "deleteImage": {
-            "title": "删除图像",
-            "desc": "删除当前图像"
-        },
-        "closePanels": {
-            "title": "关闭浮窗",
-            "desc": "关闭目前打开的浮窗"
-        },
-        "previousImage": {
-            "title": "上一张图像",
-            "desc": "显示图库中的上一张图像"
-        },
-        "nextImage": {
-            "title": "下一张图像",
-            "desc": "显示图库中的下一张图像"
-        },
-        "increaseGalleryThumbSize": {
-            "title": "增大预览尺寸",
-            "desc": "增大图库中预览的尺寸"
-        },
-        "decreaseGalleryThumbSize": {
-            "title": "缩小预览尺寸",
-            "desc": "缩小图库中预览的尺寸"
-        },
-        "selectBrush": {
-            "title": "选择刷子",
-            "desc": "选择统一画布上的刷子"
-        },
-        "selectEraser": {
-            "title": "选择橡皮擦",
-            "desc": "选择统一画布上的橡皮擦"
-        },
-        "decreaseBrushSize": {
-            "title": "减小刷子大小",
-            "desc": "减小统一画布上的刷子或橡皮擦的大小"
-        },
-        "increaseBrushSize": {
-            "title": "增大刷子大小",
-            "desc": "增大统一画布上的刷子或橡皮擦的大小"
-        },
-        "decreaseBrushOpacity": {
-            "title": "减小刷子不透明度",
-            "desc": "减小统一画布上的刷子的不透明度"
-        },
-        "increaseBrushOpacity": {
-            "title": "增大刷子不透明度",
-            "desc": "增大统一画布上的刷子的不透明度"
-        },
-        "moveTool": {
-            "title": "移动工具",
-            "desc": "画布允许导航"
-        },
-        "fillBoundingBox": {
-            "title": "填充选择区域",
-            "desc": "在选择区域中填充刷子颜色"
-        },
-        "eraseBoundingBox": {
-            "title": "擦除选择框",
-            "desc": "将选择区域擦除"
-        },
-        "colorPicker": {
-            "title": "选择颜色拾取工具",
-            "desc": "选择画布颜色拾取工具"
-        },
-        "toggleSnap": {
-            "title": "切换网格对齐",
-            "desc": "打开或关闭网格对齐"
-        },
-        "quickToggleMove": {
-            "title": "快速切换移动模式",
-            "desc": "临时性地切换移动模式"
-        },
-        "toggleLayer": {
-            "title": "切换图层",
-            "desc": "切换遮罩/基础层的选择"
-        },
-        "clearMask": {
-            "title": "清除遮罩",
-            "desc": "清除整个遮罩"
-        },
-        "hideMask": {
-            "title": "隐藏遮罩",
-            "desc": "隐藏或显示遮罩"
-        },
-        "showHideBoundingBox": {
-            "title": "显示/隐藏框选区",
-            "desc": "切换框选区的的显示状态"
-        },
-        "mergeVisible": {
-            "title": "合并可见层",
-            "desc": "将画板上可见层合并"
-        },
-        "saveToGallery": {
-            "title": "保存至图库",
-            "desc": "将画布当前内容保存至图库"
-        },
-        "copyToClipboard": {
-            "title": "复制到剪贴板",
-            "desc": "将画板当前内容复制到剪贴板"
-        },
-        "downloadImage": {
-            "title": "下载图像",
-            "desc": "下载画板当前内容"
-        },
-        "undoStroke": {
-            "title": "撤销画笔",
-            "desc": "撤销上一笔刷子的动作"
-        },
-        "redoStroke": {
-            "title": "重做画笔",
-            "desc": "重做上一笔刷子的动作"
-        },
-        "resetView": {
-            "title": "重置视图",
-            "desc": "重置画布视图"
-        },
-        "previousStagingImage": {
-            "title": "上一张暂存图像",
-            "desc": "上一张暂存区中的图像"
-        },
-        "nextStagingImage": {
-            "title": "下一张暂存图像",
-            "desc": "下一张暂存区中的图像"
-        },
-        "acceptStagingImage": {
-            "title": "接受暂存图像",
-            "desc": "接受当前暂存区中的图像"
-        },
-        "nodesHotkeys": "节点",
-        "addNodes": {
-            "title": "添加节点",
-            "desc": "打开添加节点菜单"
-        },
-        "cancelAndClear": {
-            "desc": "取消当前队列项目并且清除所有待定项目",
-            "title": "取消和清除"
-        },
-        "resetOptionsAndGallery": {
-            "title": "重置选项和图库",
-            "desc": "重置选项和图库面板"
-        },
         "searchHotkeys": "检索快捷键",
         "noHotkeysFound": "未找到快捷键",
-        "toggleOptionsAndGallery": {
-            "desc": "打开和关闭选项和图库面板",
-            "title": "开关选项和图库"
+        "clearSearch": "清除检索项",
+        "app": {
+            "cancelQueueItem": {
+                "title": "取消",
+                "desc": "取消当前正在处理的队列项目。"
+            },
+            "selectQueueTab": {
+                "title": "选择队列标签",
+                "desc": "选择队列标签。"
+            },
+            "toggleLeftPanel": {
+                "desc": "显示或隐藏左侧面板。",
+                "title": "开关左侧面板"
+            },
+            "resetPanelLayout": {
+                "title": "重设面板布局",
+                "desc": "将左侧和右侧面板重置为默认大小和布局。"
+            },
+            "togglePanels": {
+                "title": "开关面板",
+                "desc": "同时显示或隐藏左右两侧的面板。"
+            },
+            "selectWorkflowsTab": {
+                "title": "选择工作流标签",
+                "desc": "选择工作流标签。"
+            },
+            "selectModelsTab": {
+                "title": "选择模型标签",
+                "desc": "选择模型标签。"
+            },
+            "toggleRightPanel": {
+                "title": "开关右侧面板",
+                "desc": "显示或隐藏右侧面板。"
+            },
+            "clearQueue": {
+                "title": "清除队列",
+                "desc": "取消并清除所有队列条目。"
+            },
+            "selectCanvasTab": {
+                "title": "选择画布标签",
+                "desc": "选择画布标签。"
+            },
+            "invokeFront": {
+                "desc": "将生成请求排队，添加到队列的前面。",
+                "title": "调用（前台）"
+            },
+            "selectUpscalingTab": {
+                "title": "选择放大选项卡",
+                "desc": "选择高清放大选项卡。"
+            },
+            "focusPrompt": {
+                "title": "聚焦提示",
+                "desc": "将光标焦点移动到正向提示。"
+            },
+            "title": "应用程序",
+            "invoke": {
+                "title": "调用",
+                "desc": "将生成请求排队，添加到队列的末尾。"
+            }
         },
-        "clearSearch": "清除检索项"
+        "canvas": {
+            "selectBrushTool": {
+                "title": "画笔工具",
+                "desc": "选择画笔工具。"
+            },
+            "selectEraserTool": {
+                "title": "橡皮擦工具",
+                "desc": "选择橡皮擦工具。"
+            },
+            "title": "画布",
+            "selectColorPickerTool": {
+                "title": "拾色器工具",
+                "desc": "选择拾色器工具。"
+            },
+            "fitBboxToCanvas": {
+                "title": "使边界框适应画布",
+                "desc": "缩放并调整视图以适应边界框。"
+            },
+            "setZoomTo400Percent": {
+                "title": "缩放到400%",
+                "desc": "将画布的缩放设置为400%。"
+            },
+            "setZoomTo800Percent": {
+                "desc": "将画布的缩放设置为800%。",
+                "title": "缩放到800%"
+            },
+            "redo": {
+                "desc": "重做上一次画布操作。",
+                "title": "重做"
+            },
+            "nextEntity": {
+                "title": "下一层",
+                "desc": "在列表中选择下一层。"
+            },
+            "selectRectTool": {
+                "title": "矩形工具",
+                "desc": "选择矩形工具。"
+            },
+            "selectViewTool": {
+                "title": "视图工具",
+                "desc": "选择视图工具。"
+            },
+            "prevEntity": {
+                "desc": "在列表中选择上一层。",
+                "title": "上一层"
+            },
+            "transformSelected": {
+                "desc": "变换所选图层。",
+                "title": "变换"
+            },
+            "selectBboxTool": {
+                "title": "边界框工具",
+                "desc": "选择边界框工具。"
+            },
+            "setZoomTo200Percent": {
+                "title": "缩放到200%",
+                "desc": "将画布的缩放设置为200%。"
+            },
+            "applyFilter": {
+                "title": "应用过滤器",
+                "desc": "将待处理的过滤器应用于所选图层。"
+            },
+            "filterSelected": {
+                "title": "过滤器",
+                "desc": "对所选图层进行过滤。仅适用于栅格层和控制层。"
+            },
+            "cancelFilter": {
+                "title": "取消过滤器",
+                "desc": "取消待处理的过滤器。"
+            },
+            "incrementToolWidth": {
+                "title": "增加工具宽度",
+                "desc": "增加所选的画笔或橡皮擦工具的宽度。"
+            },
+            "decrementToolWidth": {
+                "desc": "减少所选的画笔或橡皮擦工具的宽度。",
+                "title": "减少工具宽度"
+            },
+            "selectMoveTool": {
+                "title": "移动工具",
+                "desc": "选择移动工具。"
+            },
+            "setFillToWhite": {
+                "title": "将颜色设置为白色",
+                "desc": "将当前工具的颜色设置为白色。"
+            },
+            "cancelTransform": {
+                "desc": "取消待处理的变换。",
+                "title": "取消变换"
+            },
+            "applyTransform": {
+                "title": "应用变换",
+                "desc": "将待处理的变换应用于所选图层。"
+            },
+            "setZoomTo100Percent": {
+                "title": "缩放到100%",
+                "desc": "将画布的缩放设置为100%。"
+            },
+            "resetSelected": {
+                "title": "重置图层",
+                "desc": "重置选定的图层。仅适用于修复蒙版和区域指导。"
+            },
+            "undo": {
+                "title": "撤消",
+                "desc": "撤消上一次画布操作。"
+            },
+            "quickSwitch": {
+                "title": "图层快速切换",
+                "desc": "在最后两个选定的图层之间切换。如果某个图层被书签标记，则始终在该图层和最后一个未标记的图层之间切换。"
+            },
+            "fitLayersToCanvas": {
+                "title": "使图层适应画布",
+                "desc": "缩放并调整视图以适应所有可见图层。"
+            },
+            "deleteSelected": {
+                "title": "删除图层",
+                "desc": "删除选定的图层。"
+            }
+        },
+        "hotkeys": "快捷键",
+        "workflows": {
+            "pasteSelection": {
+                "title": "粘贴",
+                "desc": "粘贴复制的节点和边。"
+            },
+            "title": "工作流",
+            "addNode": {
+                "title": "添加节点",
+                "desc": "打开添加节点菜单。"
+            },
+            "copySelection": {
+                "desc": "复制选定的节点和边。",
+                "title": "复制"
+            },
+            "pasteSelectionWithEdges": {
+                "title": "带边缘的粘贴",
+                "desc": "粘贴复制的节点、边，以及与复制的节点连接的所有边。"
+            },
+            "selectAll": {
+                "title": "全选",
+                "desc": "选择所有节点和边。"
+            },
+            "deleteSelection": {
+                "title": "删除",
+                "desc": "删除选定的节点和边。"
+            },
+            "undo": {
+                "title": "撤销",
+                "desc": "撤销上一个工作流操作。"
+            },
+            "redo": {
+                "desc": "重做上一个工作流操作。",
+                "title": "重做"
+            }
+        },
+        "gallery": {
+            "title": "画廊",
+            "galleryNavUp": {
+                "title": "向上导航",
+                "desc": "在图库网格中向上导航，选择该图像。如果在页面顶部，则转到上一页。"
+            },
+            "galleryNavUpAlt": {
+                "title": "向上导航（比较图像）",
+                "desc": "与向上导航相同，但选择比较图像，如果比较模式尚未打开，则将其打开。"
+            },
+            "selectAllOnPage": {
+                "desc": "选择当前页面上的所有图像。",
+                "title": "选页面上的所有内容"
+            },
+            "galleryNavDownAlt": {
+                "title": "向下导航（比较图像）",
+                "desc": "与向下导航相同，但选择比较图像，如果比较模式尚未打开，则将其打开。"
+            },
+            "galleryNavLeftAlt": {
+                "title": "向左导航（比较图像）",
+                "desc": "与向左导航相同，但选择比较图像，如果比较模式尚未打开，则将其打开。"
+            },
+            "clearSelection": {
+                "title": "清除选择",
+                "desc": "清除当前的选择（如果有的话）。"
+            },
+            "deleteSelection": {
+                "title": "删除",
+                "desc": "删除所有选定的图像。默认情况下，系统会提示您确认删除。如果这些图像当前在应用中使用，系统将发出警告。"
+            },
+            "galleryNavLeft": {
+                "title": "向左导航",
+                "desc": "在图库网格中向左导航，选择该图像。如果处于行的第一张图像，转到上一行。如果处于页面的第一张图像，转到上一页。"
+            },
+            "galleryNavRight": {
+                "title": "向右导航",
+                "desc": "在图库网格中向右导航，选择该图像。如果在行的最后一张图像，转到下一行。如果在页面的最后一张图像，转到下一页。"
+            },
+            "galleryNavDown": {
+                "desc": "在图库网格中向下导航，选择该图像。如果在页面底部，则转到下一页。",
+                "title": "向下导航"
+            },
+            "galleryNavRightAlt": {
+                "title": "向右导航（比较图像）",
+                "desc": "与向右导航相同，但选择比较图像，如果比较模式尚未打开，则将其打开。"
+            }
+        },
+        "viewer": {
+            "toggleMetadata": {
+                "desc": "显示或隐藏当前图像的元数据覆盖。",
+                "title": "显示/隐藏元数据"
+            },
+            "recallPrompts": {
+                "desc": "召回当前图像的正面和负面提示。",
+                "title": "召回提示"
+            },
+            "toggleViewer": {
+                "title": "显示/隐藏图像查看器",
+                "desc": "显示或隐藏图像查看器。仅在画布选项卡上可用。"
+            },
+            "recallAll": {
+                "desc": "召回当前图像的所有元数据。",
+                "title": "召回所有元数据"
+            },
+            "recallSeed": {
+                "title": "召回种子",
+                "desc": "召回当前图像的种子。"
+            },
+            "swapImages": {
+                "title": "交换比较图像",
+                "desc": "交换正在比较的图像。"
+            },
+            "nextComparisonMode": {
+                "title": "下一个比较模式",
+                "desc": "环浏览比较模式。"
+            },
+            "loadWorkflow": {
+                "title": "加载工作流",
+                "desc": "加载当前图像的保存工作流程（如果有的话）。"
+            },
+            "title": "图像查看器",
+            "remix": {
+                "title": "混合",
+                "desc": "召回当前图像的所有元数据，除了种子。"
+            },
+            "useSize": {
+                "title": "使用尺寸",
+                "desc": "使用当前图像的尺寸作为边界框尺寸。"
+            },
+            "runPostprocessing": {
+                "title": "行后处理",
+                "desc": "对当前图像运行所选的后处理。"
+            }
+        }
     },
     "modelManager": {
         "modelManager": "模型管理器",
         "model": "模型",
-        "modelAdded": "已添加模型",
         "modelUpdated": "模型已更新",
-        "modelEntryDeleted": "模型已删除",
-        "cannotUseSpaces": "不能使用空格",
-        "addNew": "添加",
-        "addNewModel": "添加新模型",
-        "addManually": "手动添加",
         "manual": "手动",
         "name": "名称",
-        "nameValidationMsg": "输入模型的名称",
         "description": "描述",
-        "descriptionValidationMsg": "添加模型的描述",
         "config": "配置",
-        "configValidationMsg": "模型配置文件的路径。",
-        "modelLocation": "模型位置",
-        "modelLocationValidationMsg": "提供 Diffusers 模型文件的本地存储路径",
-        "vaeLocation": "VAE 位置",
-        "vaeLocationValidationMsg": "VAE 文件的路径。",
         "width": "宽度",
-        "widthValidationMsg": "模型的默认宽度。",
         "height": "高度",
-        "heightValidationMsg": "模型的默认高度。",
         "addModel": "添加模型",
-        "updateModel": "更新模型",
         "availableModels": "可用模型",
         "search": "检索",
         "load": "加载",
         "active": "活跃",
-        "notLoaded": "未加载",
-        "cached": "缓存",
-        "checkpointFolder": "模型检查点文件夹",
-        "clearCheckpointFolder": "清除 Checkpoint 模型文件夹",
-        "findModels": "寻找模型",
-        "modelsFound": "找到的模型",
-        "selectFolder": "选择文件夹",
         "selected": "已选择",
-        "selectAll": "全选",
-        "deselectAll": "取消选择所有",
-        "showExisting": "显示已存在",
-        "addSelected": "添加选择",
-        "modelExists": "模型已存在",
         "delete": "删除",
         "deleteModel": "删除模型",
         "deleteConfig": "删除配置",
@@ -437,99 +502,114 @@
         "deleteMsg2": "磁盘中放置在 InvokeAI 根文件夹的 checkpoint 文件会被删除。若你正在使用自定义目录，则不会从磁盘中删除他们。",
         "convertToDiffusersHelpText1": "模型会被转换成 🧨 Diffusers 格式。",
         "convertToDiffusersHelpText2": "这个过程会替换你的模型管理器的入口中相同 Diffusers 版本的模型。",
-        "mergedModelSaveLocation": "保存路径",
-        "mergedModelCustomSaveLocation": "自定义路径",
-        "checkpointModels": "Checkpoints",
-        "formMessageDiffusersVAELocation": "VAE 路径",
         "convertToDiffusersHelpText4": "这是一次性的处理过程。根据你电脑的配置不同耗时 30 - 60 秒。",
         "convertToDiffusersHelpText6": "你希望转换这个模型吗？",
-        "interpolationType": "插值类型",
-        "modelTwo": "模型 2",
-        "modelThree": "模型 3",
-        "v2_768": "v2 (768px)",
-        "mergedModelName": "合并的模型名称",
         "allModels": "全部模型",
         "convertToDiffusers": "转换为 Diffusers",
-        "formMessageDiffusersModelLocation": "Diffusers 模型路径",
-        "custom": "自定义",
-        "formMessageDiffusersVAELocationDesc": "如果没有特别指定，InvokeAI 会从上面指定的模型路径中寻找 VAE 文件。",
-        "safetensorModels": "SafeTensors",
-        "modelsMerged": "模型合并完成",
-        "mergeModels": "合并模型",
-        "modelOne": "模型 1",
-        "diffusersModels": "Diffusers",
-        "scanForModels": "扫描模型",
         "repo_id": "项目 ID",
-        "repoIDValidationMsg": "你的模型的在线项目地址",
-        "v1": "v1",
-        "invokeRoot": "InvokeAI 文件夹",
-        "inpainting": "v1 Inpainting",
-        "customSaveLocation": "自定义保存路径",
-        "scanAgain": "重新扫描",
-        "customConfig": "个性化配置",
-        "pathToCustomConfig": "个性化配置路径",
         "modelConverted": "模型已转换",
-        "statusConverting": "转换中",
-        "sameFolder": "相同文件夹",
-        "invokeAIFolder": "Invoke AI 文件夹",
-        "ignoreMismatch": "忽略所选模型之间的不匹配",
-        "modelMergeHeaderHelp1": "您可以合并最多三种不同的模型，以创建符合您需求的混合模型。",
-        "modelMergeHeaderHelp2": "只有扩散器（Diffusers）可以用于模型合并。如果您想要合并一个检查点模型，请先将其转换为扩散器。",
-        "addCheckpointModel": "添加 Checkpoint / Safetensor 模型",
-        "addDiffuserModel": "添加 Diffusers 模型",
-        "vaeRepoID": "VAE 项目 ID",
-        "vaeRepoIDValidationMsg": "VAE 模型在线仓库地址",
-        "selectAndAdd": "选择下表中的模型并添加",
-        "noModelsFound": "未有找到模型",
-        "formMessageDiffusersModelLocationDesc": "请至少输入一个。",
-        "convertToDiffusersSaveLocation": "保存路径",
         "convertToDiffusersHelpText3": "磁盘中放置在 InvokeAI 根文件夹的 checkpoint 文件会被删除. 若位于自定义目录, 则不会受影响.",
-        "v2_base": "v2 (512px)",
         "convertToDiffusersHelpText5": "请确认你有足够的磁盘空间，模型大小通常在 2 GB - 7 GB 之间。",
         "convert": "转换",
-        "merge": "合并",
-        "pickModelType": "选择模型类型",
-        "addDifference": "增加差异",
         "none": "无",
-        "inverseSigmoid": "反 Sigmoid 函数",
-        "weightedSum": "加权求和",
-        "modelMergeAlphaHelp": "Alpha 参数控制模型的混合强度。较低的 Alpha 值会导致第二个模型的影响减弱。",
-        "sigmoid": "Sigmoid 函数",
-        "modelMergeInterpAddDifferenceHelp": "在这种模式下，首先从模型 2 中减去模型 3，得到的版本再用上述的 Alpha 值与模型1进行混合。",
-        "modelsSynced": "模型已同步",
-        "modelSyncFailed": "模型同步失败",
         "modelDeleteFailed": "模型删除失败",
-        "syncModelsDesc": "如果您的模型与后端不同步，您可以使用此选项刷新它们。便于您在应用程序启动的情况下手动更新 models.yaml 文件或将模型添加到 InvokeAI 根文件夹。",
         "selectModel": "选择模型",
-        "importModels": "导入模型",
         "settings": "设置",
         "syncModels": "同步模型",
-        "noCustomLocationProvided": "未提供自定义路径",
         "modelDeleted": "模型已删除",
         "modelUpdateFailed": "模型更新失败",
         "modelConversionFailed": "模型转换失败",
-        "modelsMergeFailed": "模型融合失败",
         "baseModel": "基底模型",
         "convertingModelBegin": "模型转换中. 请稍候.",
-        "noModels": "未找到模型",
-        "predictionType": "预测类型（适用于 Stable Diffusion 2.x 模型和部分 Stable Diffusion 1.x 模型）",
-        "quickAdd": "快速添加",
-        "simpleModelDesc": "提供一个指向本地 Diffusers 模型的路径，本地 checkpoint / safetensors 模型或一个HuggingFace 项目 ID，又或者一个 checkpoint/diffusers 模型链接。",
+        "predictionType": "预测类型",
         "advanced": "高级",
-        "useCustomConfig": "使用自定义配置",
-        "closeAdvanced": "关闭高级",
         "modelType": "模型类别",
-        "customConfigFileLocation": "自定义配置文件目录",
         "variant": "变体",
-        "onnxModels": "Onnx",
         "vae": "VAE",
-        "oliveModels": "Olive",
-        "loraModels": "LoRA",
         "alpha": "Alpha",
         "vaePrecision": "VAE 精度",
-        "checkpointOrSafetensors": "$t(common.checkpoint) / $t(common.safetensors)",
         "noModelSelected": "无选中的模型",
-        "conversionNotSupported": "转换尚未支持"
+        "modelImageUpdateFailed": "模型图像更新失败",
+        "scanFolder": "扫描文件夹",
+        "path": "路径",
+        "pathToConfig": "配置路径",
+        "cancel": "取消",
+        "install": "安装",
+        "simpleModelPlaceholder": "本地文件或diffusers文件夹的URL或路径",
+        "noModelsInstalledDesc1": "安装模型时使用",
+        "inplaceInstallDesc": "安装模型时，不复制文件，直接从原位置加载。如果关闭此选项，模型文件将在安装过程中被复制到Invoke管理的模型文件夹中.",
+        "installAll": "安装全部",
+        "noModelsInstalled": "无已安装的模型",
+        "urlOrLocalPathHelper": "链接应该指向单个文件.本地路径可以指向单个文件,或者对于单个扩散模型(diffusers model),可以指向一个文件夹.",
+        "modelSettings": "模型设置",
+        "scanPlaceholder": "本地文件夹路径",
+        "installRepo": "安装仓库",
+        "modelImageDeleted": "模型图像已删除",
+        "modelImageDeleteFailed": "模型图像删除失败",
+        "scanFolderHelper": "此文件夹将进行递归扫描以寻找模型.对于大型文件夹,这可能需要一些时间.",
+        "scanResults": "扫描结果",
+        "noMatchingModels": "无匹配的模型",
+        "pruneTooltip": "清理队列中已完成的导入任务",
+        "urlOrLocalPath": "链接或本地路径",
+        "localOnly": "仅本地",
+        "huggingFaceHelper": "如果在此代码库中检测到多个模型，系统将提示您选择其中一个进行安装.",
+        "imageEncoderModelId": "图像编码器模型ID",
+        "modelImageUpdated": "模型图像已更新",
+        "modelName": "模型名称",
+        "prune": "清理",
+        "repoVariant": "代码库版本",
+        "defaultSettings": "默认设置",
+        "inplaceInstall": "就地安装",
+        "main": "主界面",
+        "starterModels": "初始模型",
+        "installQueue": "安装队列",
+        "mainModelTriggerPhrases": "主模型触发词",
+        "typePhraseHere": "在此输入触发词",
+        "triggerPhrases": "触发词",
+        "metadata": "元数据",
+        "deleteModelImage": "删除模型图片",
+        "edit": "编辑",
+        "source": "来源",
+        "uploadImage": "上传图像",
+        "addModels": "添加模型",
+        "textualInversions": "文本逆向生成",
+        "upcastAttention": "是否为高精度权重",
+        "defaultSettingsSaved": "默认设置已保存",
+        "huggingFacePlaceholder": "所有者或模型名称",
+        "huggingFaceRepoID": "HuggingFace仓库ID",
+        "loraTriggerPhrases": "LoRA 触发词",
+        "ipAdapters": "IP适配器",
+        "spandrelImageToImage": "图生图(Spandrel)",
+        "starterModelsInModelManager": "您可以在模型管理器中找到初始模型",
+        "noDefaultSettings": "此模型没有配置默认设置。请访问模型管理器添加默认设置。",
+        "clipEmbed": "CLIP 嵌入",
+        "defaultSettingsOutOfSync": "某些设置与模型的默认值不匹配：",
+        "restoreDefaultSettings": "点击以使用模型的默认设置。",
+        "usingDefaultSettings": "使用模型的默认设置",
+        "huggingFace": "HuggingFace",
+        "hfTokenInvalid": "HF 令牌无效或缺失",
+        "hfTokenLabel": "HuggingFace 令牌（某些模型所需）",
+        "hfTokenHelperText": "使用某些模型需要 HF 令牌。点击这里创建或获取你的令牌。",
+        "includesNModels": "包括 {{n}} 个模型及其依赖项",
+        "starterBundles": "启动器包",
+        "learnMoreAboutSupportedModels": "了解更多关于我们支持的模型的信息",
+        "hfForbidden": "您没有权限访问这个 HF 模型",
+        "hfTokenInvalidErrorMessage": "无效或缺失 HuggingFace 令牌。",
+        "hfTokenRequired": "您正在尝试下载一个需要有效 HuggingFace 令牌的模型。",
+        "hfTokenSaved": "HF 令牌已保存",
+        "hfForbiddenErrorMessage": "我们建议访问 HuggingFace.com 上的仓库页面。所有者可能要求您接受条款才能下载。",
+        "hfTokenUnableToVerifyErrorMessage": "无法验证 HuggingFace 令牌。这可能是由于网络错误导致的。请稍后再试。",
+        "hfTokenInvalidErrorMessage2": "在这里更新它。 ",
+        "hfTokenUnableToVerify": "无法验证 HF 令牌",
+        "skippingXDuplicates_other": "跳过 {{count}} 个重复项",
+        "starterBundleHelpText": "轻松安装所有用于启动基础模型所需的模型，包括主模型、ControlNets、IP适配器等。选择一个安装包时，会跳过已安装的模型。",
+        "installingBundle": "正在安装模型包",
+        "installingModel": "正在安装模型",
+        "installingXModels_other": "正在安装 {{count}} 个模型",
+        "t5Encoder": "T5 编码器",
+        "clipLEmbed": "CLIP-L 嵌入",
+        "clipGEmbed": "CLIP-G 嵌入",
+        "loraModels": "LoRAs（低秩适配）"
     },
     "parameters": {
         "images": "图像",
@@ -538,145 +618,95 @@
         "width": "宽度",
         "height": "高度",
         "seed": "种子",
-        "randomizeSeed": "随机化种子",
         "shuffle": "随机生成种子",
         "noiseThreshold": "噪声阈值",
         "perlinNoise": "Perlin 噪声",
-        "variations": "变种",
-        "variationAmount": "变种数量",
-        "seedWeights": "种子权重",
-        "faceRestoration": "面部修复",
-        "restoreFaces": "修复面部",
         "type": "种类",
         "strength": "强度",
         "upscaling": "放大",
-        "upscale": "放大 (Shift + U)",
-        "upscaleImage": "放大图像",
         "scale": "等级",
-        "otherOptions": "其他选项",
-        "seamlessTiling": "无缝拼贴",
-        "hiresOptim": "高分辨率优化",
         "imageFit": "使生成图像长宽适配初始图像",
-        "codeformerFidelity": "保真度",
         "scaleBeforeProcessing": "处理前缩放",
         "scaledWidth": "缩放宽度",
         "scaledHeight": "缩放长度",
         "infillMethod": "填充方法",
         "tileSize": "方格尺寸",
-        "boundingBoxHeader": "选择区域",
-        "seamCorrectionHeader": "接缝修正",
-        "infillScalingHeader": "内填充和缩放",
-        "img2imgStrength": "图生图强度",
-        "toggleLoopback": "切换环回",
-        "sendTo": "发送到",
-        "sendToImg2Img": "发送到图生图",
-        "sendToUnifiedCanvas": "发送到统一画布",
-        "copyImageToLink": "复制图像链接",
         "downloadImage": "下载图像",
-        "openInViewer": "在查看器中打开",
-        "closeViewer": "关闭查看器",
         "usePrompt": "使用提示",
         "useSeed": "使用种子",
         "useAll": "使用所有参数",
-        "useInitImg": "使用初始图像",
         "info": "信息",
-        "initialImage": "初始图像",
         "showOptionsPanel": "显示侧栏浮窗 (O 或 T)",
         "seamlessYAxis": "无缝平铺 Y 轴",
         "seamlessXAxis": "无缝平铺 X 轴",
-        "boundingBoxWidth": "边界框宽度",
-        "boundingBoxHeight": "边界框高度",
         "denoisingStrength": "去噪强度",
-        "vSymmetryStep": "纵向对称步数",
         "cancel": {
-            "immediate": "立即取消",
-            "isScheduled": "取消中",
-            "schedule": "当前迭代后取消",
-            "setType": "设定取消类型",
             "cancel": "取消"
         },
         "copyImage": "复制图片",
-        "showPreview": "显示预览",
         "symmetry": "对称性",
         "positivePromptPlaceholder": "正向提示词",
         "negativePromptPlaceholder": "负向提示词",
         "scheduler": "调度器",
         "general": "通用",
-        "hiresStrength": "高分辨强度",
-        "hidePreview": "隐藏预览",
-        "hSymmetryStep": "横向对称步数",
-        "imageToImage": "图生图",
-        "noiseSettings": "噪音",
         "controlNetControlMode": "控制模式",
-        "maskAdjustmentsHeader": "遮罩调整",
-        "maskBlur": "模糊",
-        "maskBlurMethod": "模糊方式",
-        "aspectRatio": "纵横比",
-        "seamLowThreshold": "降低",
-        "seamHighThreshold": "提升",
+        "maskBlur": "遮罩模糊",
         "invoke": {
             "noNodesInGraph": "节点图中无节点",
             "noModelSelected": "无已选中的模型",
             "invoke": "调用",
-            "systemBusy": "系统繁忙",
-            "noInitialImageSelected": "无选中的初始图像",
             "missingInputForField": "{{nodeLabel}} -> {{fieldLabel}} 缺失输入",
-            "unableToInvoke": "无法调用",
             "systemDisconnected": "系统已断开连接",
             "missingNodeTemplate": "缺失节点模板",
             "missingFieldTemplate": "缺失模板",
             "addingImagesTo": "添加图像到",
             "noPrompts": "没有已生成的提示词",
-            "readyToInvoke": "准备调用",
-            "noControlImageForControlAdapter": "有 #{{number}} 个 Control Adapter 缺失控制图像",
-            "noModelForControlAdapter": "有 #{{number}} 个 Control Adapter 没有选择模型。",
-            "incompatibleBaseModelForControlAdapter": "有 #{{number}} 个 Control Adapter 模型与主模型不兼容。"
+            "canvasIsFiltering": "画布正在过滤",
+            "fluxModelIncompatibleScaledBboxHeight": "$t(parameters.invoke.fluxRequiresDimensionsToBeMultipleOf16)，缩放后的边界框高度为 {{height}}",
+            "noCLIPEmbedModelSelected": "未为FLUX生成选择CLIP嵌入模型",
+            "noFLUXVAEModelSelected": "未为FLUX生成选择VAE模型",
+            "canvasIsRasterizing": "画布正在栅格化",
+            "canvasIsCompositing": "画布正在合成",
+            "fluxModelIncompatibleBboxWidth": "$t(parameters.invoke.fluxRequiresDimensionsToBeMultipleOf16)，边界框宽度为 {{width}}",
+            "fluxModelIncompatibleScaledBboxWidth": "$t(parameters.invoke.fluxRequiresDimensionsToBeMultipleOf16)，缩放后的边界框宽度为 {{width}}",
+            "noT5EncoderModelSelected": "未为FLUX生成选择T5编码器模型",
+            "fluxModelIncompatibleBboxHeight": "$t(parameters.invoke.fluxRequiresDimensionsToBeMultipleOf16)，边界框高度为 {{height}}",
+            "canvasIsTransforming": "画布正在变换"
         },
         "patchmatchDownScaleSize": "缩小",
-        "coherenceSteps": "步数",
         "clipSkip": "CLIP 跳过层",
-        "compositingSettingsHeader": "合成设置",
         "useCpuNoise": "使用 CPU 噪声",
-        "coherenceStrength": "强度",
-        "enableNoiseSettings": "启用噪声设置",
         "coherenceMode": "模式",
-        "cpuNoise": "CPU 噪声",
-        "gpuNoise": "GPU 噪声",
-        "clipSkipWithLayerCount": "CLIP 跳过 {{layerCount}} 层",
-        "coherencePassHeader": "一致性层",
-        "manualSeed": "手动设定种子",
         "imageActions": "图像操作",
-        "randomSeed": "随机种子",
         "iterations": "迭代数",
-        "isAllowedToUpscale": {
-            "useX2Model": "图像太大，无法使用 x4 模型，使用 x2 模型作为替代",
-            "tooLarge": "图像太大无法进行放大，请选择更小的图像"
-        },
-        "iterationsWithCount_other": "{{count}} 次迭代生成",
-        "seamlessX&Y": "无缝 X & Y",
-        "aspectRatioFree": "自由",
-        "seamlessX": "无缝 X",
-        "seamlessY": "无缝 Y",
-        "maskEdge": "遮罩边缘",
-        "unmasked": "取消遮罩",
         "cfgRescaleMultiplier": "CFG 重缩放倍数",
-        "cfgRescale": "CFG 重缩放",
         "useSize": "使用尺寸",
         "setToOptimalSize": "优化模型大小",
         "setToOptimalSizeTooSmall": "$t(parameters.setToOptimalSize) （可能过小）",
-        "imageSize": "图像尺寸",
         "lockAspectRatio": "锁定纵横比",
         "swapDimensions": "交换尺寸",
         "aspect": "纵横",
-        "setToOptimalSizeTooLarge": "$t(parameters.setToOptimalSize) （可能过大）"
+        "setToOptimalSizeTooLarge": "$t(parameters.setToOptimalSize) （可能过大）",
+        "remixImage": "重新混合图像",
+        "coherenceEdgeSize": "边缘尺寸",
+        "postProcessing": "后处理（Shift + U）",
+        "sendToUpscale": "发送到放大",
+        "processImage": "处理图像",
+        "infillColorValue": "填充颜色",
+        "coherenceMinDenoise": "最小去噪",
+        "sendToCanvas": "发送到画布",
+        "disabledNoRasterContent": "已禁用（无栅格内容）",
+        "optimizedImageToImage": "优化的图生图",
+        "guidance": "引导",
+        "gaussianBlur": "高斯模糊",
+        "recallMetadata": "调用元数据",
+        "boxBlur": "方框模糊",
+        "staged": "已分阶段处理"
     },
     "settings": {
         "models": "模型",
         "displayInProgress": "显示处理中的图像",
-        "saveSteps": "每n步保存图像",
         "confirmOnDelete": "删除时确认",
-        "displayHelpIcons": "显示帮助按钮",
-        "enableImageDebugging": "开启图像调试",
         "resetWebUI": "重置网页界面",
         "resetWebUIDesc1": "重置网页只会重置浏览器中缓存的图像和设置，不会删除任何图像。",
         "resetWebUIDesc2": "如果图像没有显示在图库中，或者其他东西不工作，请在GitHub上提交问题之前尝试重置。",
@@ -685,18 +715,8 @@
         "antialiasProgressImages": "对过程图像应用抗锯齿",
         "generation": "生成",
         "ui": "用户界面",
-        "useSlidersForAll": "对所有参数使用滑动条设置",
         "general": "通用",
-        "consoleLogLevel": "日志等级",
-        "shouldLogToConsole": "终端日志",
         "developer": "开发者",
-        "alternateCanvasLayout": "切换统一画布布局",
-        "enableNodesEditor": "启用节点编辑器",
-        "favoriteSchedulersPlaceholder": "没有偏好的采样算法",
-        "showAdvancedOptions": "显示进阶选项",
-        "favoriteSchedulers": "采样算法偏好",
-        "autoChangeDimensions": "更改时将宽/高更新为模型默认值",
-        "experimental": "实验性",
         "beta": "Beta",
         "clearIntermediates": "清除中间产物",
         "clearIntermediatesDesc3": "您图库中的图像不会被删除。",
@@ -709,218 +729,99 @@
         "enableNSFWChecker": "启用成人内容检测器",
         "enableInvisibleWatermark": "启用不可见水印",
         "enableInformationalPopovers": "启用信息弹窗",
-        "reloadingIn": "重新加载中"
+        "reloadingIn": "重新加载中",
+        "informationalPopoversDisabled": "信息提示框已禁用",
+        "informationalPopoversDisabledDesc": "信息提示框已被禁用.请在设置中重新启用.",
+        "enableModelDescriptions": "在下拉菜单中启用模型描述",
+        "confirmOnNewSession": "新会话时确认",
+        "modelDescriptionsDisabledDesc": "下拉菜单中的模型描述已被禁用。可在设置中启用。",
+        "modelDescriptionsDisabled": "下拉菜单中的模型描述已禁用",
+        "showDetailedInvocationProgress": "显示进度详情"
     },
     "toast": {
-        "tempFoldersEmptied": "临时文件夹已清空",
         "uploadFailed": "上传失败",
-        "uploadFailedUnableToLoadDesc": "无法加载文件",
-        "downloadImageStarted": "图像已开始下载",
         "imageCopied": "图像已复制",
-        "imageLinkCopied": "图像链接已复制",
-        "imageNotLoaded": "没有加载图像",
-        "imageNotLoadedDesc": "找不到图片",
-        "imageSavedToGallery": "图像已保存到图库",
-        "canvasMerged": "画布已合并",
-        "sentToImageToImage": "已发送到图生图",
-        "sentToUnifiedCanvas": "已发送到统一画布",
-        "parametersSet": "参数已设定",
-        "parametersNotSet": "参数未设定",
-        "parametersNotSetDesc": "此图像不存在元数据。",
-        "parametersFailed": "加载参数失败",
-        "parametersFailedDesc": "加载初始图像失败。",
-        "seedSet": "种子已设定",
-        "seedNotSet": "种子未设定",
-        "seedNotSetDesc": "无法找到该图像的种子。",
-        "promptSet": "提示词已设定",
-        "promptNotSet": "提示词未设定",
-        "promptNotSetDesc": "无法找到该图像的提示词。",
-        "upscalingFailed": "放大失败",
-        "faceRestoreFailed": "面部修复失败",
-        "metadataLoadFailed": "加载元数据失败",
-        "initialImageSet": "初始图像已设定",
-        "initialImageNotSet": "初始图像未设定",
-        "initialImageNotSetDesc": "无法加载初始图像",
-        "problemCopyingImageLink": "无法复制图片链接",
-        "uploadFailedInvalidUploadDesc": "必须是单张的 PNG 或 JPEG 图片",
-        "disconnected": "服务器断开",
+        "parametersNotSet": "参数未恢复",
+        "uploadFailedInvalidUploadDesc": "必须是单个 PNG 或 JPEG 图像。",
         "connected": "服务器连接",
-        "parameterSet": "参数已设定",
-        "parameterNotSet": "参数未设定",
+        "parameterSet": "参数已恢复",
+        "parameterNotSet": "参数未恢复",
         "serverError": "服务器错误",
         "canceled": "处理取消",
-        "nodesLoaded": "节点已加载",
-        "nodesSaved": "节点已保存",
         "problemCopyingImage": "无法复制图像",
-        "nodesCorruptedGraph": "无法加载。节点图似乎已损坏。",
-        "nodesBrokenConnections": "无法加载。部分连接已断开。",
-        "nodesUnrecognizedTypes": "无法加载。节点图有无法识别的节点类型",
-        "nodesNotValidJSON": "无效的 JSON",
-        "nodesNotValidGraph": "无效的 InvokeAi 节点图",
-        "nodesLoadedFailed": "节点加载失败",
-        "modelAddedSimple": "已添加模型",
-        "modelAdded": "已添加模型: {{modelName}}",
-        "imageSavingFailed": "图像保存失败",
-        "canvasSentControlnetAssets": "画布已发送到 ControlNet & 素材",
-        "problemCopyingCanvasDesc": "无法导出基础层",
+        "modelAddedSimple": "模型已加入队列",
         "loadedWithWarnings": "已加载带有警告的工作流",
-        "setInitialImage": "设为初始图像",
-        "canvasCopiedClipboard": "画布已复制到剪贴板",
         "setControlImage": "设为控制图像",
         "setNodeField": "设为节点字段",
-        "problemSavingMask": "保存遮罩时出现问题",
-        "problemSavingCanvasDesc": "无法导出基础层",
-        "maskSavedAssets": "遮罩已保存到素材",
-        "modelAddFailed": "模型添加失败",
-        "problemDownloadingCanvas": "下载画布时出现问题",
-        "problemMergingCanvas": "合并画布时出现问题",
-        "setCanvasInitialImage": "设定画布初始图像",
         "imageUploaded": "图像已上传",
-        "addedToBoard": "已添加到面板",
+        "addedToBoard": "添加到{{name}}的资产中",
         "workflowLoaded": "工作流已加载",
-        "problemImportingMaskDesc": "无法导出遮罩",
-        "problemCopyingCanvas": "复制画布时出现问题",
-        "problemSavingCanvas": "保存画布时出现问题",
-        "canvasDownloaded": "画布已下载",
-        "setIPAdapterImage": "设为 IP Adapter 图像",
-        "problemMergingCanvasDesc": "无法导出基础层",
-        "problemDownloadingCanvasDesc": "无法导出基础层",
-        "problemSavingMaskDesc": "无法导出遮罩",
-        "imageSaved": "图像已保存",
-        "maskSentControlnetAssets": "遮罩已发送到 ControlNet & 素材",
-        "canvasSavedGallery": "画布已保存到图库",
         "imageUploadFailed": "图像上传失败",
-        "problemImportingMask": "导入遮罩时出现问题",
-        "baseModelChangedCleared_other": "基础模型已更改, 已清除或禁用 {{count}} 个不兼容的子模型",
-        "setAsCanvasInitialImage": "设为画布初始图像",
+        "baseModelChangedCleared_other": "已清除或禁用{{count}}个不兼容的子模型",
         "invalidUpload": "无效的上传",
         "problemDeletingWorkflow": "删除工作流时出现问题",
         "workflowDeleted": "已删除工作流",
-        "problemRetrievingWorkflow": "检索工作流时发生问题"
-    },
-    "unifiedCanvas": {
-        "layer": "图层",
-        "base": "基础层",
-        "mask": "遮罩",
-        "maskingOptions": "遮罩选项",
-        "enableMask": "启用遮罩",
-        "preserveMaskedArea": "保留遮罩区域",
-        "clearMask": "清除遮罩 (Shift+C)",
-        "brush": "刷子",
-        "eraser": "橡皮擦",
-        "fillBoundingBox": "填充选择区域",
-        "eraseBoundingBox": "取消选择区域",
-        "colorPicker": "颜色提取",
-        "brushOptions": "刷子选项",
-        "brushSize": "大小",
-        "move": "移动",
-        "resetView": "重置视图",
-        "mergeVisible": "合并可见层",
-        "saveToGallery": "保存至图库",
-        "copyToClipboard": "复制到剪贴板",
-        "downloadAsImage": "下载图像",
-        "undo": "撤销",
-        "redo": "重做",
-        "clearCanvas": "清除画布",
-        "canvasSettings": "画布设置",
-        "showIntermediates": "显示中间产物",
-        "showGrid": "显示网格",
-        "snapToGrid": "切换网格对齐",
-        "darkenOutsideSelection": "暗化外部区域",
-        "autoSaveToGallery": "自动保存至图库",
-        "saveBoxRegionOnly": "只保存框内区域",
-        "limitStrokesToBox": "限制画笔在框内",
-        "showCanvasDebugInfo": "显示附加画布信息",
-        "clearCanvasHistory": "清除画布历史",
-        "clearHistory": "清除历史",
-        "clearCanvasHistoryMessage": "清除画布历史不会影响当前画布，但会不可撤销地清除所有撤销/重做历史。",
-        "clearCanvasHistoryConfirm": "确认清除所有画布历史？",
-        "emptyTempImageFolder": "清除临时文件夹",
-        "emptyFolder": "清除文件夹",
-        "emptyTempImagesFolderMessage": "清空临时图像文件夹会完全重置统一画布。这包括所有的撤销/重做历史、暂存区的图像和画布基础层。",
-        "emptyTempImagesFolderConfirm": "确认清除临时文件夹？",
-        "activeLayer": "活跃图层",
-        "canvasScale": "画布缩放",
-        "boundingBox": "选择区域",
-        "scaledBoundingBox": "缩放选择区域",
-        "boundingBoxPosition": "选择区域位置",
-        "canvasDimensions": "画布长宽",
-        "canvasPosition": "画布位置",
-        "cursorPosition": "光标位置",
-        "previous": "上一张",
-        "next": "下一张",
-        "accept": "接受",
-        "showHide": "显示 / 隐藏",
-        "discardAll": "放弃所有",
-        "betaClear": "清除",
-        "betaDarkenOutside": "暗化外部区域",
-        "betaLimitToBox": "限制在框内",
-        "betaPreserveMasked": "保留遮罩层",
-        "antialiasing": "抗锯齿",
-        "showResultsOn": "显示结果 (开)",
-        "showResultsOff": "显示结果 (关)",
-        "saveMask": "保存 $t(unifiedCanvas.mask)"
+        "problemRetrievingWorkflow": "检索工作流时发生问题",
+        "baseModelChanged": "基础模型已更改",
+        "problemDownloadingImage": "无法下载图像",
+        "outOfMemoryError": "内存不足错误",
+        "parameters": "参数",
+        "parameterNotSetDescWithMessage": "无法恢复 {{parameter}}: {{message}}",
+        "parameterSetDesc": "已恢复 {{parameter}}",
+        "parameterNotSetDesc": "无法恢复{{parameter}}",
+        "sessionRef": "会话: {{sessionId}}",
+        "somethingWentWrong": "出现错误",
+        "prunedQueue": "已清理队列",
+        "outOfMemoryErrorDesc": "您当前的生成设置已超出系统处理能力.请调整设置后再次尝试.",
+        "parametersSet": "参数已恢复",
+        "errorCopied": "错误信息已复制",
+        "modelImportCanceled": "模型导入已取消",
+        "importFailed": "导入失败",
+        "importSuccessful": "导入成功",
+        "layerSavedToAssets": "图层已保存到资产",
+        "sentToUpscale": "已发送到放大处理",
+        "addedToUncategorized": "已添加到看板 $t(boards.uncategorized) 的资产中",
+        "linkCopied": "链接已复制",
+        "uploadFailedInvalidUploadDesc_withCount_other": "最多只能上传 {{count}} 张 PNG 或 JPEG 图像。",
+        "problemSavingLayer": "无法保存图层",
+        "unableToLoadImage": "无法加载图像",
+        "imageNotLoadedDesc": "无法找到图像",
+        "unableToLoadStylePreset": "无法加载样式预设",
+        "stylePresetLoaded": "样式预设已加载",
+        "problemCopyingLayer": "无法复制图层",
+        "sentToCanvas": "已发送到画布",
+        "unableToLoadImageMetadata": "无法加载图像元数据",
+        "imageSaved": "图像已保存",
+        "imageSavingFailed": "图像保存失败",
+        "layerCopiedToClipboard": "图层已复制到剪贴板",
+        "imagesWillBeAddedTo": "上传的图像将添加到看板 {{boardName}} 的资产中。"
     },
     "accessibility": {
-        "modelSelect": "模型选择",
         "invokeProgressBar": "Invoke 进度条",
         "reset": "重置",
         "nextImage": "下一张图片",
-        "useThisParameter": "使用此参数",
         "uploadImage": "上传图片",
         "previousImage": "上一张图片",
-        "copyMetadataJson": "复制 JSON 元数据",
-        "exitViewer": "退出查看器",
-        "zoomIn": "放大",
-        "zoomOut": "缩小",
-        "rotateCounterClockwise": "逆时针旋转",
-        "rotateClockwise": "顺时针旋转",
-        "flipHorizontally": "水平翻转",
-        "flipVertically": "垂直翻转",
-        "showOptionsPanel": "显示侧栏浮窗",
-        "toggleLogViewer": "切换日志查看器",
-        "modifyConfig": "修改配置",
-        "toggleAutoscroll": "切换自动缩放",
         "menu": "菜单",
-        "showGalleryPanel": "显示图库浮窗",
-        "loadMore": "加载更多",
         "mode": "模式",
         "resetUI": "$t(accessibility.reset) UI",
-        "createIssue": "创建问题"
-    },
-    "ui": {
-        "showProgressImages": "显示处理中的图片",
-        "hideProgressImages": "隐藏处理中的图片",
-        "swapSizes": "XY 尺寸互换",
-        "lockRatio": "锁定纵横比"
-    },
-    "tooltip": {
-        "feature": {
-            "prompt": "这是提示词区域。提示词包括生成对象和风格术语。您也可以在提示词中添加权重（Token 的重要性），但命令行命令和参数不起作用。",
-            "imageToImage": "图生图模式加载任何图像作为初始图像，然后与提示词一起用于生成新图像。值越高，结果图像的变化就越大。可能的值为 0.0 到 1.0，建议的范围是 0.25 到 0.75",
-            "upscale": "使用 ESRGAN 可以在图片生成后立即放大图片。",
-            "variations": "尝试将变化值设置在 0.1 到 1.0 之间，以更改给定种子的结果。种子的变化在 0.1 到 0.3 之间会很有趣。",
-            "boundingBox": "边界框的高和宽的设定对文生图和图生图模式是一样的，只有边界框中的区域会被处理。",
-            "other": "这些选项将为 Invoke 启用替代处理模式。 \"无缝拼贴\" 将在输出中创建重复图案。\"高分辨率\" 是通过图生图进行两步生成：当您想要更大、更连贯且不带伪影的图像时，请使用此设置。这将比通常的文生图需要更长的时间。",
-            "faceCorrection": "使用 GFPGAN 或 Codeformer 进行人脸校正：该算法会检测图像中的人脸并纠正任何缺陷。较高的值将更改图像，并产生更有吸引力的人脸。在保留较高保真度的情况下使用 Codeformer 将导致更强的人脸校正，同时也会保留原始图像。",
-            "gallery": "图片库展示输出文件夹中的图片，设置和文件一起储存，可以通过内容菜单访问。",
-            "seed": "种子值影响形成图像的初始噪声。您可以使用以前图像中已存在的种子。 “噪声阈值”用于减轻在高 CFG 等级（尝试 0 - 10 范围）下的伪像，并使用 Perlin 在生成过程中添加 Perlin 噪声：这两者都可以为您的输出添加变化。",
-            "seamCorrection": "控制在画布上生成的图像之间出现的可见接缝的处理方式。",
-            "infillAndScaling": "管理填充方法（用于画布的遮罩或擦除区域）和缩放（对于较小的边界框大小非常有用）。"
-        }
+        "createIssue": "创建问题",
+        "about": "关于",
+        "submitSupportTicket": "提交支持工单",
+        "toggleRightPanel": "切换右侧面板(G)",
+        "uploadImages": "上传图片",
+        "toggleLeftPanel": "开关左侧面板(T)"
     },
     "nodes": {
         "zoomInNodes": "放大",
         "loadWorkflow": "加载工作流",
         "zoomOutNodes": "缩小",
         "reloadNodeTemplates": "重载节点模板",
-        "hideGraphNodes": "隐藏节点图信息",
         "fitViewportNodes": "自适应视图",
         "showMinimapnodes": "显示缩略图",
         "hideMinimapnodes": "隐藏缩略图",
         "showLegendNodes": "显示字段类型图例",
         "hideLegendNodes": "隐藏字段类型图例",
-        "showGraphNodes": "显示节点图信息",
         "downloadWorkflow": "下载工作流 JSON",
         "workflowDescription": "简述",
         "versionUnknown": " 未知版本",
@@ -933,7 +834,6 @@
         "workflowContact": "联系",
         "animatedEdges": "边缘动效",
         "nodeTemplate": "节点模板",
-        "pickOne": "选择一个",
         "unableToLoadWorkflow": "无法加载工作流",
         "snapToGrid": "对齐网格",
         "noFieldsLinearview": "线性视图中未添加任何字段",
@@ -948,19 +848,15 @@
         "problemSettingTitle": "设定标题时出现问题",
         "noConnectionInProgress": "没有正在进行的连接",
         "workflowVersion": "版本",
-        "noConnectionData": "无连接数据",
         "fieldTypesMustMatch": "类型必须匹配",
         "workflow": "工作流",
-        "unkownInvocation": "未知调用类型",
         "animatedEdgesHelp": "为选中边缘和其连接的选中节点的边缘添加动画",
         "unknownTemplate": "未知模板",
         "removeLinearView": "从线性视图中移除",
         "workflowTags": "标签",
         "fullyContainNodesHelp": "节点必须完全位于选择框中才能被选中",
         "workflowValidation": "工作流验证错误",
-        "noMatchingNodes": "无相匹配的节点",
         "executionStateInProgress": "处理中",
-        "noFieldType": "无字段类型",
         "executionStateError": "错误",
         "executionStateCompleted": "已完成",
         "workflowAuthor": "作者",
@@ -979,134 +875,24 @@
         "loadingNodes": "加载节点中...",
         "snapToGridHelp": "移动时将节点与网格对齐",
         "workflowSettings": "工作流编辑器设置",
-        "booleanPolymorphicDescription": "一个布尔值合集。",
         "scheduler": "调度器",
-        "inputField": "输入",
-        "controlFieldDescription": "节点间传递的控制信息。",
-        "skippingUnknownOutputType": "跳过未知类型的输出",
-        "latentsFieldDescription": "Latents 可以在节点间传递。",
-        "denoiseMaskFieldDescription": "去噪遮罩可以在节点间传递",
         "missingTemplate": "无效的节点：类型为 {{type}} 的节点 {{node}} 缺失模板（无已安装模板？）",
-        "outputSchemaNotFound": "未找到输出模式",
-        "latentsPolymorphicDescription": "Latents 可以在节点间传递。",
-        "colorFieldDescription": "一种 RGBA 颜色。",
-        "mainModelField": "模型",
-        "unhandledInputProperty": "未处理的输入属性",
-        "maybeIncompatible": "可能与已安装的不兼容",
-        "collectionDescription": "待办事项",
-        "skippingReservedFieldType": "跳过保留类型",
-        "booleanCollectionDescription": "一个布尔值合集。",
-        "sDXLMainModelFieldDescription": "SDXL 模型。",
-        "boardField": "面板",
-        "problemReadingWorkflow": "从图像读取工作流时出现问题",
-        "sourceNode": "源节点",
         "nodeOpacity": "节点不透明度",
-        "collectionItemDescription": "待办事项",
-        "integerDescription": "整数是没有与小数点的数字。",
-        "outputField": "输出",
-        "skipped": "跳过",
         "updateNode": "更新节点",
-        "sDXLRefinerModelFieldDescription": "待办事项",
-        "imagePolymorphicDescription": "一个图像合集。",
-        "doesNotExist": "不存在",
-        "unableToParseNode": "无法解析节点",
-        "controlCollection": "控制合集",
-        "collectionItem": "项目合集",
-        "controlCollectionDescription": "节点间传递的控制信息。",
-        "skippedReservedInput": "跳过保留的输入",
-        "outputFields": "输出区域",
         "edge": "边缘",
-        "inputNode": "输入节点",
-        "enumDescription": "枚举 (Enums) 可能是多个选项的一个数值。",
-        "loRAModelFieldDescription": "待办事项",
-        "imageField": "图像",
-        "skippedReservedOutput": "跳过保留的输出",
         "noWorkflow": "无工作流",
-        "colorCollectionDescription": "待办事项",
-        "colorPolymorphicDescription": "一个颜色合集。",
-        "sDXLMainModelField": "SDXL 模型",
-        "denoiseMaskField": "去噪遮罩",
-        "schedulerDescription": "待办事项",
-        "missingCanvaInitImage": "缺失画布初始图像",
-        "clipFieldDescription": "词元分析器和文本编码器的子模型。",
-        "noImageFoundState": "状态中未发现初始图像",
         "nodeType": "节点类型",
         "fullyContainNodes": "完全包含节点来进行选择",
-        "noOutputSchemaName": "在 ref 对象中找不到输出模式名称",
-        "vaeModelFieldDescription": "待办事项",
-        "skippingInputNoTemplate": "跳过无模板的输入",
-        "missingCanvaInitMaskImages": "缺失初始化画布和遮罩图像",
-        "problemReadingMetadata": "从图像读取元数据时出现问题",
-        "oNNXModelField": "ONNX 模型",
         "node": "节点",
-        "skippingUnknownInputType": "跳过未知类型的输入",
-        "booleanDescription": "布尔值为真或为假。",
         "collection": "合集",
-        "invalidOutputSchema": "无效的输出模式",
-        "boardFieldDescription": "图库面板",
-        "floatDescription": "浮点数是带小数点的数字。",
-        "unhandledOutputProperty": "未处理的输出属性",
         "string": "字符串",
-        "inputFields": "输入",
-        "uNetFieldDescription": "UNet 子模型。",
         "mismatchedVersion": "无效的节点：类型为 {{type}} 的节点 {{node}} 版本不匹配（是否尝试更新？）",
-        "vaeFieldDescription": "Vae 子模型。",
-        "imageFieldDescription": "图像可以在节点间传递。",
-        "outputNode": "输出节点",
-        "mainModelFieldDescription": "待办事项",
-        "sDXLRefinerModelField": "Refiner 模型",
-        "unableToParseEdge": "无法解析边缘",
-        "latentsCollectionDescription": "Latents 可以在节点间传递。",
-        "oNNXModelFieldDescription": "ONNX 模型。",
         "cannotDuplicateConnection": "无法创建重复的连接",
-        "ipAdapterModel": "IP-Adapter 模型",
-        "ipAdapterDescription": "图像提示词自适应 (IP-Adapter)。",
-        "ipAdapterModelDescription": "IP-Adapter 模型",
-        "floatCollectionDescription": "一个浮点数合集。",
         "enum": "Enum (枚举)",
-        "integerPolymorphicDescription": "一个整数值合集。",
         "float": "浮点",
         "integer": "整数",
-        "colorField": "颜色",
-        "stringCollectionDescription": "一个字符串合集。",
-        "stringCollection": "字符串合集",
-        "uNetField": "UNet",
-        "integerCollection": "整数合集",
-        "vaeModelField": "VAE",
-        "integerCollectionDescription": "一个整数值合集。",
-        "clipField": "Clip",
-        "stringDescription": "字符串是指文本。",
-        "colorCollection": "一个颜色合集。",
         "boolean": "布尔值",
-        "stringPolymorphicDescription": "一个字符串合集。",
-        "controlField": "控制信息",
-        "floatPolymorphicDescription": "一个浮点数合集。",
-        "vaeField": "Vae",
-        "floatCollection": "浮点合集",
-        "booleanCollection": "布尔值合集",
-        "imageCollectionDescription": "一个图像合集。",
-        "loRAModelField": "LoRA",
-        "imageCollection": "图像合集",
-        "ipAdapterPolymorphicDescription": "一个 IP-Adapters Collection 合集。",
-        "ipAdapterCollection": "IP-Adapters 合集",
-        "conditioningCollection": "条件合集",
-        "ipAdapterPolymorphic": "IP-Adapters 多态",
-        "conditioningCollectionDescription": "条件可以在节点间传递。",
-        "colorPolymorphic": "颜色多态",
-        "conditioningPolymorphic": "条件多态",
-        "latentsCollection": "Latents 合集",
-        "stringPolymorphic": "字符多态",
-        "conditioningPolymorphicDescription": "条件可以在节点间传递。",
-        "imagePolymorphic": "图像多态",
-        "floatPolymorphic": "浮点多态",
-        "ipAdapterCollectionDescription": "一个 IP-Adapters Collection 合集。",
         "ipAdapter": "IP-Adapter",
-        "booleanPolymorphic": "布尔多态",
-        "conditioningFieldDescription": "条件可以在节点间传递。",
-        "integerPolymorphic": "整数多态",
-        "latentsPolymorphic": "Latents 多态",
-        "conditioningField": "条件",
-        "latentsField": "Latents",
         "updateAllNodes": "更新节点",
         "unableToUpdateNodes_other": "{{count}} 个节点无法完成更新",
         "inputFieldTypeParseError": "无法解析 {{node}} 的输入类型 {{field}}。({{message}})",
@@ -1118,22 +904,18 @@
         "sourceNodeDoesNotExist": "无效的边缘：{{node}} 的源/输出节点不存在",
         "unableToExtractEnumOptions": "无法提取枚举选项",
         "unableToParseFieldType": "无法解析类型",
-        "outputFieldInInput": "输入中的输出区域",
-        "unrecognizedWorkflowVersion": "无法识别的工作流架构版本：{{version}}",
         "outputFieldTypeParseError": "无法解析 {{node}} 的输出类型 {{field}}。({{message}})",
         "sourceNodeFieldDoesNotExist": "无效的边缘：{{node}} 的源/输出区域 {{field}} 不存在",
         "unableToGetWorkflowVersion": "无法获取工作流架构版本",
         "nodePack": "节点包",
         "unableToExtractSchemaNameFromRef": "无法从参考中提取架构名",
-        "unableToMigrateWorkflow": "无法迁移工作流",
         "unknownOutput": "未知输出：{{name}}",
-        "unableToUpdateNode": "无法更新节点",
         "unknownErrorValidatingWorkflow": "验证工作流时出现未知错误",
-        "collectionFieldType": "{{name}} 合集",
+        "collectionFieldType": "{{name}}(合集)",
         "unknownNodeType": "未知节点类型",
         "targetNodeDoesNotExist": "无效的边缘：{{node}} 的目标/输入节点不存在",
         "unknownFieldType": "$t(nodes.unknownField) 类型：{{type}}",
-        "collectionOrScalarFieldType": "{{name}} 合集 | 标量",
+        "collectionOrScalarFieldType": "{{name}} (单一项目或项目集合)",
         "nodeVersion": "节点版本",
         "deletedInvalidEdge": "已删除无效的边缘 {{source}} -> {{target}}",
         "unknownInput": "未知输入：{{name}}",
@@ -1142,93 +924,32 @@
         "newWorkflow": "新建工作流",
         "newWorkflowDesc": "是否创建一个新的工作流？",
         "newWorkflowDesc2": "当前工作流有未保存的更改。",
-        "unsupportedAnyOfLength": "联合（union）数据类型数目过多 ({{count}})"
-    },
-    "controlnet": {
-        "resize": "直接缩放",
-        "showAdvanced": "显示高级",
-        "contentShuffleDescription": "随机打乱图像内容",
-        "importImageFromCanvas": "从画布导入图像",
-        "lineartDescription": "将图像转换为线稿",
-        "importMaskFromCanvas": "从画布导入遮罩",
-        "hideAdvanced": "隐藏高级",
-        "ipAdapterModel": "Adapter 模型",
-        "resetControlImage": "重置控制图像",
-        "beginEndStepPercent": "开始 / 结束步数百分比",
-        "mlsdDescription": "简洁的分割线段（直线）检测器",
-        "duplicate": "复制",
-        "balanced": "平衡",
-        "prompt": "Prompt (提示词控制)",
-        "depthMidasDescription": "使用 Midas 生成深度图",
-        "openPoseDescription": "使用 Openpose 进行人体姿态估计",
-        "resizeMode": "缩放模式",
-        "weight": "权重",
-        "selectModel": "选择一个模型",
-        "crop": "裁剪",
-        "processor": "处理器",
-        "none": "无",
-        "enableControlnet": "启用 ControlNet",
-        "detectResolution": "检测分辨率",
-        "pidiDescription": "像素差分 (PIDI) 图像处理",
-        "controlMode": "控制模式",
-        "fill": "填充",
-        "cannyDescription": "Canny 边缘检测",
-        "colorMapDescription": "从图像生成一张颜色图",
-        "imageResolution": "图像分辨率",
-        "autoConfigure": "自动配置处理器",
-        "normalBaeDescription": "法线 BAE 处理",
-        "noneDescription": "不应用任何处理",
-        "saveControlImage": "保存控制图像",
-        "toggleControlNet": "开关此 ControlNet",
-        "delete": "删除",
-        "colorMapTileSize": "分块大小",
-        "ipAdapterImageFallback": "无已选择的 IP Adapter 图像",
-        "mediapipeFaceDescription": "使用 Mediapipe 检测面部",
-        "depthZoeDescription": "使用 Zoe 生成深度图",
-        "hedDescription": "整体嵌套边缘检测",
-        "setControlImageDimensions": "设定控制图像尺寸宽/高为",
-        "resetIPAdapterImage": "重置 IP Adapter 图像",
-        "handAndFace": "手部和面部",
-        "enableIPAdapter": "启用 IP Adapter",
-        "amult": "角度倍率 (a_mult)",
-        "bgth": "背景移除阈值 (bg_th)",
-        "lineartAnimeDescription": "动漫风格线稿处理",
-        "minConfidence": "最小置信度",
-        "lowThreshold": "弱判断阈值",
-        "highThreshold": "强判断阈值",
-        "addT2IAdapter": "添加 $t(common.t2iAdapter)",
-        "controlNetEnabledT2IDisabled": "$t(common.controlNet) 已启用, $t(common.t2iAdapter) 已禁用",
-        "t2iEnabledControlNetDisabled": "$t(common.t2iAdapter) 已启用, $t(common.controlNet) 已禁用",
-        "addControlNet": "添加 $t(common.controlNet)",
-        "controlNetT2IMutexDesc": "$t(common.controlNet) 和 $t(common.t2iAdapter) 目前不支持同时启用。",
-        "addIPAdapter": "添加 $t(common.ipAdapter)",
-        "safe": "保守模式",
-        "scribble": "草绘 (scribble)",
-        "maxFaces": "最大面部数",
-        "pidi": "PIDI",
-        "normalBae": "Normal BAE",
-        "hed": "HED",
-        "contentShuffle": "Content Shuffle",
-        "f": "F",
-        "h": "H",
-        "controlnet": "$t(controlnet.controlAdapter_one) #{{number}} ($t(common.controlNet))",
-        "control": "Control (普通控制)",
-        "coarse": "Coarse",
-        "depthMidas": "Depth (Midas)",
-        "w": "W",
-        "ip_adapter": "$t(controlnet.controlAdapter_one) #{{number}} ($t(common.ipAdapter))",
-        "mediapipeFace": "Mediapipe Face",
-        "mlsd": "M-LSD",
-        "lineart": "Lineart",
-        "t2i_adapter": "$t(controlnet.controlAdapter_one) #{{number}} ($t(common.t2iAdapter))",
-        "megaControl": "Mega Control (超级控制)",
-        "depthZoe": "Depth (Zoe)",
-        "colorMap": "Color",
-        "openPose": "Openpose",
-        "controlAdapter_other": "Control Adapters",
-        "lineartAnime": "Lineart Anime",
-        "canny": "Canny",
-        "resizeSimple": "缩放（简单）"
+        "unsupportedAnyOfLength": "联合（union）数据类型数目过多 ({{count}})",
+        "resetToDefaultValue": "重置为默认值",
+        "clearWorkflowDesc2": "您当前的工作流有未保存的更改.",
+        "missingNode": "缺少调用节点",
+        "missingInvocationTemplate": "缺少调用模版",
+        "noFieldsViewMode": "此工作流程未选择任何要显示的字段.请查看完整工作流程以进行配置.",
+        "reorderLinearView": "调整线性视图顺序",
+        "viewMode": "在线性视图中使用",
+        "showEdgeLabelsHelp": "在边缘上显示标签，指示连接的节点",
+        "cannotMixAndMatchCollectionItemTypes": "集合项目类型不能混用",
+        "missingFieldTemplate": "缺少字段模板",
+        "editMode": "在工作流编辑器中编辑",
+        "showEdgeLabels": "显示边缘标签",
+        "clearWorkflowDesc": "是否清除当前工作流并创建新的？",
+        "graph": "图表",
+        "noGraph": "无图表",
+        "edit": "编辑",
+        "clearWorkflow": "清除工作流",
+        "imageAccessError": "无法找到图像 {{image_name}}，正在恢复默认设置",
+        "boardAccessError": "无法找到面板 {{board_id}}，正在恢复默认设置",
+        "modelAccessError": "无法找到模型 {{key}}，正在恢复默认设置",
+        "noWorkflows": "无工作流程",
+        "workflowHelpText": "需要帮助？请查看我们的《<LinkComponent>工作流程入门指南</LinkComponent>》。",
+        "noMatchingWorkflows": "无匹配的工作流程",
+        "saveToGallery": "保存到图库",
+        "singleFieldType": "{{name}}（单一模型）"
     },
     "queue": {
         "status": "状态",
@@ -1247,7 +968,7 @@
         "cancelSucceeded": "项目已取消",
         "queue": "队列",
         "batch": "批处理",
-        "clearQueueAlertDialog": "清除队列时会立即取消所有处理中的项目并且会完全清除队列。",
+        "clearQueueAlertDialog": "清空队列将立即取消所有正在处理的项目，并完全清空队列。待处理的过滤器将被取消。",
         "pending": "待定",
         "completedIn": "完成于",
         "resumeFailed": "恢复处理器时出现问题",
@@ -1274,33 +995,37 @@
         "pruneSucceeded": "从队列修剪 {{item_count}} 个已完成的项目",
         "notReady": "无法排队",
         "batchFailedToQueue": "批次加入队列失败",
-        "batchValues": "批次数",
-        "queueCountPrediction": "{{promptsCount}} 提示词 × {{iterations}} 迭代次数 -> {{count}} 次生成",
         "batchQueued": "加入队列的批次",
-        "queuedCount": "{{pending}} 待处理",
         "front": "前",
         "pruneTooltip": "修剪 {{item_count}} 个已完成的项目",
         "batchQueuedDesc_other": "在队列的 {{direction}} 中添加了 {{count}} 个会话",
         "graphQueued": "节点图已加入队列",
         "back": "后",
         "session": "会话",
-        "queueTotal": "总计 {{total}}",
         "enqueueing": "队列中的批次",
-        "queueMaxExceeded": "超出最大值 {{max_queue_size}}，将跳过 {{skip}}",
         "graphFailedToQueue": "节点图加入队列失败",
         "batchFieldValues": "批处理值",
         "time": "时间",
-        "openQueue": "打开队列"
+        "openQueue": "打开队列",
+        "prompts_other": "提示词",
+        "iterations_other": "迭代",
+        "generations_other": "生成",
+        "canvas": "画布",
+        "workflows": "工作流",
+        "generation": "生成",
+        "other": "其他",
+        "gallery": "画廊",
+        "destination": "目标存储",
+        "upscaling": "高清放大",
+        "origin": "来源"
     },
     "sdxl": {
         "refinerStart": "Refiner 开始作用时机",
-        "selectAModel": "选择一个模型",
         "scheduler": "调度器",
         "cfgScale": "CFG 等级",
         "negStylePrompt": "负向样式提示词",
         "noModelsAvailable": "无可用模型",
         "negAestheticScore": "负向美学评分",
-        "useRefiner": "启用 Refiner",
         "denoisingStrength": "去噪强度",
         "refinermodel": "Refiner 模型",
         "posAestheticScore": "正向美学评分",
@@ -1309,7 +1034,8 @@
         "steps": "步数",
         "posStylePrompt": "正向样式提示词",
         "refiner": "Refiner",
-        "freePromptStyle": "手动输入样式提示词"
+        "freePromptStyle": "手动输入样式提示词",
+        "refinerSteps": "精炼步数"
     },
     "metadata": {
         "positivePrompt": "正向提示词",
@@ -1320,46 +1046,42 @@
         "strength": "图生图强度",
         "seed": "种子",
         "imageDetails": "图像详细信息",
-        "perlin": "Perlin 噪声",
         "model": "模型",
         "noImageDetails": "未找到图像详细信息",
-        "hiresFix": "高分辨率优化",
         "cfgScale": "CFG 等级",
-        "initImage": "初始图像",
         "height": "高度",
-        "variations": "(成对/第二)种子权重",
         "noMetaData": "未找到元数据",
         "width": "宽度",
         "createdBy": "创建者是",
         "workflow": "工作流",
         "steps": "步数",
         "scheduler": "调度器",
-        "seamless": "无缝",
-        "fit": "图生图匹配",
         "recallParameters": "召回参数",
         "noRecallParameters": "未找到要召回的参数",
         "vae": "VAE",
-        "cfgRescaleMultiplier": "$t(parameters.cfgRescaleMultiplier)"
+        "cfgRescaleMultiplier": "$t(parameters.cfgRescaleMultiplier)",
+        "allPrompts": "所有提示",
+        "parsingFailed": "解析失败",
+        "recallParameter": "调用{{label}}",
+        "imageDimensions": "图像尺寸",
+        "parameterSet": "已设置参数{{parameter}}",
+        "guidance": "指导",
+        "seamlessXAxis": "无缝 X 轴",
+        "seamlessYAxis": "无缝 Y 轴",
+        "canvasV2Metadata": "画布"
     },
     "models": {
         "noMatchingModels": "无相匹配的模型",
         "loading": "加载中",
         "noMatchingLoRAs": "无相匹配的 LoRA",
-        "noLoRAsAvailable": "无可用 LoRA",
         "noModelsAvailable": "无可用模型",
         "selectModel": "选择一个模型",
-        "selectLoRA": "选择一个 LoRA",
         "noRefinerModelsInstalled": "无已安装的 SDXL Refiner 模型",
         "noLoRAsInstalled": "无已安装的 LoRA",
-        "esrganModel": "ESRGAN 模型",
         "addLora": "添加 LoRA",
-        "noLoRAsLoaded": "无已加载的 LoRA",
-        "noMainModelSelected": "未选择主模型",
         "lora": "LoRA",
-        "allLoRAsAdded": "已添加所有 LoRA",
         "defaultVAE": "默认 VAE",
-        "incompatibleBaseModel": "不兼容基础模型",
-        "loraAlreadyAdded": "LoRA 已经被添加"
+        "concepts": "概念"
     },
     "boards": {
         "autoAddBoard": "自动添加面板",
@@ -1381,14 +1103,24 @@
         "deleteBoardOnly": "仅删除面板",
         "deleteBoard": "删除面板",
         "deleteBoardAndImages": "删除面板和图像",
-        "deletedBoardsCannotbeRestored": "已删除的面板无法被恢复",
-        "movingImagesToBoard_other": "移动 {{count}} 张图像到面板："
-    },
-    "embedding": {
-        "noMatchingEmbedding": "不匹配的 Embedding",
-        "addEmbedding": "添加 Embedding",
-        "incompatibleModel": "不兼容的基础模型：",
-        "noEmbeddingsLoaded": "无已加载的 Embedding"
+        "deletedBoardsCannotbeRestored": "删除的面板无法恢复。选择“仅删除面板”选项后，相关图片将会被移至未分类区域。",
+        "movingImagesToBoard_other": "移动 {{count}} 张图像到面板：",
+        "selectedForAutoAdd": "已选中自动添加",
+        "hideBoards": "隐藏面板",
+        "noBoards": "没有{{boardType}}类型的面板",
+        "unarchiveBoard": "恢复面板",
+        "viewBoards": "查看面板",
+        "addPrivateBoard": "创建私密面板",
+        "addSharedBoard": "创建共享面板",
+        "boards": "面板",
+        "imagesWithCount_other": "{{count}}张图片",
+        "deletedPrivateBoardsCannotbeRestored": "删除的面板无法恢复。选择“仅删除面板”后，相关图片将会被移至图片创建者的私密未分类区域。",
+        "private": "私密面板",
+        "shared": "共享面板",
+        "archiveBoard": "归档面板",
+        "archived": "已归档",
+        "assetsWithCount_other": "{{count}}项资源",
+        "updateBoardError": "更新画板出错"
     },
     "dynamicPrompts": {
         "seedBehaviour": {
@@ -1398,11 +1130,8 @@
             "perPromptLabel": "每张图像的种子",
             "label": "种子行为"
         },
-        "enableDynamicPrompts": "启用动态提示词",
-        "combinatorial": "组合生成",
         "maxPrompts": "最大提示词数",
         "dynamicPrompts": "动态提示词",
-        "promptsWithCount_other": "{{count}} 个提示词",
         "promptsPreview": "提示词预览",
         "showDynamicPrompts": "显示动态提示词",
         "loading": "生成动态提示词中..."
@@ -1421,19 +1150,6 @@
                 "图像尺寸（单位：像素）建议 SD 1.5 模型使用等效 512x512 的尺寸，SDXL 模型使用等效 1024x1024 的尺寸。"
             ]
         },
-        "compositingCoherenceSteps": {
-            "heading": "步数",
-            "paragraphs": [
-                "一致性层中使用的去噪步数。",
-                "与主参数中的步数相同。"
-            ]
-        },
-        "compositingBlur": {
-            "heading": "模糊",
-            "paragraphs": [
-                "遮罩模糊半径。"
-            ]
-        },
         "noiseUseCPU": {
             "heading": "使用 CPU 噪声",
             "paragraphs": [
@@ -1445,34 +1161,33 @@
         "paramVAEPrecision": {
             "heading": "VAE 精度",
             "paragraphs": [
-                "VAE 编解码过程种使用的精度。FP16/半精度以微小的图像变化为代价提高效率。"
+                "在VAE编码和解码过程中使用的精度.",
+                "Fp16/半精度更高效，但可能会造成图像的一些微小差异."
             ]
         },
         "compositingCoherenceMode": {
             "heading": "模式",
             "paragraphs": [
-                "一致性层模式。"
+                "用于将新生成的遮罩区域与原图像融合的方法."
             ]
         },
         "controlNetResizeMode": {
             "heading": "缩放模式",
             "paragraphs": [
-                "ControlNet 输入图像适应输出图像大小的方法。"
+                "调整Control Adapter输入图像大小以适应输出图像尺寸的方法."
             ]
         },
         "clipSkip": {
             "paragraphs": [
-                "选择要跳过 CLIP 模型多少层。",
-                "部分模型跳过特定数值的层时效果会更好。",
-                "较高的数值通常会导致图像细节更少。"
+                "跳过CLIP模型的层数.",
+                "某些模型更适合结合CLIP Skip功能使用."
             ],
             "heading": "CLIP 跳过层"
         },
         "paramModel": {
             "heading": "模型",
             "paragraphs": [
-                "用于去噪过程的模型。",
-                "不同的模型一般会通过接受训练来专门产生特定的美学内容和结果。"
+                "用于图像生成的模型.不同的模型经过训练,专门用于产生不同的美学效果和内容."
             ]
         },
         "paramIterations": {
@@ -1486,13 +1201,6 @@
             "heading": "一致性层",
             "paragraphs": [
                 "第二轮去噪有助于合成内补/外扩图像。"
-            ]
-        },
-        "compositingStrength": {
-            "heading": "强度",
-            "paragraphs": [
-                "一致性层使用的去噪强度。",
-                "去噪强度与图生图的参数相同。"
             ]
         },
         "paramNegativeConditioning": {
@@ -1511,19 +1219,21 @@
         "paramScheduler": {
             "heading": "调度器",
             "paragraphs": [
-                "调度器 (采样器) 定义如何在图像迭代过程中添加噪声，或者定义如何根据一个模型的输出来更新采样。"
+                "生成过程中所使用的调度器.",
+                "每个调度器决定了在生成过程中如何逐步向图像添加噪声，或者如何根据模型的输出更新样本."
             ]
         },
         "controlNetWeight": {
             "heading": "权重",
             "paragraphs": [
-                "ControlNet 对生成图像的影响强度。"
+                "Control Adapter的权重.权重越高,对最终图像的影响越大."
             ]
         },
         "paramCFGScale": {
             "heading": "CFG 等级",
             "paragraphs": [
-                "控制提示词对生成过程的影响程度。"
+                "控制提示对生成过程的影响程度.",
+                "较高的CFG比例值可能会导致生成结果过度饱和和扭曲. "
             ]
         },
         "paramSteps": {
@@ -1541,48 +1251,50 @@
             ]
         },
         "lora": {
-            "heading": "LoRA 权重",
+            "heading": "LoRA",
             "paragraphs": [
-                "更高的 LoRA 权重会对最终图像产生更大的影响。"
+                "与基础模型结合使用的轻量级模型."
             ]
         },
         "infillMethod": {
             "heading": "填充方法",
             "paragraphs": [
-                "填充选定区域的方式。"
+                "在重绘过程中使用的填充方法."
             ]
         },
         "controlNetBeginEnd": {
             "heading": "开始 / 结束步数百分比",
             "paragraphs": [
-                "去噪过程中在哪部分步数应用 ControlNet。",
-                "在组合处理开始阶段应用 ControlNet，且在引导细节生成的结束阶段应用 ControlNet。"
+                "去噪过程中将应用Control Adapter 的部分.",
+                "通常，在去噪过程初期应用的Control Adapters用于指导整体构图，而在后期应用的Control Adapters则用于调整细节。"
             ]
         },
         "scaleBeforeProcessing": {
             "heading": "处理前缩放",
             "paragraphs": [
-                "生成图像前将所选区域缩放为最适合模型的大小。"
+                "\"自动\"选项会在图像生成之前将所选区域调整到最适合模型的大小.",
+                "\"手动\"选项允许您在图像生成之前自行选择所选区域的宽度和高度."
             ]
         },
         "paramDenoisingStrength": {
             "heading": "去噪强度",
             "paragraphs": [
                 "为输入图像添加的噪声量。",
-                "输入 0 会导致结果图像和输入完全相同，输入 1 则会生成全新的图像。"
+                "输入 0 会导致结果图像和输入完全相同，输入 1 则会生成全新的图像。",
+                "当没有具有可见内容的栅格图层时，此设置将被忽略。"
             ]
         },
         "paramSeed": {
             "heading": "种子",
             "paragraphs": [
                 "控制用于生成的起始噪声。",
-                "禁用 “随机种子” 来以相同设置生成相同的结果。"
+                "禁用\"随机\"选项,以使用相同的生成设置产生一致的结果."
             ]
         },
         "controlNetControlMode": {
             "heading": "控制模式",
             "paragraphs": [
-                "给提示词或 ControlNet 增加更大的权重。"
+                "在提示词和ControlNet之间分配更多的权重."
             ]
         },
         "dynamicPrompts": {
@@ -1623,8 +1335,229 @@
         "paramCFGRescaleMultiplier": {
             "heading": "CFG 重缩放倍数",
             "paragraphs": [
-                "CFG 引导的重缩放倍率，用于通过 zero-terminal SNR (ztsnr) 训练的模型。推荐设为 0.7。"
+                "CFG指导的重缩放乘数，适用于使用零终端信噪比（ztsnr）训练的模型.",
+                "对于这些模型,建议的数值为0.7."
             ]
+        },
+        "imageFit": {
+            "paragraphs": [
+                "将初始图像调整到与输出图像相同的宽度和高度.建议启用此功能."
+            ],
+            "heading": "将初始图像适配到输出大小"
+        },
+        "paramAspect": {
+            "paragraphs": [
+                "生成图像的宽高比.调整宽高比会相应地更新图像的宽度和高度.",
+                "选择\"优化\"将把图像的宽度和高度设置为所选模型的最优尺寸."
+            ],
+            "heading": "宽高比"
+        },
+        "refinerSteps": {
+            "paragraphs": [
+                "在图像生成过程中的细化阶段将执行的步骤数.",
+                "与生成步骤相似."
+            ],
+            "heading": "步数"
+        },
+        "compositingMaskBlur": {
+            "heading": "遮罩模糊",
+            "paragraphs": [
+                "遮罩的模糊范围."
+            ]
+        },
+        "compositingCoherenceMinDenoise": {
+            "paragraphs": [
+                "连贯模式下的最小去噪力度",
+                "在图像修复或重绘过程中，连贯区域的最小去噪力度"
+            ],
+            "heading": "最小去噪"
+        },
+        "loraWeight": {
+            "paragraphs": [
+                "LoRA的权重,权重越高对最终图像的影响越大."
+            ],
+            "heading": "权重"
+        },
+        "paramHrf": {
+            "heading": "启用高分辨率修复",
+            "paragraphs": [
+                "以高于模型最优分辨率的大分辨率生成高质量图像.这通常用于防止生成图像中出现重复内容."
+            ]
+        },
+        "compositingCoherenceEdgeSize": {
+            "paragraphs": [
+                "连贯处理的边缘尺寸."
+            ],
+            "heading": "边缘尺寸"
+        },
+        "paramWidth": {
+            "paragraphs": [
+                "生成图像的宽度.必须是8的倍数."
+            ],
+            "heading": "宽度"
+        },
+        "refinerScheduler": {
+            "paragraphs": [
+                "在图像生成过程中的细化阶段所使用的调度程序.",
+                "与生成调度程序相似."
+            ],
+            "heading": "调度器"
+        },
+        "seamlessTilingXAxis": {
+            "paragraphs": [
+                "沿水平轴将图像进行无缝平铺."
+            ],
+            "heading": "无缝平铺X轴"
+        },
+        "paramUpscaleMethod": {
+            "heading": "放大方法",
+            "paragraphs": [
+                "用于高分辨率修复的图像放大方法."
+            ]
+        },
+        "refinerModel": {
+            "paragraphs": [
+                "在图像生成过程中的细化阶段所使用的模型.",
+                "与生成模型相似."
+            ],
+            "heading": "精炼模型"
+        },
+        "paramHeight": {
+            "paragraphs": [
+                "生成图像的高度.必须是8的倍数."
+            ],
+            "heading": "高"
+        },
+        "patchmatchDownScaleSize": {
+            "heading": "缩小",
+            "paragraphs": [
+                "在填充之前图像缩小的程度.",
+                "较高的缩小比例会提升处理速度，但可能会降低图像质量."
+            ]
+        },
+        "seamlessTilingYAxis": {
+            "heading": "Y轴上的无缝平铺",
+            "paragraphs": [
+                "沿垂直轴将图像进行无缝平铺."
+            ]
+        },
+        "ipAdapterMethod": {
+            "paragraphs": [
+                "当前IP Adapter的应用方法."
+            ],
+            "heading": "方法"
+        },
+        "controlNetProcessor": {
+            "paragraphs": [
+                "处理输入图像以引导生成过程的方法.不同的处理器会在生成图像中产生不同的效果或风格."
+            ],
+            "heading": "处理器"
+        },
+        "refinerPositiveAestheticScore": {
+            "paragraphs": [
+                "根据训练数据，对生成结果进行加权，使其更接近于具有高美学评分的图像."
+            ],
+            "heading": "正面美学评分"
+        },
+        "refinerStart": {
+            "paragraphs": [
+                "在图像生成过程中精炼阶段开始被使用的时刻.",
+                "0表示精炼器将全程参与图像生成,0.8表示细化器仅在生成过程的最后20%阶段被使用."
+            ],
+            "heading": "精炼开始"
+        },
+        "refinerCfgScale": {
+            "paragraphs": [
+                "控制提示对生成过程的影响程度.",
+                "与生成CFG Scale相似."
+            ],
+            "heading": "CFG比例"
+        },
+        "structure": {
+            "heading": "结构",
+            "paragraphs": [
+                "结构决定了输出图像在多大程度上保持原始图像的布局.较低的结构设置允许进行较大的变化,而较高的结构设置则会严格保持原始图像的构图和布局."
+            ]
+        },
+        "creativity": {
+            "paragraphs": [
+                "创造力决定了模型在添加细节时的自由度.较低的创造力会使生成结果更接近原始图像，而较高的创造力则允许更多的变化.在使用提示时，较高的创造力会增加提示对生成结果的影响."
+            ],
+            "heading": "创造力"
+        },
+        "refinerNegativeAestheticScore": {
+            "paragraphs": [
+                "根据训练数据，对生成结果进行加权，使其更接近于具有低美学评分的图像."
+            ],
+            "heading": "负面美学评分"
+        },
+        "upscaleModel": {
+            "heading": "放大模型",
+            "paragraphs": [
+                "上采样模型在添加细节之前将图像放大到输出尺寸.虽然可以使用任何支持的上采样模型，但有些模型更适合处理特定类型的图像，例如照片或线条画."
+            ]
+        },
+        "scale": {
+            "heading": "缩放",
+            "paragraphs": [
+                "比例控制决定了输出图像的大小,它是基于输入图像分辨率的倍数来计算的.例如对一张1024x1024的图像进行2倍上采样，将会得到一张2048x2048的输出图像."
+            ]
+        },
+        "globalReferenceImage": {
+            "heading": "全局参考图像",
+            "paragraphs": [
+                "应用参考图像以影响整个生成过程。"
+            ]
+        },
+        "rasterLayer": {
+            "paragraphs": [
+                "画布的基于像素的内容，用于图像生成过程。"
+            ],
+            "heading": "栅格图层"
+        },
+        "regionalGuidanceAndReferenceImage": {
+            "paragraphs": [
+                "对于区域引导，使用画笔引导全局提示中的元素应出现的位置。",
+                "对于区域参考图像，使用画笔将参考图像应用到特定区域。"
+            ],
+            "heading": "区域引导与区域参考图像"
+        },
+        "regionalReferenceImage": {
+            "heading": "区域参考图像",
+            "paragraphs": [
+                "使用画笔将参考图像应用到特定区域。"
+            ]
+        },
+        "optimizedDenoising": {
+            "heading": "优化的图生图",
+            "paragraphs": [
+                "启用‘优化的图生图’功能，可在使用 Flux 模型进行图生图和图像修复转换时提供更平滑的降噪强度调节。此设置可以提高对图像变化程度的控制能力，但如果您更倾向于使用标准的降噪强度调节方式，也可以关闭此功能。该设置仍在优化中，目前处于测试阶段。"
+            ]
+        },
+        "inpainting": {
+            "paragraphs": [
+                "控制由降噪强度引导的修改区域。"
+            ],
+            "heading": "图像重绘"
+        },
+        "regionalGuidance": {
+            "heading": "区域引导",
+            "paragraphs": [
+                "使用画笔引导全局提示中的元素应出现的位置。"
+            ]
+        },
+        "fluxDevLicense": {
+            "heading": "非商业许可",
+            "paragraphs": [
+                "FLUX.1 [dev] 模型受 FLUX [dev] 非商业许可协议的约束。如需在 Invoke 中将此模型类型用于商业目的，请访问我们的网站了解更多信息。"
+            ]
+        },
+        "paramGuidance": {
+            "paragraphs": [
+                "控制提示对生成过程的影响程度。",
+                "较高的引导值可能导致过度饱和，而过高或过低的引导值可能导致生成结果失真。引导仅适用于FLUX DEV模型。"
+            ],
+            "heading": "引导"
         }
     },
     "invocationCache": {
@@ -1647,31 +1580,23 @@
     "hrf": {
         "enableHrf": "启用高分辨率修复",
         "upscaleMethod": "放大方法",
-        "enableHrfTooltip": "使用较低的分辨率进行初始生成，放大到基础分辨率后进行图生图。",
         "metadata": {
             "strength": "高分辨率修复强度",
             "enabled": "高分辨率修复已启用",
             "method": "高分辨率修复方法"
         },
-        "hrf": "高分辨率修复",
-        "hrfStrength": "高分辨率修复强度",
-        "strengthTooltip": "值越低细节越少，但可以减少部分潜在的伪影。"
+        "hrf": "高分辨率修复"
     },
     "workflows": {
         "saveWorkflowAs": "保存工作流为",
         "workflowEditorMenu": "工作流编辑器菜单",
-        "noSystemWorkflows": "无系统工作流",
         "workflowName": "工作流名称",
-        "noUserWorkflows": "无用户工作流",
-        "defaultWorkflows": "默认工作流",
         "saveWorkflow": "保存工作流",
         "openWorkflow": "打开工作流",
         "clearWorkflowSearchFilter": "清除工作流检索过滤器",
         "workflowLibrary": "工作流库",
         "downloadWorkflow": "保存到文件",
-        "noRecentWorkflows": "无最近工作流",
         "workflowSaved": "已保存工作流",
-        "workflowIsOpen": "工作流已打开",
         "unnamedWorkflow": "未命名的工作流",
         "savingWorkflow": "保存工作流中...",
         "problemLoading": "加载工作流时出现问题",
@@ -1682,11 +1607,31 @@
         "workflows": "工作流",
         "noDescription": "无描述",
         "uploadWorkflow": "从文件中加载",
-        "userWorkflows": "我的工作流",
-        "newWorkflowCreated": "已创建新的工作流"
-    },
-    "app": {
-        "storeNotInitialized": "商店尚未初始化"
+        "newWorkflowCreated": "已创建新的工作流",
+        "name": "名称",
+        "created": "已创建",
+        "ascending": "升序",
+        "descending": "降序",
+        "updated": "已更新",
+        "opened": "已打开",
+        "workflowCleared": "工作流已清除",
+        "saveWorkflowToProject": "保存工作流到项目",
+        "noWorkflows": "无工作流",
+        "convertGraph": "转换图表",
+        "loadWorkflow": "$t(common.load) 工作流",
+        "loadFromGraph": "从图表加载工作流",
+        "autoLayout": "自动布局",
+        "edit": "编辑",
+        "copyShareLinkForWorkflow": "复制工作流程的分享链接",
+        "delete": "删除",
+        "download": "下载",
+        "defaultWorkflows": "默认工作流程",
+        "userWorkflows": "用户工作流程",
+        "projectWorkflows": "项目工作流程",
+        "copyShareLink": "复制分享链接",
+        "chooseWorkflowFromLibrary": "从库中选择工作流程",
+        "uploadAndSaveWorkflow": "上传到库",
+        "deleteWorkflow2": "您确定要删除此工作流程吗？此操作无法撤销。"
     },
     "accordions": {
         "compositing": {
@@ -1695,20 +1640,212 @@
             "title": "合成"
         },
         "control": {
-            "controlAdaptersTab": "Control Adapters",
-            "ipTab": "图像提示",
             "title": "Control"
         },
         "generation": {
-            "title": "生成",
-            "conceptsTab": "概念",
-            "modelTab": "模型"
+            "title": "生成"
         },
         "advanced": {
-            "title": "高级"
+            "title": "高级",
+            "options": "$t(accordions.advanced.title) 选项"
         },
         "image": {
             "title": "图像"
         }
+    },
+    "prompt": {
+        "addPromptTrigger": "添加提示词触发器",
+        "noMatchingTriggers": "没有匹配的触发器",
+        "compatibleEmbeddings": "兼容的嵌入"
+    },
+    "controlLayers": {
+        "autoNegative": "自动反向",
+        "moveForward": "向前移动",
+        "moveBackward": "向后移动",
+        "regionalGuidance": "区域导向",
+        "moveToBack": "移动到后面",
+        "moveToFront": "移动到前面",
+        "addLayer": "添加层",
+        "deletePrompt": "删除提示词",
+        "addPositivePrompt": "添加 $t(controlLayers.prompt)",
+        "addNegativePrompt": "添加 $t(controlLayers.negativePrompt)",
+        "rectangle": "矩形",
+        "opacity": "透明度",
+        "canvas": "画布",
+        "fitBboxToLayers": "将边界框适配到图层",
+        "cropLayerToBbox": "将图层裁剪到边界框",
+        "saveBboxToGallery": "将边界框保存到图库",
+        "savedToGalleryOk": "已保存到图库",
+        "saveLayerToAssets": "将图层保存到资产",
+        "removeBookmark": "移除书签",
+        "regional": "区域",
+        "saveCanvasToGallery": "将画布保存到图库",
+        "global": "全局",
+        "bookmark": "添加书签以快速切换",
+        "regionalReferenceImage": "局部参考图像",
+        "mergingLayers": "正在合并图层",
+        "newControlLayerError": "创建控制层时出现问题",
+        "pullBboxIntoReferenceImageError": "将边界框导入参考图像时出现问题",
+        "mergeVisibleOk": "已合并图层",
+        "maskFill": "遮罩填充",
+        "newCanvasFromImage": "从图像创建新画布",
+        "pullBboxIntoReferenceImageOk": "边界框已导入到参考图像",
+        "globalReferenceImage_withCount_other": "全局参考图像",
+        "addInpaintMask": "添加 $t(controlLayers.inpaintMask)",
+        "referenceImage": "参考图像",
+        "globalReferenceImage": "全局参考图像",
+        "newRegionalGuidance": "新建 $t(controlLayers.regionalGuidance)",
+        "savedToGalleryError": "保存到图库时出错",
+        "copyRasterLayerTo": "复制 $t(controlLayers.rasterLayer) 到",
+        "clearHistory": "清除历史记录",
+        "inpaintMask": "修复遮罩",
+        "regionalGuidance_withCount_visible": "区域引导（{{count}} 个）",
+        "inpaintMasks_withCount_hidden": "修复遮罩（{{count}} 个已隐藏）",
+        "enableAutoNegative": "启用自动负面提示",
+        "disableAutoNegative": "禁用自动负面提示",
+        "deleteReferenceImage": "删除参考图像",
+        "sendToCanvas": "发送到画布",
+        "controlLayers_withCount_visible": "控制图层（{{count}} 个）",
+        "rasterLayers_withCount_visible": "栅格图层（{{count}} 个）",
+        "convertRegionalGuidanceTo": "将 $t(controlLayers.regionalGuidance) 转换为",
+        "newInpaintMask": "新建 $t(controlLayers.inpaintMask)",
+        "regionIsEmpty": "选定区域为空",
+        "mergeVisible": "合并可见图层",
+        "showHUD": "显示 HUD（抬头显示）",
+        "newLayerFromImage": "从图像创建新图层",
+        "layer_other": "图层",
+        "transparency": "透明度",
+        "addRasterLayer": "添加 $t(controlLayers.rasterLayer)",
+        "newRasterLayerOk": "已创建栅格层",
+        "newRasterLayerError": "创建栅格层时出现问题",
+        "inpaintMasks_withCount_visible": "修复遮罩（{{count}} 个）",
+        "convertRasterLayerTo": "将 $t(controlLayers.rasterLayer) 转换为",
+        "copyControlLayerTo": "复制 $t(controlLayers.controlLayer) 到",
+        "copyInpaintMaskTo": "复制 $t(controlLayers.inpaintMask) 到",
+        "copyRegionalGuidanceTo": "复制 $t(controlLayers.regionalGuidance) 到",
+        "newRasterLayer": "新建 $t(controlLayers.rasterLayer)",
+        "newControlLayer": "新建 $t(controlLayers.controlLayer)",
+        "newImg2ImgCanvasFromImage": "从图像创建新的图生图",
+        "rasterLayer": "栅格层",
+        "controlLayer": "控制层",
+        "outputOnlyMaskedRegions": "仅输出生成的区域",
+        "addControlLayer": "添加 $t(controlLayers.controlLayer)",
+        "newGlobalReferenceImageOk": "已创建全局参考图像",
+        "newGlobalReferenceImageError": "创建全局参考图像时出现问题",
+        "newRegionalReferenceImageOk": "已创建局部参考图像",
+        "newControlLayerOk": "已创建控制层",
+        "mergeVisibleError": "合并图层时出错",
+        "bboxOverlay": "显示边界框覆盖层",
+        "clipToBbox": "将Clip限制到边界框",
+        "width": "宽度",
+        "addGlobalReferenceImage": "添加 $t(controlLayers.globalReferenceImage)",
+        "inpaintMask_withCount_other": "修复遮罩",
+        "regionalGuidance_withCount_other": "区域引导",
+        "newRegionalReferenceImageError": "创建局部参考图像时出现问题",
+        "pullBboxIntoLayerError": "将边界框导入图层时出现问题",
+        "pullBboxIntoLayerOk": "边界框已导入到图层",
+        "sendToCanvasDesc": "按下“Invoke”按钮会将您的工作进度暂存到画布上。",
+        "sendToGallery": "发送到图库",
+        "sendToGalleryDesc": "按下“Invoke”键会生成并保存一张唯一的图像到您的图库中。",
+        "rasterLayer_withCount_other": "栅格图层",
+        "mergeDown": "向下合并",
+        "clearCaches": "清除缓存",
+        "recalculateRects": "重新计算矩形",
+        "duplicate": "复制",
+        "regionalGuidance_withCount_hidden": "区域引导（{{count}} 个已隐藏）",
+        "convertControlLayerTo": "将 $t(controlLayers.controlLayer) 转换为",
+        "convertInpaintMaskTo": "将 $t(controlLayers.inpaintMask) 转换为",
+        "viewProgressInViewer": "在 <Btn>图像查看器</Btn> 中查看进度和输出结果。",
+        "viewProgressOnCanvas": "在 <Btn>画布</Btn> 上查看进度和暂存的输出内容。",
+        "sendingToGallery": "将生成内容发送到图库",
+        "copyToClipboard": "复制到剪贴板",
+        "controlLayer_withCount_other": "控制图层",
+        "sendingToCanvas": "在画布上准备生成",
+        "addReferenceImage": "添加 $t(controlLayers.referenceImage)",
+        "addRegionalGuidance": "添加 $t(controlLayers.regionalGuidance)",
+        "controlLayers_withCount_hidden": "控制图层（{{count}} 个已隐藏）",
+        "rasterLayers_withCount_hidden": "栅格图层（{{count}} 个已隐藏）",
+        "globalReferenceImages_withCount_hidden": "全局参考图像（{{count}} 个已隐藏）",
+        "globalReferenceImages_withCount_visible": "全局参考图像（{{count}} 个）",
+        "layer_withCount_other": "图层（{{count}} 个）",
+        "enableTransparencyEffect": "启用透明效果",
+        "disableTransparencyEffect": "禁用透明效果",
+        "hidingType": "隐藏 {{type}}",
+        "showingType": "显示 {{type}}"
+    },
+    "ui": {
+        "tabs": {
+            "generation": "生成",
+            "queue": "队列",
+            "canvas": "画布",
+            "upscaling": "放大中",
+            "workflows": "工作流",
+            "models": "模型"
+        }
+    },
+    "upscaling": {
+        "structure": "结构",
+        "upscaleModel": "放大模型",
+        "missingUpscaleModel": "缺少放大模型",
+        "missingTileControlNetModel": "没有安装有效的tile ControlNet 模型",
+        "missingUpscaleInitialImage": "缺少用于放大的原始图像",
+        "creativity": "创造力",
+        "postProcessingModel": "后处理模型",
+        "scale": "缩放",
+        "tileControlNetModelDesc": "根据所选的主模型架构，选择相应的Tile ControlNet模型",
+        "upscaleModelDesc": "图像放大（图像到图像转换）模型",
+        "postProcessingMissingModelWarning": "请访问 <LinkComponent>模型管理器</LinkComponent>来安装一个后处理(图像到图像转换)模型.",
+        "missingModelsWarning": "请访问<LinkComponent>模型管理器</LinkComponent> 安装所需的模型：",
+        "mainModelDesc": "主模型（SD1.5或SDXL架构）",
+        "exceedsMaxSize": "放大设置超出了最大尺寸限制",
+        "exceedsMaxSizeDetails": "最大放大限制是 {{maxUpscaleDimension}}x{{maxUpscaleDimension}} 像素.请尝试一个较小的图像或减少您的缩放选择.",
+        "upscale": "放大"
+    },
+    "upsell": {
+        "inviteTeammates": "邀请团队成员",
+        "professional": "专业",
+        "professionalUpsell": "可在 Invoke 的专业版中使用.点击此处或访问 invoke.com/pricing 了解更多详情.",
+        "shareAccess": "共享访问权限"
+    },
+    "stylePresets": {
+        "positivePrompt": "正向提示词",
+        "preview": "预览",
+        "deleteImage": "删除图像",
+        "deleteTemplate": "删除模版",
+        "deleteTemplate2": "您确定要删除这个模板吗？请注意，删除后无法恢复.",
+        "importTemplates": "导入提示模板，支持CSV或JSON格式",
+        "insertPlaceholder": "插入一个占位符",
+        "myTemplates": "我的模版",
+        "name": "名称",
+        "type": "类型",
+        "unableToDeleteTemplate": "无法删除提示模板",
+        "updatePromptTemplate": "更新提示词模版",
+        "exportPromptTemplates": "导出我的提示模板为CSV格式",
+        "exportDownloaded": "导出已下载",
+        "noMatchingTemplates": "无匹配的模版",
+        "promptTemplatesDesc1": "提示模板可以帮助您在编写提示时添加预设的文本内容.",
+        "promptTemplatesDesc3": "如果您没有使用占位符，那么模板的内容将会被添加到您提示的末尾.",
+        "searchByName": "按名称搜索",
+        "shared": "已分享",
+        "sharedTemplates": "已分享的模版",
+        "templateDeleted": "提示模版已删除",
+        "toggleViewMode": "切换显示模式",
+        "uploadImage": "上传图像",
+        "active": "激活",
+        "choosePromptTemplate": "选择提示词模板",
+        "clearTemplateSelection": "清除模版选择",
+        "copyTemplate": "拷贝模版",
+        "createPromptTemplate": "创建提示词模版",
+        "defaultTemplates": "默认模版",
+        "editTemplate": "编辑模版",
+        "exportFailed": "无法生成并下载CSV文件",
+        "flatten": "将选定的模板内容合并到当前提示中",
+        "negativePrompt": "反向提示词",
+        "promptTemplateCleared": "提示模板已清除",
+        "useForTemplate": "用于提示词模版",
+        "viewList": "预览模版列表",
+        "viewModeTooltip": "这是您的提示在当前选定的模板下的预览效果。如需编辑提示，请直接在文本框中点击进行修改.",
+        "noTemplates": "无模版",
+        "private": "私密"
     }
 }

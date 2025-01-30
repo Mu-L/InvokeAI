@@ -1,41 +1,56 @@
-import { Box, useGlobalModifiersInit } from '@invoke-ai/ui';
-import { useSocketIO } from 'app/hooks/useSocketIO';
+import { Box, useGlobalModifiersInit } from '@invoke-ai/ui-library';
+import { GlobalImageHotkeys } from 'app/components/GlobalImageHotkeys';
+import type { StudioInitAction } from 'app/hooks/useStudioInitAction';
+import { useStudioInitAction } from 'app/hooks/useStudioInitAction';
+import { useSyncQueueStatus } from 'app/hooks/useSyncQueueStatus';
 import { useLogger } from 'app/logging/useLogger';
+import { useSyncLoggingConfig } from 'app/logging/useSyncLoggingConfig';
 import { appStarted } from 'app/store/middleware/listenerMiddleware/listeners/appStarted';
 import { useAppDispatch, useAppSelector } from 'app/store/storeHooks';
 import type { PartialAppConfig } from 'app/types/invokeai';
-import ImageUploadOverlay from 'common/components/ImageUploadOverlay';
+import { useFocusRegionWatcher } from 'common/hooks/focus';
 import { useClearStorage } from 'common/hooks/useClearStorage';
-import { useFullscreenDropzone } from 'common/hooks/useFullscreenDropzone';
 import { useGlobalHotkeys } from 'common/hooks/useGlobalHotkeys';
 import ChangeBoardModal from 'features/changeBoardModal/components/ChangeBoardModal';
+import {
+  NewCanvasSessionDialog,
+  NewGallerySessionDialog,
+} from 'features/controlLayers/components/NewSessionConfirmationAlertDialog';
 import DeleteImageModal from 'features/deleteImageModal/components/DeleteImageModal';
+import { FullscreenDropzone } from 'features/dnd/FullscreenDropzone';
 import { DynamicPromptsModal } from 'features/dynamicPrompts/components/DynamicPromptsPreviewModal';
+import DeleteBoardModal from 'features/gallery/components/Boards/DeleteBoardModal';
+import { ImageContextMenu } from 'features/gallery/components/ImageContextMenu/ImageContextMenu';
+import { useStarterModelsToast } from 'features/modelManagerV2/hooks/useStarterModelsToast';
+import { ShareWorkflowModal } from 'features/nodes/components/sidePanel/WorkflowListMenu/ShareWorkflowModal';
+import { ClearQueueConfirmationsAlertDialog } from 'features/queue/components/ClearQueueConfirmationAlertDialog';
+import { DeleteStylePresetDialog } from 'features/stylePresets/components/DeleteStylePresetDialog';
+import { StylePresetModal } from 'features/stylePresets/components/StylePresetForm/StylePresetModal';
+import RefreshAfterResetModal from 'features/system/components/SettingsModal/RefreshAfterResetModal';
+import { VideosModal } from 'features/system/components/VideosModal/VideosModal';
 import { configChanged } from 'features/system/store/configSlice';
-import { languageSelector } from 'features/system/store/systemSelectors';
-import InvokeTabs from 'features/ui/components/InvokeTabs';
-import { AnimatePresence } from 'framer-motion';
+import { selectLanguage } from 'features/system/store/systemSelectors';
+import { AppContent } from 'features/ui/components/AppContent';
+import { DeleteWorkflowDialog } from 'features/workflowLibrary/components/DeleteLibraryWorkflowConfirmationAlertDialog';
+import { NewWorkflowConfirmationAlertDialog } from 'features/workflowLibrary/components/NewWorkflowConfirmationAlertDialog';
 import i18n from 'i18n';
 import { size } from 'lodash-es';
 import { memo, useCallback, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { useGetOpenAPISchemaQuery } from 'services/api/endpoints/appInfo';
+import { useSocketIO } from 'services/events/useSocketIO';
 
 import AppErrorBoundaryFallback from './AppErrorBoundaryFallback';
-import PreselectedImage from './PreselectedImage';
-import Toaster from './Toaster';
 
 const DEFAULT_CONFIG = {};
 
 interface Props {
   config?: PartialAppConfig;
-  selectedImage?: {
-    imageName: string;
-    action: 'sendToImg2Img' | 'sendToCanvas' | 'useAllParameters';
-  };
+  studioInitAction?: StudioInitAction;
 }
 
-const App = ({ config = DEFAULT_CONFIG, selectedImage }: Props) => {
-  const language = useAppSelector(languageSelector);
+const App = ({ config = DEFAULT_CONFIG, studioInitAction }: Props) => {
+  const language = useAppSelector(selectLanguage);
   const logger = useLogger('system');
   const dispatch = useAppDispatch();
   const clearStorage = useClearStorage();
@@ -44,9 +59,8 @@ const App = ({ config = DEFAULT_CONFIG, selectedImage }: Props) => {
   useSocketIO();
   useGlobalModifiersInit();
   useGlobalHotkeys();
-
-  const { dropzone, isHandlingUpload, setIsHandlingUpload } =
-    useFullscreenDropzone();
+  useGetOpenAPISchemaQuery();
+  useSyncLoggingConfig();
 
   const handleReset = useCallback(() => {
     clearStorage();
@@ -69,35 +83,33 @@ const App = ({ config = DEFAULT_CONFIG, selectedImage }: Props) => {
     dispatch(appStarted());
   }, [dispatch]);
 
+  useStudioInitAction(studioInitAction);
+  useStarterModelsToast();
+  useSyncQueueStatus();
+  useFocusRegionWatcher();
+
   return (
-    <ErrorBoundary
-      onReset={handleReset}
-      FallbackComponent={AppErrorBoundaryFallback}
-    >
-      <Box
-        id="invoke-app-wrapper"
-        w="100vw"
-        h="100vh"
-        position="relative"
-        overflow="hidden"
-        {...dropzone.getRootProps()}
-      >
-        <input {...dropzone.getInputProps()} />
-        <InvokeTabs />
-        <AnimatePresence>
-          {dropzone.isDragActive && isHandlingUpload && (
-            <ImageUploadOverlay
-              dropzone={dropzone}
-              setIsHandlingUpload={setIsHandlingUpload}
-            />
-          )}
-        </AnimatePresence>
+    <ErrorBoundary onReset={handleReset} FallbackComponent={AppErrorBoundaryFallback}>
+      <Box id="invoke-app-wrapper" w="100dvw" h="100dvh" position="relative" overflow="hidden">
+        <AppContent />
       </Box>
       <DeleteImageModal />
       <ChangeBoardModal />
       <DynamicPromptsModal />
-      <Toaster />
-      <PreselectedImage selectedImage={selectedImage} />
+      <StylePresetModal />
+      <ClearQueueConfirmationsAlertDialog />
+      <NewWorkflowConfirmationAlertDialog />
+      <DeleteStylePresetDialog />
+      <DeleteWorkflowDialog />
+      <ShareWorkflowModal />
+      <RefreshAfterResetModal />
+      <DeleteBoardModal />
+      <GlobalImageHotkeys />
+      <NewGallerySessionDialog />
+      <NewCanvasSessionDialog />
+      <ImageContextMenu />
+      <FullscreenDropzone />
+      <VideosModal />
     </ErrorBoundary>
   );
 };

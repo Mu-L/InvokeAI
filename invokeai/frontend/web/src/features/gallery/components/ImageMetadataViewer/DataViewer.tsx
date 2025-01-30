@@ -1,5 +1,6 @@
-import { Box, Flex, IconButton, Tooltip } from '@invoke-ai/ui';
+import { Box, Flex, IconButton, Tooltip, useShiftModifier } from '@invoke-ai/ui-library';
 import { getOverlayScrollbarsParams } from 'common/components/OverlayScrollbars/constants';
+import { Formatter } from 'fracturedjsonjs';
 import { isString } from 'lodash-es';
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import type { CSSProperties } from 'react';
@@ -7,26 +8,23 @@ import { memo, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PiCopyBold, PiDownloadSimpleBold } from 'react-icons/pi';
 
+const formatter = new Formatter();
+
 type Props = {
   label: string;
-  data: object | string;
+  data: unknown;
   fileName?: string;
   withDownload?: boolean;
   withCopy?: boolean;
+  extraCopyActions?: { label: string; getData: (data: unknown) => unknown }[];
 };
 
-const overlayscrollbarsOptions = getOverlayScrollbarsParams(
-  'scroll',
-  'scroll'
-).options;
+const overlayscrollbarsOptions = getOverlayScrollbarsParams('scroll', 'scroll').options;
 
 const DataViewer = (props: Props) => {
-  const { label, data, fileName, withDownload = true, withCopy = true } = props;
-  const dataString = useMemo(
-    () => (isString(data) ? data : JSON.stringify(data, null, 2)),
-    [data]
-  );
-
+  const { label, data, fileName, withDownload = true, withCopy = true, extraCopyActions } = props;
+  const dataString = useMemo(() => (isString(data) ? data : formatter.Serialize(data)) ?? '', [data]);
+  const shift = useShiftModifier();
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(dataString);
   }, [dataString]);
@@ -44,29 +42,9 @@ const DataViewer = (props: Props) => {
   const { t } = useTranslation();
 
   return (
-    <Flex
-      layerStyle="second"
-      borderRadius="base"
-      flexGrow={1}
-      w="full"
-      h="full"
-      position="relative"
-    >
-      <Box
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        overflow="auto"
-        p={4}
-        fontSize="sm"
-      >
-        <OverlayScrollbarsComponent
-          defer
-          style={overlayScrollbarsStyles}
-          options={overlayscrollbarsOptions}
-        >
+    <Flex layerStyle="second" borderRadius="base" flexGrow={1} w="full" h="full" position="relative">
+      <Box position="absolute" top={0} left={0} right={0} bottom={0} overflow="auto" p={4} fontSize="sm">
+        <OverlayScrollbarsComponent defer style={overlayScrollbarsStyles} options={overlayscrollbarsOptions}>
           <pre>{dataString}</pre>
         </OverlayScrollbarsComponent>
       </Box>
@@ -93,6 +71,10 @@ const DataViewer = (props: Props) => {
             />
           </Tooltip>
         )}
+        {shift &&
+          extraCopyActions?.map(({ label, getData }) => (
+            <ExtraCopyAction label={label} getData={getData} data={data} key={label} />
+          ))}
       </Flex>
     </Flex>
   );
@@ -103,4 +85,28 @@ export default memo(DataViewer);
 const overlayScrollbarsStyles: CSSProperties = {
   height: '100%',
   width: '100%',
+};
+
+type ExtraCopyActionProps = {
+  label: string;
+  data: unknown;
+  getData: (data: unknown) => unknown;
+};
+const ExtraCopyAction = ({ label, data, getData }: ExtraCopyActionProps) => {
+  const { t } = useTranslation();
+  const handleCopy = useCallback(() => {
+    navigator.clipboard.writeText(JSON.stringify(getData(data), null, 2));
+  }, [data, getData]);
+
+  return (
+    <Tooltip label={`${t('gallery.copy')} ${label} JSON`}>
+      <IconButton
+        aria-label={`${t('gallery.copy')} ${label} JSON`}
+        icon={<PiCopyBold size={16} />}
+        variant="ghost"
+        opacity={0.7}
+        onClick={handleCopy}
+      />
+    </Tooltip>
+  );
 };

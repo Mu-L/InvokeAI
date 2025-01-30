@@ -1,16 +1,15 @@
-import { Flex, FormControl, FormLabel } from '@invoke-ai/ui';
+import { Flex, FormControl } from '@invoke-ai/ui-library';
+import FieldResetToDefaultValueButton from 'features/nodes/components/flow/nodes/Invocation/fields/FieldResetToDefaultValueButton';
 import { useConnectionState } from 'features/nodes/hooks/useConnectionState';
-import { useDoesInputHaveValue } from 'features/nodes/hooks/useDoesInputHaveValue';
-import { useFieldInputInstance } from 'features/nodes/hooks/useFieldInputInstance';
 import { useFieldInputTemplate } from 'features/nodes/hooks/useFieldInputTemplate';
-import type { PropsWithChildren } from 'react';
-import { memo, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useFieldIsInvalid } from 'features/nodes/hooks/useFieldIsInvalid';
+import { memo, useCallback, useState } from 'react';
 
 import EditableFieldTitle from './EditableFieldTitle';
-import FieldContextMenu from './FieldContextMenu';
 import FieldHandle from './FieldHandle';
+import FieldLinearViewToggle from './FieldLinearViewToggle';
 import InputFieldRenderer from './InputFieldRenderer';
+import { InputFieldWrapper } from './InputFieldWrapper';
 
 interface Props {
   nodeId: string;
@@ -18,81 +17,32 @@ interface Props {
 }
 
 const InputField = ({ nodeId, fieldName }: Props) => {
-  const { t } = useTranslation();
   const fieldTemplate = useFieldInputTemplate(nodeId, fieldName);
-  const fieldInstance = useFieldInputInstance(nodeId, fieldName);
-  const doesFieldHaveValue = useDoesInputHaveValue(nodeId, fieldName);
+  const [isHovered, setIsHovered] = useState(false);
+  const isInvalid = useFieldIsInvalid(nodeId, fieldName);
 
-  const {
-    isConnected,
-    isConnectionInProgress,
-    isConnectionStartField,
-    connectionError,
-    shouldDim,
-  } = useConnectionState({ nodeId, fieldName, kind: 'input' });
+  const { isConnected, isConnectionInProgress, isConnectionStartField, validationResult, shouldDim } =
+    useConnectionState({ nodeId, fieldName, kind: 'inputs' });
 
-  const isMissingInput = useMemo(() => {
-    if (!fieldTemplate) {
-      return false;
-    }
+  const onMouseEnter = useCallback(() => {
+    setIsHovered(true);
+  }, []);
 
-    if (!fieldTemplate.required) {
-      return false;
-    }
+  const onMouseLeave = useCallback(() => {
+    setIsHovered(false);
+  }, []);
 
-    if (!isConnected && fieldTemplate.input === 'connection') {
-      return true;
-    }
-
-    if (
-      !doesFieldHaveValue &&
-      !isConnected &&
-      fieldTemplate.input !== 'connection'
-    ) {
-      return true;
-    }
-
-    return false;
-  }, [fieldTemplate, isConnected, doesFieldHaveValue]);
-
-  if (!fieldTemplate || !fieldInstance) {
+  if (fieldTemplate.input === 'connection' || isConnected) {
     return (
       <InputFieldWrapper shouldDim={shouldDim}>
-        <FormControl
-          alignItems="stretch"
-          justifyContent="space-between"
-          flexDir="column"
-          gap={2}
-          h="full"
-          w="full"
-        >
-          <FormLabel
-            display="flex"
-            alignItems="center"
-            mb={0}
-            px={1}
-            gap={2}
-            h="full"
-          >
-            {t('nodes.unknownInput', {
-              name: fieldInstance?.label ?? fieldTemplate?.title ?? fieldName,
-            })}
-          </FormLabel>
-        </FormControl>
-      </InputFieldWrapper>
-    );
-  }
-
-  if (fieldTemplate.input === 'connection') {
-    return (
-      <InputFieldWrapper shouldDim={shouldDim}>
-        <FormControl isInvalid={isMissingInput} isDisabled={isConnected} px={2}>
+        <FormControl isInvalid={isInvalid} isDisabled={isConnected} px={2}>
           <EditableFieldTitle
             nodeId={nodeId}
             fieldName={fieldName}
-            kind="input"
-            isMissingInput={isMissingInput}
+            kind="inputs"
+            isInvalid={isInvalid}
             withTooltip
+            shouldDim
           />
         </FormControl>
 
@@ -101,7 +51,7 @@ const InputField = ({ nodeId, fieldName }: Props) => {
           handleType="target"
           isConnectionInProgress={isConnectionInProgress}
           isConnectionStartField={isConnectionStartField}
-          connectionError={connectionError}
+          validationResult={validationResult}
         />
       </InputFieldWrapper>
     );
@@ -110,24 +60,20 @@ const InputField = ({ nodeId, fieldName }: Props) => {
   return (
     <InputFieldWrapper shouldDim={shouldDim}>
       <FormControl
-        isInvalid={isMissingInput}
+        isInvalid={isInvalid}
         isDisabled={isConnected}
+        // Without pointerEvents prop, disabled inputs don't trigger reactflow events. For example, when making a
+        // connection, the mouse up to end the connection won't fire, leaving the connection in-progress.
+        pointerEvents={isConnected ? 'none' : 'auto'}
         orientation="vertical"
         px={2}
       >
-        <Flex flexDir="column" w="full" gap={1}>
-          <FieldContextMenu nodeId={nodeId} fieldName={fieldName} kind="input">
-            {(ref) => (
-              <EditableFieldTitle
-                ref={ref}
-                nodeId={nodeId}
-                fieldName={fieldName}
-                kind="input"
-                isMissingInput={isMissingInput}
-                withTooltip
-              />
-            )}
-          </FieldContextMenu>
+        <Flex flexDir="column" w="full" gap={1} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+          <Flex gap={1}>
+            <EditableFieldTitle nodeId={nodeId} fieldName={fieldName} kind="inputs" isInvalid={isInvalid} withTooltip />
+            {isHovered && <FieldResetToDefaultValueButton nodeId={nodeId} fieldName={fieldName} />}
+            {isHovered && <FieldLinearViewToggle nodeId={nodeId} fieldName={fieldName} />}
+          </Flex>
           <InputFieldRenderer nodeId={nodeId} fieldName={fieldName} />
         </Flex>
       </FormControl>
@@ -138,7 +84,7 @@ const InputField = ({ nodeId, fieldName }: Props) => {
           handleType="target"
           isConnectionInProgress={isConnectionInProgress}
           isConnectionStartField={isConnectionStartField}
-          connectionError={connectionError}
+          validationResult={validationResult}
         />
       )}
     </InputFieldWrapper>
@@ -146,29 +92,3 @@ const InputField = ({ nodeId, fieldName }: Props) => {
 };
 
 export default memo(InputField);
-
-type InputFieldWrapperProps = PropsWithChildren<{
-  shouldDim: boolean;
-}>;
-
-const InputFieldWrapper = memo(
-  ({ shouldDim, children }: InputFieldWrapperProps) => {
-    return (
-      <Flex
-        position="relative"
-        minH={8}
-        py={0.5}
-        alignItems="center"
-        opacity={shouldDim ? 0.5 : 1}
-        transitionProperty="opacity"
-        transitionDuration="0.1s"
-        w="full"
-        h="full"
-      >
-        {children}
-      </Flex>
-    );
-  }
-);
-
-InputFieldWrapper.displayName = 'InputFieldWrapper';

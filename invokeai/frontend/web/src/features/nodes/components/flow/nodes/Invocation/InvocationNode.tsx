@@ -1,7 +1,7 @@
-import { Flex, Grid, GridItem } from '@invoke-ai/ui';
+import { Flex, Grid, GridItem } from '@invoke-ai/ui-library';
 import NodeWrapper from 'features/nodes/components/flow/nodes/common/NodeWrapper';
-import { useAnyOrDirectInputFieldNames } from 'features/nodes/hooks/useAnyOrDirectInputFieldNames';
-import { useConnectionInputFieldNames } from 'features/nodes/hooks/useConnectionInputFieldNames';
+import { InvocationInputFieldCheck } from 'features/nodes/components/flow/nodes/Invocation/fields/InvocationFieldCheck';
+import { useFieldNames } from 'features/nodes/hooks/useFieldNames';
 import { useOutputFieldNames } from 'features/nodes/hooks/useOutputFieldNames';
 import { useWithFooter } from 'features/nodes/hooks/useWithFooter';
 import { memo } from 'react';
@@ -20,20 +20,13 @@ type Props = {
 };
 
 const InvocationNode = ({ nodeId, isOpen, label, type, selected }: Props) => {
-  const inputConnectionFieldNames = useConnectionInputFieldNames(nodeId);
-  const inputAnyOrDirectFieldNames = useAnyOrDirectInputFieldNames(nodeId);
+  const fieldNames = useFieldNames(nodeId);
   const withFooter = useWithFooter(nodeId);
   const outputFieldNames = useOutputFieldNames(nodeId);
 
   return (
     <NodeWrapper nodeId={nodeId} selected={selected}>
-      <InvocationNodeHeader
-        nodeId={nodeId}
-        isOpen={isOpen}
-        label={label}
-        selected={selected}
-        type={type}
-      />
+      <InvocationNodeHeader nodeId={nodeId} isOpen={isOpen} label={label} selected={selected} type={type} />
       {isOpen && (
         <>
           <Flex
@@ -47,31 +40,36 @@ const InvocationNode = ({ nodeId, isOpen, label, type, selected }: Props) => {
           >
             <Flex flexDir="column" px={2} w="full" h="full">
               <Grid gridTemplateColumns="1fr auto" gridAutoRows="1fr">
-                {inputConnectionFieldNames.map((fieldName, i) => (
-                  <GridItem
-                    gridColumnStart={1}
-                    gridRowStart={i + 1}
-                    key={`${nodeId}.${fieldName}.input-field`}
-                  >
-                    <InputField nodeId={nodeId} fieldName={fieldName} />
+                {fieldNames.connectionFields.map((fieldName, i) => (
+                  <GridItem gridColumnStart={1} gridRowStart={i + 1} key={`${nodeId}.${fieldName}.input-field`}>
+                    <InvocationInputFieldCheck nodeId={nodeId} fieldName={fieldName}>
+                      <InputField nodeId={nodeId} fieldName={fieldName} />
+                    </InvocationInputFieldCheck>
                   </GridItem>
                 ))}
                 {outputFieldNames.map((fieldName, i) => (
-                  <GridItem
-                    gridColumnStart={2}
-                    gridRowStart={i + 1}
-                    key={`${nodeId}.${fieldName}.output-field`}
-                  >
+                  <GridItem gridColumnStart={2} gridRowStart={i + 1} key={`${nodeId}.${fieldName}.output-field`}>
                     <OutputField nodeId={nodeId} fieldName={fieldName} />
                   </GridItem>
                 ))}
               </Grid>
-              {inputAnyOrDirectFieldNames.map((fieldName) => (
-                <InputField
+              {fieldNames.anyOrDirectFields.map((fieldName) => (
+                <InvocationInputFieldCheck
                   key={`${nodeId}.${fieldName}.input-field`}
                   nodeId={nodeId}
                   fieldName={fieldName}
-                />
+                >
+                  <InputField nodeId={nodeId} fieldName={fieldName} />
+                </InvocationInputFieldCheck>
+              ))}
+              {fieldNames.missingFields.map((fieldName) => (
+                <InvocationInputFieldCheck
+                  key={`${nodeId}.${fieldName}.input-field`}
+                  nodeId={nodeId}
+                  fieldName={fieldName}
+                >
+                  <InputField nodeId={nodeId} fieldName={fieldName} />
+                </InvocationInputFieldCheck>
               ))}
             </Flex>
           </Flex>

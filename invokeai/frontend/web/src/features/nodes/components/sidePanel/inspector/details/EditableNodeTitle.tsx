@@ -1,4 +1,4 @@
-import { Editable, EditableInput, EditablePreview, Flex } from '@invoke-ai/ui';
+import { Editable, EditableInput, EditablePreview, Flex } from '@invoke-ai/ui-library';
 import { useAppDispatch } from 'app/store/storeHooks';
 import { useNodeLabel } from 'features/nodes/hooks/useNodeLabel';
 import { useNodeTemplateTitle } from 'features/nodes/hooks/useNodeTemplateTitle';
@@ -19,11 +19,9 @@ const EditableNodeTitle = ({ nodeId, title }: Props) => {
 
   const [localTitle, setLocalTitle] = useState('');
   const handleSubmit = useCallback(
-    async (newTitle: string) => {
+    (newTitle: string) => {
       dispatch(nodeLabelChanged({ nodeId, label: newTitle }));
-      setLocalTitle(
-        label || title || templateTitle || t('nodes.problemSettingTitle')
-      );
+      setLocalTitle(label || title || templateTitle || t('nodes.problemSettingTitle'));
     },
     [dispatch, nodeId, title, templateTitle, label, t]
   );
@@ -34,9 +32,7 @@ const EditableNodeTitle = ({ nodeId, title }: Props) => {
 
   useEffect(() => {
     // Another component may change the title; sync local title with global state
-    setLocalTitle(
-      label || title || templateTitle || t('nodes.problemSettingTitle')
-    );
+    setLocalTitle(label || title || templateTitle || t('nodes.problemSettingTitle'));
   }, [label, templateTitle, title, t]);
 
   return (

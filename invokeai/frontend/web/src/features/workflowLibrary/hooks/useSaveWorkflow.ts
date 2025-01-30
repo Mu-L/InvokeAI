@@ -1,20 +1,14 @@
-import type { ToastId } from '@invoke-ai/ui';
-import { useToast } from '@invoke-ai/ui';
+import type { ToastId } from '@invoke-ai/ui-library';
+import { useToast } from '@invoke-ai/ui-library';
 import { useAppDispatch } from 'app/store/storeHooks';
 import { $builtWorkflow } from 'features/nodes/hooks/useWorkflowWatcher';
-import {
-  workflowIDChanged,
-  workflowSaved,
-} from 'features/nodes/store/workflowSlice';
-import type { WorkflowV2 } from 'features/nodes/types/workflow';
+import { workflowIDChanged, workflowSaved } from 'features/nodes/store/workflowSlice';
+import type { WorkflowV3 } from 'features/nodes/types/workflow';
+import { workflowUpdated } from 'features/workflowLibrary/store/actions';
 import { useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  useCreateWorkflowMutation,
-  useUpdateWorkflowMutation,
-  workflowsApi,
-} from 'services/api/endpoints/workflows';
-import type { O } from 'ts-toolbelt';
+import { useCreateWorkflowMutation, useUpdateWorkflowMutation, workflowsApi } from 'services/api/endpoints/workflows';
+import type { SetRequired } from 'type-fest';
 
 type UseSaveLibraryWorkflowReturn = {
   saveWorkflow: () => Promise<void>;
@@ -24,9 +18,8 @@ type UseSaveLibraryWorkflowReturn = {
 
 type UseSaveLibraryWorkflow = () => UseSaveLibraryWorkflowReturn;
 
-const isWorkflowWithID = (
-  workflow: WorkflowV2
-): workflow is O.Required<WorkflowV2, 'id'> => Boolean(workflow.id);
+export const isWorkflowWithID = (workflow: WorkflowV3): workflow is SetRequired<WorkflowV3, 'id'> =>
+  Boolean(workflow.id);
 
 export const useSaveLibraryWorkflow: UseSaveLibraryWorkflow = () => {
   const { t } = useTranslation();
@@ -49,6 +42,7 @@ export const useSaveLibraryWorkflow: UseSaveLibraryWorkflow = () => {
     try {
       if (isWorkflowWithID(workflow)) {
         await updateWorkflow(workflow).unwrap();
+        dispatch(workflowUpdated());
       } else {
         const data = await createWorkflow(workflow).unwrap();
         dispatch(workflowIDChanged(data.workflow.id));
@@ -62,12 +56,8 @@ export const useSaveLibraryWorkflow: UseSaveLibraryWorkflow = () => {
       });
     } catch (e) {
       if (
-        !toast.isActive(
-          `auth-error-toast-${workflowsApi.endpoints.createWorkflow.name}`
-        ) &&
-        !toast.isActive(
-          `auth-error-toast-${workflowsApi.endpoints.updateWorkflow.name}`
-        )
+        !toast.isActive(`auth-error-toast-${workflowsApi.endpoints.createWorkflow.name}`) &&
+        !toast.isActive(`auth-error-toast-${workflowsApi.endpoints.updateWorkflow.name}`)
       ) {
         toast.update(toastRef.current, {
           title: t('workflows.problemSavingWorkflow'),

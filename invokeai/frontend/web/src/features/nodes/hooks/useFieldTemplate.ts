@@ -1,34 +1,36 @@
-import { createMemoizedSelector } from 'app/store/createMemoizedSelector';
+import { useStore } from '@nanostores/react';
+import { createSelector } from '@reduxjs/toolkit';
 import { useAppSelector } from 'app/store/storeHooks';
-import { selectNodesSlice } from 'features/nodes/store/nodesSlice';
-import { selectNodeTemplatesSlice } from 'features/nodes/store/nodeTemplatesSlice';
-import { KIND_MAP } from 'features/nodes/types/constants';
-import { isInvocationNode } from 'features/nodes/types/invocation';
+import { $templates } from 'features/nodes/store/nodesSlice';
+import { selectInvocationNodeType, selectNodesSlice } from 'features/nodes/store/selectors';
+import type { FieldInputTemplate, FieldOutputTemplate } from 'features/nodes/types/field';
 import { useMemo } from 'react';
+import { assert } from 'tsafe';
 
 export const useFieldTemplate = (
   nodeId: string,
   fieldName: string,
-  kind: 'input' | 'output'
-) => {
-  const selector = useMemo(
-    () =>
-      createMemoizedSelector(
-        selectNodesSlice,
-        selectNodeTemplatesSlice,
-        (nodes, nodeTemplates) => {
-          const node = nodes.nodes.find((node) => node.id === nodeId);
-          if (!isInvocationNode(node)) {
-            return;
-          }
-          const nodeTemplate = nodeTemplates.templates[node?.data.type ?? ''];
-          return nodeTemplate?.[KIND_MAP[kind]][fieldName];
-        }
-      ),
-    [fieldName, kind, nodeId]
+  kind: 'inputs' | 'outputs'
+): FieldInputTemplate | FieldOutputTemplate => {
+  const templates = useStore($templates);
+  const selectNodeType = useMemo(
+    () => createSelector(selectNodesSlice, (nodes) => selectInvocationNodeType(nodes, nodeId)),
+    [nodeId]
   );
-
-  const fieldTemplate = useAppSelector(selector);
+  const nodeType = useAppSelector(selectNodeType);
+  const fieldTemplate = useMemo(() => {
+    const template = templates[nodeType];
+    assert(template, `Template for node type ${nodeType} not found`);
+    if (kind === 'inputs') {
+      const fieldTemplate = template.inputs[fieldName];
+      assert(fieldTemplate, `Field template for field ${fieldName} not found`);
+      return fieldTemplate;
+    } else {
+      const fieldTemplate = template.outputs[fieldName];
+      assert(fieldTemplate, `Field template for field ${fieldName} not found`);
+      return fieldTemplate;
+    }
+  }, [fieldName, kind, nodeType, templates]);
 
   return fieldTemplate;
 };
