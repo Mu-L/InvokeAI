@@ -1,11 +1,9 @@
+import type { XYPosition } from '@xyflow/react';
 import { SHARED_NODE_PROPERTIES } from 'features/nodes/types/constants';
 import type { CurrentImageNode } from 'features/nodes/types/invocation';
-import type { XYPosition } from 'reactflow';
 import { v4 as uuidv4 } from 'uuid';
 
-export const buildCurrentImageNode = (
-  position: XYPosition
-): CurrentImageNode => {
+export const buildCurrentImageNode = (position: XYPosition): CurrentImageNode => {
   const nodeId = uuidv4();
   const node: CurrentImageNode = {
     ...SHARED_NODE_PROPERTIES,

@@ -1,6 +1,7 @@
-import { FormControl, FormLabel, Switch } from '@invoke-ai/ui';
+import { FormControl, FormLabel, Switch } from '@invoke-ai/ui-library';
 import { useAppDispatch, useAppSelector } from 'app/store/storeHooks';
-import { setHrfEnabled } from 'features/hrf/store/hrfSlice';
+import { InformationalPopover } from 'common/components/InformationalPopover/InformationalPopover';
+import { selectHrfEnabled, setHrfEnabled } from 'features/hrf/store/hrfSlice';
 import type { ChangeEvent } from 'react';
 import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -9,17 +10,18 @@ const ParamHrfToggle = () => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
-  const hrfEnabled = useAppSelector((s) => s.hrf.hrfEnabled);
+  const hrfEnabled = useAppSelector(selectHrfEnabled);
 
   const handleHrfEnabled = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) =>
-      dispatch(setHrfEnabled(e.target.checked)),
+    (e: ChangeEvent<HTMLInputElement>) => dispatch(setHrfEnabled(e.target.checked)),
     [dispatch]
   );
 
   return (
     <FormControl w="full">
-      <FormLabel flexGrow={1}>{t('hrf.enableHrf')}</FormLabel>
+      <InformationalPopover feature="paramHrf">
+        <FormLabel flexGrow={1}>{t('hrf.enableHrf')}</FormLabel>
+      </InformationalPopover>
       <Switch isChecked={hrfEnabled} onChange={handleHrfEnabled} />
     </FormControl>
   );

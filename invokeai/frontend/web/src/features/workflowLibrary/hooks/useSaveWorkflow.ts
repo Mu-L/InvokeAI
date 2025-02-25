@@ -1,20 +1,15 @@
-import type { ToastId } from '@invoke-ai/ui';
-import { useToast } from '@invoke-ai/ui';
+import type { ToastId } from '@invoke-ai/ui-library';
+import { useToast } from '@invoke-ai/ui-library';
 import { useAppDispatch } from 'app/store/storeHooks';
 import { $builtWorkflow } from 'features/nodes/hooks/useWorkflowWatcher';
-import {
-  workflowIDChanged,
-  workflowSaved,
-} from 'features/nodes/store/workflowSlice';
-import type { WorkflowV2 } from 'features/nodes/types/workflow';
+import { formFieldInitialValuesChanged, workflowIDChanged, workflowSaved } from 'features/nodes/store/workflowSlice';
+import type { WorkflowV3 } from 'features/nodes/types/workflow';
+import { useGetFormFieldInitialValues } from 'features/workflowLibrary/hooks/useGetFormInitialValues';
+import { workflowUpdated } from 'features/workflowLibrary/store/actions';
 import { useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  useCreateWorkflowMutation,
-  useUpdateWorkflowMutation,
-  workflowsApi,
-} from 'services/api/endpoints/workflows';
-import type { O } from 'ts-toolbelt';
+import { useCreateWorkflowMutation, useUpdateWorkflowMutation, workflowsApi } from 'services/api/endpoints/workflows';
+import type { SetRequired } from 'type-fest';
 
 type UseSaveLibraryWorkflowReturn = {
   saveWorkflow: () => Promise<void>;
@@ -24,13 +19,13 @@ type UseSaveLibraryWorkflowReturn = {
 
 type UseSaveLibraryWorkflow = () => UseSaveLibraryWorkflowReturn;
 
-const isWorkflowWithID = (
-  workflow: WorkflowV2
-): workflow is O.Required<WorkflowV2, 'id'> => Boolean(workflow.id);
+export const isWorkflowWithID = (workflow: WorkflowV3): workflow is SetRequired<WorkflowV3, 'id'> =>
+  Boolean(workflow.id);
 
 export const useSaveLibraryWorkflow: UseSaveLibraryWorkflow = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const getFormFieldInitialValues = useGetFormFieldInitialValues();
   const [updateWorkflow, updateWorkflowResult] = useUpdateWorkflowMutation();
   const [createWorkflow, createWorkflowResult] = useCreateWorkflowMutation();
   const toast = useToast();
@@ -49,11 +44,14 @@ export const useSaveLibraryWorkflow: UseSaveLibraryWorkflow = () => {
     try {
       if (isWorkflowWithID(workflow)) {
         await updateWorkflow(workflow).unwrap();
+        dispatch(workflowUpdated());
       } else {
         const data = await createWorkflow(workflow).unwrap();
         dispatch(workflowIDChanged(data.workflow.id));
       }
       dispatch(workflowSaved());
+      // When a workflow is saved, the form field initial values are updated to the current form field values
+      dispatch(formFieldInitialValuesChanged({ formFieldInitialValues: getFormFieldInitialValues() }));
       toast.update(toastRef.current, {
         title: t('workflows.workflowSaved'),
         status: 'success',
@@ -62,12 +60,8 @@ export const useSaveLibraryWorkflow: UseSaveLibraryWorkflow = () => {
       });
     } catch (e) {
       if (
-        !toast.isActive(
-          `auth-error-toast-${workflowsApi.endpoints.createWorkflow.name}`
-        ) &&
-        !toast.isActive(
-          `auth-error-toast-${workflowsApi.endpoints.updateWorkflow.name}`
-        )
+        !toast.isActive(`auth-error-toast-${workflowsApi.endpoints.createWorkflow.name}`) &&
+        !toast.isActive(`auth-error-toast-${workflowsApi.endpoints.updateWorkflow.name}`)
       ) {
         toast.update(toastRef.current, {
           title: t('workflows.problemSavingWorkflow'),
@@ -79,7 +73,7 @@ export const useSaveLibraryWorkflow: UseSaveLibraryWorkflow = () => {
         toast.close(toastRef.current);
       }
     }
-  }, [updateWorkflow, dispatch, toast, t, createWorkflow]);
+  }, [toast, t, dispatch, getFormFieldInitialValues, updateWorkflow, createWorkflow]);
   return {
     saveWorkflow,
     isLoading: updateWorkflowResult.isLoading || createWorkflowResult.isLoading,
