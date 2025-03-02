@@ -1,45 +1,30 @@
-import { useAppDispatch } from 'app/store/storeHooks';
-import { resetCanvas } from 'features/canvas/store/canvasSlice';
-import { controlAdaptersReset } from 'features/controlAdapters/store/controlAdaptersSlice';
-import { addToast } from 'features/system/store/systemSlice';
+import { toast } from 'features/toast/toast';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  useClearIntermediatesMutation,
-  useGetIntermediatesCountQuery,
-} from 'services/api/endpoints/images';
+import { useClearIntermediatesMutation, useGetIntermediatesCountQuery } from 'services/api/endpoints/images';
 import { useGetQueueStatusQuery } from 'services/api/endpoints/queue';
 
-export type UseClearIntermediatesReturn = {
+type UseClearIntermediatesReturn = {
   intermediatesCount: number | undefined;
   clearIntermediates: () => void;
   isLoading: boolean;
   hasPendingItems: boolean;
+  refetchIntermediatesCount: () => void;
 };
 
-export const useClearIntermediates = (
-  shouldShowClearIntermediates: boolean
-): UseClearIntermediatesReturn => {
+export const useClearIntermediates = (shouldShowClearIntermediates: boolean): UseClearIntermediatesReturn => {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
 
-  const { data: intermediatesCount } = useGetIntermediatesCountQuery(
-    undefined,
-    {
-      refetchOnMountOrArgChange: true,
-      skip: !shouldShowClearIntermediates,
-    }
-  );
+  const { data: intermediatesCount, refetch: refetchIntermediatesCount } = useGetIntermediatesCountQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+    skip: !shouldShowClearIntermediates,
+  });
 
   const [_clearIntermediates, { isLoading }] = useClearIntermediatesMutation();
 
   const { data: queueStatus } = useGetQueueStatusQuery();
   const hasPendingItems = useMemo(
-    () =>
-      Boolean(
-        queueStatus &&
-          (queueStatus.queue.in_progress > 0 || queueStatus.queue.pending > 0)
-      ),
+    () => Boolean(queueStatus && (queueStatus.queue.in_progress > 0 || queueStatus.queue.pending > 0)),
     [queueStatus]
   );
 
@@ -51,24 +36,23 @@ export const useClearIntermediates = (
     _clearIntermediates()
       .unwrap()
       .then((clearedCount) => {
-        dispatch(controlAdaptersReset());
-        dispatch(resetCanvas());
-        dispatch(
-          addToast({
-            title: t('settings.intermediatesCleared', { count: clearedCount }),
-            status: 'info',
-          })
-        );
+        // TODO(psyche): Do we need to reset things w/ canvas v2?
+        // dispatch(controlAdaptersReset());
+        // dispatch(resetCanvas());
+        toast({
+          id: 'INTERMEDIATES_CLEARED',
+          title: t('settings.intermediatesCleared', { count: clearedCount }),
+          status: 'info',
+        });
       })
       .catch(() => {
-        dispatch(
-          addToast({
-            title: t('settings.intermediatesClearedFailed'),
-            status: 'error',
-          })
-        );
+        toast({
+          id: 'INTERMEDIATES_CLEAR_FAILED',
+          title: t('settings.intermediatesClearedFailed'),
+          status: 'error',
+        });
       });
-  }, [t, _clearIntermediates, dispatch, hasPendingItems]);
+  }, [t, _clearIntermediates, hasPendingItems]);
 
-  return { intermediatesCount, clearIntermediates, isLoading, hasPendingItems };
+  return { intermediatesCount, clearIntermediates, isLoading, hasPendingItems, refetchIntermediatesCount };
 };

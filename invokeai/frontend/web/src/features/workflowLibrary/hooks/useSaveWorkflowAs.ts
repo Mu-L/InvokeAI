@@ -1,21 +1,24 @@
-import type { ToastId } from '@invoke-ai/ui';
-import { useToast } from '@invoke-ai/ui';
+import type { ToastId } from '@invoke-ai/ui-library';
+import { useToast } from '@invoke-ai/ui-library';
 import { useAppDispatch } from 'app/store/storeHooks';
 import { $builtWorkflow } from 'features/nodes/hooks/useWorkflowWatcher';
 import {
+  formFieldInitialValuesChanged,
+  workflowCategoryChanged,
   workflowIDChanged,
   workflowNameChanged,
   workflowSaved,
 } from 'features/nodes/store/workflowSlice';
+import type { WorkflowCategory } from 'features/nodes/types/workflow';
+import { useGetFormFieldInitialValues } from 'features/workflowLibrary/hooks/useGetFormInitialValues';
+import { newWorkflowSaved } from 'features/workflowLibrary/store/actions';
 import { useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  useCreateWorkflowMutation,
-  workflowsApi,
-} from 'services/api/endpoints/workflows';
+import { useCreateWorkflowMutation, workflowsApi } from 'services/api/endpoints/workflows';
 
 type SaveWorkflowAsArg = {
   name: string;
+  category: WorkflowCategory;
   onSuccess?: () => void;
   onError?: () => void;
 };
@@ -32,10 +35,12 @@ export const useSaveWorkflowAs: UseSaveWorkflowAs = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [createWorkflow, createWorkflowResult] = useCreateWorkflowMutation();
+  const getFormFieldInitialValues = useGetFormFieldInitialValues();
+
   const toast = useToast();
   const toastRef = useRef<ToastId | undefined>();
   const saveWorkflowAs = useCallback(
-    async ({ name: newName, onSuccess, onError }: SaveWorkflowAsArg) => {
+    async ({ name: newName, category, onSuccess, onError }: SaveWorkflowAsArg) => {
       const workflow = $builtWorkflow.get();
       if (!workflow) {
         return;
@@ -49,10 +54,17 @@ export const useSaveWorkflowAs: UseSaveWorkflowAs = () => {
       try {
         workflow.id = undefined;
         workflow.name = newName;
+        workflow.meta.category = category;
+
         const data = await createWorkflow(workflow).unwrap();
         dispatch(workflowIDChanged(data.workflow.id));
         dispatch(workflowNameChanged(data.workflow.name));
+        dispatch(workflowCategoryChanged(data.workflow.meta.category));
         dispatch(workflowSaved());
+        // When a workflow is saved, the form field initial values are updated to the current form field values
+        dispatch(formFieldInitialValuesChanged({ formFieldInitialValues: getFormFieldInitialValues() }));
+        dispatch(newWorkflowSaved({ category }));
+
         onSuccess && onSuccess();
         toast.update(toastRef.current, {
           title: t('workflows.workflowSaved'),
@@ -62,11 +74,7 @@ export const useSaveWorkflowAs: UseSaveWorkflowAs = () => {
         });
       } catch (e) {
         onError && onError();
-        if (
-          !toast.isActive(
-            `auth-error-toast-${workflowsApi.endpoints.createWorkflow.name}`
-          )
-        ) {
+        if (!toast.isActive(`auth-error-toast-${workflowsApi.endpoints.createWorkflow.name}`)) {
           toast.update(toastRef.current, {
             title: t('workflows.problemSavingWorkflow'),
             status: 'error',
@@ -78,7 +86,7 @@ export const useSaveWorkflowAs: UseSaveWorkflowAs = () => {
         }
       }
     },
-    [toast, createWorkflow, dispatch, t]
+    [toast, t, createWorkflow, dispatch, getFormFieldInitialValues]
   );
   return {
     saveWorkflowAs,

@@ -1,12 +1,5 @@
-import type { FormControlProps } from '@invoke-ai/ui';
-import {
-  Flex,
-  FormControl,
-  FormControlGroup,
-  FormLabel,
-  Input,
-  Textarea,
-} from '@invoke-ai/ui';
+import type { FormControlProps } from '@invoke-ai/ui-library';
+import { Flex, FormControl, FormControlGroup, FormLabel, Input, Textarea } from '@invoke-ai/ui-library';
 import { createMemoizedSelector } from 'app/store/createMemoizedSelector';
 import { useAppDispatch, useAppSelector } from 'app/store/storeHooks';
 import ScrollableContent from 'common/components/OverlayScrollbars/ScrollableContent';
@@ -39,8 +32,7 @@ const selector = createMemoizedSelector(selectWorkflowSlice, (workflow) => {
 });
 
 const WorkflowGeneralTab = () => {
-  const { author, name, description, tags, version, contact, notes } =
-    useAppSelector(selector);
+  const { author, name, description, tags, version, contact, notes } = useAppSelector(selector);
   const dispatch = useAppDispatch();
 
   const handleChangeName = useCallback(
@@ -92,37 +84,31 @@ const WorkflowGeneralTab = () => {
   return (
     <ScrollableContent>
       <Flex flexDir="column" alignItems="flex-start" gap={2} h="full">
-        <FormControlGroup
-          orientation="vertical"
-          formControlProps={formControlProps}
-        >
-          <Flex gap={2} w="full">
-            <FormControl>
-              <FormLabel>{t('nodes.workflowName')}</FormLabel>
-              <Input value={name} onChange={handleChangeName} />
-            </FormControl>
-            <FormControl>
-              <FormLabel>{t('nodes.workflowVersion')}</FormLabel>
-              <Input value={version} onChange={handleChangeVersion} />
-            </FormControl>
-          </Flex>
-          <Flex gap={2} w="full">
-            <FormControl>
-              <FormLabel>{t('nodes.workflowAuthor')}</FormLabel>
-              <Input value={author} onChange={handleChangeAuthor} />
-            </FormControl>
-            <FormControl>
-              <FormLabel>{t('nodes.workflowContact')}</FormLabel>
-              <Input value={contact} onChange={handleChangeContact} />
-            </FormControl>
-          </Flex>
+        <FormControlGroup orientation="vertical" formControlProps={formControlProps}>
+          <FormControl>
+            <FormLabel>{t('nodes.workflowName')}</FormLabel>
+            <Input variant="darkFilled" value={name} onChange={handleChangeName} />
+          </FormControl>
+          <FormControl>
+            <FormLabel>{t('nodes.workflowVersion')}</FormLabel>
+            <Input variant="darkFilled" value={version} onChange={handleChangeVersion} />
+          </FormControl>
+          <FormControl>
+            <FormLabel>{t('nodes.workflowAuthor')}</FormLabel>
+            <Input variant="darkFilled" value={author} onChange={handleChangeAuthor} />
+          </FormControl>
+          <FormControl>
+            <FormLabel>{t('nodes.workflowContact')}</FormLabel>
+            <Input variant="darkFilled" value={contact} onChange={handleChangeContact} />
+          </FormControl>
           <FormControl>
             <FormLabel>{t('nodes.workflowTags')}</FormLabel>
-            <Input value={tags} onChange={handleChangeTags} />
+            <Input variant="darkFilled" value={tags} onChange={handleChangeTags} />
           </FormControl>
           <FormControl>
             <FormLabel>{t('nodes.workflowDescription')}</FormLabel>
             <Textarea
+              variant="darkFilled"
               onChange={handleChangeDescription}
               value={description}
               fontSize="sm"
@@ -133,6 +119,7 @@ const WorkflowGeneralTab = () => {
           <FormControl>
             <FormLabel>{t('nodes.workflowNotes')}</FormLabel>
             <Textarea
+              variant="darkFilled"
               onChange={handleChangeNotes}
               value={notes}
               fontSize="sm"

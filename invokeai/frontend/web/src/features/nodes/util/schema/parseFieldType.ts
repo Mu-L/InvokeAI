@@ -1,13 +1,13 @@
-import { FieldParseError } from 'features/nodes/types/error';
+import {
+  FieldParseError,
+  UnableToExtractSchemaNameFromRefError,
+  UnsupportedArrayItemType,
+  UnsupportedPrimitiveTypeError,
+  UnsupportedUnionError,
+} from 'features/nodes/types/error';
 import type { FieldType } from 'features/nodes/types/field';
 import type { OpenAPIV3_1SchemaOrRef } from 'features/nodes/types/openapi';
-import {
-  isArraySchemaObject,
-  isInvocationFieldSchema,
-  isNonArraySchemaObject,
-  isRefObject,
-  isSchemaObject,
-} from 'features/nodes/types/openapi';
+import { isArraySchemaObject, isNonArraySchemaObject, isRefObject, isSchemaObject } from 'features/nodes/types/openapi';
 import { t } from 'i18next';
 import { isArray } from 'lodash-es';
 import type { OpenAPIV3_1 } from 'openapi-types';
@@ -20,8 +20,7 @@ import type { OpenAPIV3_1 } from 'openapi-types';
  * @example
  * refObjectToFieldType({ "$ref": "#/components/schemas/ImageField" }) --> 'ImageField'
  */
-export const refObjectToSchemaName = (refObject: OpenAPIV3_1.ReferenceObject) =>
-  refObject.$ref.split('/').slice(-1)[0];
+export const refObjectToSchemaName = (refObject: OpenAPIV3_1.ReferenceObject) => refObject.$ref.split('/').slice(-1)[0];
 
 const OPENAPI_TO_FIELD_TYPE_MAP: Record<string, string> = {
   integer: 'IntegerField',
@@ -30,7 +29,7 @@ const OPENAPI_TO_FIELD_TYPE_MAP: Record<string, string> = {
   boolean: 'BooleanField',
 };
 
-const isCollectionFieldType = (fieldType: string) => {
+export const isCollectionFieldType = (fieldType: string) => {
   /**
    * CollectionField is `list[Any]` in the pydantic schema, but we need to distinguish between
    * it and other `list[Any]` fields, due to its special internal handling.
@@ -43,21 +42,16 @@ const isCollectionFieldType = (fieldType: string) => {
   return false;
 };
 
-export const parseFieldType = (
-  schemaObject: OpenAPIV3_1SchemaOrRef
-): FieldType => {
-  if (isInvocationFieldSchema(schemaObject)) {
-    // Check if this field has an explicit type provided by the node schema
-    const { ui_type } = schemaObject;
-    if (ui_type) {
+export const parseFieldType = (schemaObject: OpenAPIV3_1SchemaOrRef): FieldType => {
+  if (isSchemaObject(schemaObject)) {
+    if (schemaObject.const) {
+      // Fields with a single const value are defined as `Literal["value"]` in the pydantic schema - it's actually an enum
       return {
-        name: ui_type,
-        isCollection: isCollectionFieldType(ui_type),
-        isCollectionOrScalar: false,
+        name: 'EnumField',
+        cardinality: 'SINGLE',
+        batch: false,
       };
     }
-  }
-  if (isSchemaObject(schemaObject)) {
     if (!schemaObject.type) {
       // if schemaObject has no type, then it should have one of allOf, anyOf, oneOf
 
@@ -67,14 +61,12 @@ export const parseFieldType = (
           // This is a single ref type
           const name = refObjectToSchemaName(allOf[0]);
           if (!name) {
-            throw new FieldParseError(
-              t('nodes.unableToExtractSchemaNameFromRef')
-            );
+            throw new UnableToExtractSchemaNameFromRefError(t('nodes.unableToExtractSchemaNameFromRef'));
           }
           return {
             name,
-            isCollection: false,
-            isCollectionOrScalar: false,
+            cardinality: 'SINGLE',
+            batch: false,
           };
         }
       } else if (schemaObject.anyOf) {
@@ -92,22 +84,20 @@ export const parseFieldType = (
           if (isRefObject(filteredAnyOf[0])) {
             const name = refObjectToSchemaName(filteredAnyOf[0]);
             if (!name) {
-              throw new FieldParseError(
-                t('nodes.unableToExtractSchemaNameFromRef')
-              );
+              throw new UnableToExtractSchemaNameFromRefError(t('nodes.unableToExtractSchemaNameFromRef'));
             }
 
             return {
               name,
-              isCollection: false,
-              isCollectionOrScalar: false,
+              cardinality: 'SINGLE',
+              batch: false,
             };
           } else if (isSchemaObject(filteredAnyOf[0])) {
             return parseFieldType(filteredAnyOf[0]);
           }
         }
         /**
-         * Handle CollectionOrScalar inputs, eg string | string[]. In OpenAPI, this is:
+         * Handle SINGLE_OR_COLLECTION inputs, eg string | string[]. In OpenAPI, this is:
          * - an `anyOf` with two items
          * - one is an `ArraySchemaObject` with a single `SchemaObject or ReferenceObject` of type T in its `items`
          * - the other is a `SchemaObject` or `ReferenceObject` of type T
@@ -117,7 +107,7 @@ export const parseFieldType = (
 
         if (filteredAnyOf.length !== 2) {
           // This is a union of more than 2 types, which we don't support
-          throw new FieldParseError(
+          throw new UnsupportedUnionError(
             t('nodes.unsupportedAnyOfLength', {
               count: filteredAnyOf.length,
             })
@@ -134,10 +124,7 @@ export const parseFieldType = (
           if (isRefObject(first) && isRefObject(second)) {
             firstType = refObjectToSchemaName(first);
             secondType = refObjectToSchemaName(second);
-          } else if (
-            isNonArraySchemaObject(first) &&
-            isNonArraySchemaObject(second)
-          ) {
+          } else if (isNonArraySchemaObject(first) && isNonArraySchemaObject(second)) {
             firstType = first.type;
             secondType = second.type;
           }
@@ -148,10 +135,7 @@ export const parseFieldType = (
           if (isRefObject(first) && isRefObject(second)) {
             firstType = refObjectToSchemaName(first);
             secondType = refObjectToSchemaName(second);
-          } else if (
-            isNonArraySchemaObject(first) &&
-            isNonArraySchemaObject(second)
-          ) {
+          } else if (isNonArraySchemaObject(first) && isNonArraySchemaObject(second)) {
             firstType = first.type;
             secondType = second.type;
           }
@@ -159,12 +143,12 @@ export const parseFieldType = (
         if (firstType && firstType === secondType) {
           return {
             name: OPENAPI_TO_FIELD_TYPE_MAP[firstType] ?? firstType,
-            isCollection: false,
-            isCollectionOrScalar: true, // <-- don't forget, CollectionOrScalar type!
+            cardinality: 'SINGLE_OR_COLLECTION',
+            batch: false,
           };
         }
 
-        throw new FieldParseError(
+        throw new UnsupportedUnionError(
           t('nodes.unsupportedMismatchedUnion', {
             firstType,
             secondType,
@@ -174,8 +158,8 @@ export const parseFieldType = (
     } else if (schemaObject.enum) {
       return {
         name: 'EnumField',
-        isCollection: false,
-        isCollectionOrScalar: false,
+        cardinality: 'SINGLE',
+        batch: false,
       };
     } else if (schemaObject.type) {
       if (schemaObject.type === 'array') {
@@ -183,7 +167,7 @@ export const parseFieldType = (
         if (isSchemaObject(schemaObject.items)) {
           const itemType = schemaObject.items.type;
           if (!itemType || isArray(itemType)) {
-            throw new FieldParseError(
+            throw new UnsupportedArrayItemType(
               t('nodes.unsupportedArrayItemType', {
                 type: itemType,
               })
@@ -193,7 +177,7 @@ export const parseFieldType = (
           const name = OPENAPI_TO_FIELD_TYPE_MAP[itemType];
           if (!name) {
             // it's 'null', 'object', or 'array' - skip
-            throw new FieldParseError(
+            throw new UnsupportedArrayItemType(
               t('nodes.unsupportedArrayItemType', {
                 type: itemType,
               })
@@ -201,29 +185,27 @@ export const parseFieldType = (
           }
           return {
             name,
-            isCollection: true, // <-- don't forget, collection!
-            isCollectionOrScalar: false,
+            cardinality: 'COLLECTION',
+            batch: false,
           };
         }
 
         // This is a ref object, extract the type name
         const name = refObjectToSchemaName(schemaObject.items);
         if (!name) {
-          throw new FieldParseError(
-            t('nodes.unableToExtractSchemaNameFromRef')
-          );
+          throw new UnableToExtractSchemaNameFromRefError(t('nodes.unableToExtractSchemaNameFromRef'));
         }
         return {
           name,
-          isCollection: true, // <-- don't forget, collection!
-          isCollectionOrScalar: false,
+          cardinality: 'COLLECTION',
+          batch: false,
         };
       } else if (!isArray(schemaObject.type)) {
         // This is an OpenAPI primitive - 'null', 'object', 'array', 'integer', 'number', 'string', 'boolean'
         const name = OPENAPI_TO_FIELD_TYPE_MAP[schemaObject.type];
         if (!name) {
           // it's 'null', 'object', or 'array' - skip
-          throw new FieldParseError(
+          throw new UnsupportedPrimitiveTypeError(
             t('nodes.unsupportedArrayItemType', {
               type: schemaObject.type,
             })
@@ -231,20 +213,20 @@ export const parseFieldType = (
         }
         return {
           name,
-          isCollection: false,
-          isCollectionOrScalar: false,
+          cardinality: 'SINGLE',
+          batch: false,
         };
       }
     }
   } else if (isRefObject(schemaObject)) {
     const name = refObjectToSchemaName(schemaObject);
     if (!name) {
-      throw new FieldParseError(t('nodes.unableToExtractSchemaNameFromRef'));
+      throw new UnableToExtractSchemaNameFromRefError(t('nodes.unableToExtractSchemaNameFromRef'));
     }
     return {
       name,
-      isCollection: false,
-      isCollectionOrScalar: false,
+      cardinality: 'SINGLE',
+      batch: false,
     };
   }
   throw new FieldParseError(t('nodes.unableToParseFieldType'));
