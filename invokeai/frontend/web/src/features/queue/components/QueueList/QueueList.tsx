@@ -1,20 +1,19 @@
-import { Flex, Heading } from '@invoke-ai/ui';
+import { Flex, Heading } from '@invoke-ai/ui-library';
 import { useAppDispatch, useAppSelector } from 'app/store/storeHooks';
 import { IAINoContentFallbackWithSpinner } from 'common/components/IAIImageFallback';
 import { overlayScrollbarsParams } from 'common/components/OverlayScrollbars/constants';
 import {
   listCursorChanged,
   listPriorityChanged,
+  selectQueueListCursor,
+  selectQueueListPriority,
 } from 'features/queue/store/queueSlice';
 import { useOverlayScrollbars } from 'overlayscrollbars-react';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Components, ItemContent } from 'react-virtuoso';
 import { Virtuoso } from 'react-virtuoso';
-import {
-  queueItemsAdapterSelectors,
-  useListQueueItemsQuery,
-} from 'services/api/endpoints/queue';
+import { queueItemsAdapterSelectors, useListQueueItemsQuery } from 'services/api/endpoints/queue';
 import type { SessionQueueItemDTO } from 'services/api/types';
 
 import QueueItemComponent from './QueueItemComponent';
@@ -25,28 +24,23 @@ import type { ListContext } from './types';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type TableVirtuosoScrollerRef = (ref: HTMLElement | Window | null) => any;
 
-const computeItemKey = (index: number, item: SessionQueueItemDTO): number =>
-  item.item_id;
+const computeItemKey = (index: number, item: SessionQueueItemDTO): number => item.item_id;
 
 const components: Components<SessionQueueItemDTO, ListContext> = {
   List: QueueListComponent,
 };
 
-const itemContent: ItemContent<SessionQueueItemDTO, ListContext> = (
-  index,
-  item,
-  context
-) => <QueueItemComponent index={index} item={item} context={context} />;
+const itemContent: ItemContent<SessionQueueItemDTO, ListContext> = (index, item, context) => (
+  <QueueItemComponent index={index} item={item} context={context} />
+);
 
 const QueueList = () => {
-  const listCursor = useAppSelector((s) => s.queue.listCursor);
-  const listPriority = useAppSelector((s) => s.queue.listPriority);
+  const listCursor = useAppSelector(selectQueueListCursor);
+  const listPriority = useAppSelector(selectQueueListPriority);
   const dispatch = useAppDispatch();
   const rootRef = useRef<HTMLDivElement>(null);
   const [scroller, setScroller] = useState<HTMLElement | null>(null);
-  const [initialize, osInstance] = useOverlayScrollbars(
-    overlayScrollbarsParams
-  );
+  const [initialize, osInstance] = useOverlayScrollbars(overlayScrollbarsParams);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -97,10 +91,7 @@ const QueueList = () => {
     });
   }, []);
 
-  const context = useMemo<ListContext>(
-    () => ({ openQueueItems, toggleQueueItem }),
-    [openQueueItems, toggleQueueItem]
-  );
+  const context = useMemo<ListContext>(() => ({ openQueueItems, toggleQueueItem }), [openQueueItems, toggleQueueItem]);
 
   if (isLoading) {
     return <IAINoContentFallbackWithSpinner />;
@@ -117,13 +108,7 @@ const QueueList = () => {
   return (
     <Flex w="full" h="full" flexDir="column">
       <QueueListHeader />
-      <Flex
-        ref={rootRef}
-        w="full"
-        h="full"
-        alignItems="center"
-        justifyContent="center"
-      >
+      <Flex ref={rootRef} w="full" h="full" alignItems="center" justifyContent="center">
         <Virtuoso<SessionQueueItemDTO, ListContext>
           data={queueItems}
           endReached={handleLoadMore}

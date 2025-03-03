@@ -13,38 +13,60 @@ import {
   ModalOverlay,
   Switch,
   Text,
-  useDisclosure,
-} from '@invoke-ai/ui';
+} from '@invoke-ai/ui-library';
 import { useAppDispatch, useAppSelector } from 'app/store/storeHooks';
 import { InformationalPopover } from 'common/components/InformationalPopover/InformationalPopover';
 import ScrollableContent from 'common/components/OverlayScrollbars/ScrollableContent';
+import { buildUseBoolean } from 'common/hooks/useBoolean';
 import { useClearStorage } from 'common/hooks/useClearStorage';
-import { shouldUseCpuNoiseChanged } from 'features/parameters/store/generationSlice';
+import { selectShouldUseCPUNoise, shouldUseCpuNoiseChanged } from 'features/controlLayers/store/paramsSlice';
+import { useRefreshAfterResetModal } from 'features/system/components/SettingsModal/RefreshAfterResetModal';
+import { SettingsDeveloperLogIsEnabled } from 'features/system/components/SettingsModal/SettingsDeveloperLogIsEnabled';
+import { SettingsDeveloperLogLevel } from 'features/system/components/SettingsModal/SettingsDeveloperLogLevel';
+import { SettingsDeveloperLogNamespaces } from 'features/system/components/SettingsModal/SettingsDeveloperLogNamespaces';
 import { useClearIntermediates } from 'features/system/components/SettingsModal/useClearIntermediates';
 import { StickyScrollable } from 'features/system/components/StickyScrollable';
 import {
-  setEnableImageDebugging,
+  selectSystemShouldAntialiasProgressImage,
+  selectSystemShouldConfirmOnDelete,
+  selectSystemShouldConfirmOnNewSession,
+  selectSystemShouldEnableInformationalPopovers,
+  selectSystemShouldEnableModelDescriptions,
+  selectSystemShouldShowInvocationProgressDetail,
+  selectSystemShouldUseNSFWChecker,
+  selectSystemShouldUseWatermarker,
   setShouldConfirmOnDelete,
   setShouldEnableInformationalPopovers,
+  setShouldEnableModelDescriptions,
+  setShouldShowInvocationProgressDetail,
   shouldAntialiasProgressImageChanged,
-  shouldLogToConsoleChanged,
+  shouldConfirmOnNewSessionToggled,
   shouldUseNSFWCheckerChanged,
   shouldUseWatermarkerChanged,
 } from 'features/system/store/systemSlice';
+import { selectShouldShowProgressInViewer } from 'features/ui/store/uiSelectors';
 import { setShouldShowProgressInViewer } from 'features/ui/store/uiSlice';
 import type { ChangeEvent, ReactElement } from 'react';
-import { cloneElement, memo, useCallback, useEffect, useState } from 'react';
+import { cloneElement, memo, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useGetAppConfigQuery } from 'services/api/endpoints/appInfo';
 
 import { SettingsLanguageSelect } from './SettingsLanguageSelect';
-import { SettingsLogLevelSelect } from './SettingsLogLevelSelect';
 
 type ConfigOptions = {
   shouldShowDeveloperSettings?: boolean;
   shouldShowResetWebUiText?: boolean;
   shouldShowClearIntermediates?: boolean;
   shouldShowLocalizationToggle?: boolean;
+  shouldShowInvocationProgressDetailSetting?: boolean;
+};
+
+const defaultConfig: ConfigOptions = {
+  shouldShowDeveloperSettings: true,
+  shouldShowResetWebUiText: true,
+  shouldShowClearIntermediates: true,
+  shouldShowLocalizationToggle: true,
+  shouldShowInvocationProgressDetailSetting: true,
 };
 
 type SettingsModalProps = {
@@ -53,101 +75,56 @@ type SettingsModalProps = {
   config?: ConfigOptions;
 };
 
-const SettingsModal = ({ children, config }: SettingsModalProps) => {
+const [useSettingsModal] = buildUseBoolean(false);
+
+const SettingsModal = ({ config = defaultConfig, children }: SettingsModalProps) => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const [countdown, setCountdown] = useState(3);
 
-  const shouldShowDeveloperSettings =
-    config?.shouldShowDeveloperSettings ?? true;
-  const shouldShowResetWebUiText = config?.shouldShowResetWebUiText ?? true;
-  const shouldShowClearIntermediates =
-    config?.shouldShowClearIntermediates ?? true;
-  const shouldShowLocalizationToggle =
-    config?.shouldShowLocalizationToggle ?? true;
-
-  useEffect(() => {
-    if (!shouldShowDeveloperSettings) {
-      dispatch(shouldLogToConsoleChanged(false));
-    }
-  }, [shouldShowDeveloperSettings, dispatch]);
-
-  const { isNSFWCheckerAvailable, isWatermarkerAvailable } =
-    useGetAppConfigQuery(undefined, {
-      selectFromResult: ({ data }) => ({
-        isNSFWCheckerAvailable:
-          data?.nsfw_methods.includes('nsfw_checker') ?? false,
-        isWatermarkerAvailable:
-          data?.watermarking_methods.includes('invisible_watermark') ?? false,
-      }),
-    });
+  const { isNSFWCheckerAvailable, isWatermarkerAvailable } = useGetAppConfigQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      isNSFWCheckerAvailable: data?.nsfw_methods.includes('nsfw_checker') ?? false,
+      isWatermarkerAvailable: data?.watermarking_methods.includes('invisible_watermark') ?? false,
+    }),
+  });
 
   const {
     clearIntermediates,
     hasPendingItems,
     intermediatesCount,
     isLoading: isLoadingClearIntermediates,
-  } = useClearIntermediates(shouldShowClearIntermediates);
+    refetchIntermediatesCount,
+  } = useClearIntermediates(Boolean(config?.shouldShowClearIntermediates));
+  const settingsModal = useSettingsModal();
+  const refreshModal = useRefreshAfterResetModal();
 
-  const {
-    isOpen: isSettingsModalOpen,
-    onOpen: onSettingsModalOpen,
-    onClose: onSettingsModalClose,
-  } = useDisclosure();
-
-  const {
-    isOpen: isRefreshModalOpen,
-    onOpen: onRefreshModalOpen,
-    onClose: onRefreshModalClose,
-  } = useDisclosure();
-
-  const shouldUseCpuNoise = useAppSelector(
-    (s) => s.generation.shouldUseCpuNoise
-  );
-  const shouldConfirmOnDelete = useAppSelector(
-    (s) => s.system.shouldConfirmOnDelete
-  );
-  const enableImageDebugging = useAppSelector(
-    (s) => s.system.enableImageDebugging
-  );
-  const shouldShowProgressInViewer = useAppSelector(
-    (s) => s.ui.shouldShowProgressInViewer
-  );
-  const shouldLogToConsole = useAppSelector((s) => s.system.shouldLogToConsole);
-  const shouldAntialiasProgressImage = useAppSelector(
-    (s) => s.system.shouldAntialiasProgressImage
-  );
-  const shouldUseNSFWChecker = useAppSelector(
-    (s) => s.system.shouldUseNSFWChecker
-  );
-  const shouldUseWatermarker = useAppSelector(
-    (s) => s.system.shouldUseWatermarker
-  );
-  const shouldEnableInformationalPopovers = useAppSelector(
-    (s) => s.system.shouldEnableInformationalPopovers
-  );
+  const shouldUseCpuNoise = useAppSelector(selectShouldUseCPUNoise);
+  const shouldConfirmOnDelete = useAppSelector(selectSystemShouldConfirmOnDelete);
+  const shouldShowProgressInViewer = useAppSelector(selectShouldShowProgressInViewer);
+  const shouldAntialiasProgressImage = useAppSelector(selectSystemShouldAntialiasProgressImage);
+  const shouldUseNSFWChecker = useAppSelector(selectSystemShouldUseNSFWChecker);
+  const shouldUseWatermarker = useAppSelector(selectSystemShouldUseWatermarker);
+  const shouldEnableInformationalPopovers = useAppSelector(selectSystemShouldEnableInformationalPopovers);
+  const shouldEnableModelDescriptions = useAppSelector(selectSystemShouldEnableModelDescriptions);
+  const shouldConfirmOnNewSession = useAppSelector(selectSystemShouldConfirmOnNewSession);
+  const shouldShowInvocationProgressDetail = useAppSelector(selectSystemShouldShowInvocationProgressDetail);
+  const onToggleConfirmOnNewSession = useCallback(() => {
+    dispatch(shouldConfirmOnNewSessionToggled());
+  }, [dispatch]);
 
   const clearStorage = useClearStorage();
 
+  useEffect(() => {
+    if (settingsModal.isTrue && Boolean(config?.shouldShowClearIntermediates)) {
+      refetchIntermediatesCount();
+    }
+  }, [config?.shouldShowClearIntermediates, refetchIntermediatesCount, settingsModal.isTrue]);
+
   const handleClickResetWebUI = useCallback(() => {
     clearStorage();
-    onSettingsModalClose();
-    onRefreshModalOpen();
-    setInterval(() => setCountdown((prev) => prev - 1), 1000);
-  }, [clearStorage, onSettingsModalClose, onRefreshModalOpen]);
-
-  useEffect(() => {
-    if (countdown <= 0) {
-      window.location.reload();
-    }
-  }, [countdown]);
-
-  const handleLogToConsoleChanged = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch(shouldLogToConsoleChanged(e.target.checked));
-    },
-    [dispatch]
-  );
+    settingsModal.setFalse();
+    refreshModal.setTrue();
+  }, [clearStorage, settingsModal, refreshModal]);
 
   const handleChangeShouldConfirmOnDelete = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -185,9 +162,9 @@ const SettingsModal = ({ children, config }: SettingsModalProps) => {
     },
     [dispatch]
   );
-  const handleChangeEnableImageDebugging = useCallback(
+  const handleChangeShouldEnableModelDescriptions = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch(setEnableImageDebugging(e.target.checked));
+      dispatch(setShouldEnableModelDescriptions(e.target.checked));
     },
     [dispatch]
   );
@@ -198,18 +175,19 @@ const SettingsModal = ({ children, config }: SettingsModalProps) => {
     [dispatch]
   );
 
+  const handleChangeShouldShowInvocationProgressDetail = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      dispatch(setShouldShowInvocationProgressDetail(e.target.checked));
+    },
+    [dispatch]
+  );
+
   return (
     <>
       {cloneElement(children, {
-        onClick: onSettingsModalOpen,
+        onClick: settingsModal.setTrue,
       })}
-
-      <Modal
-        isOpen={isSettingsModalOpen}
-        onClose={onSettingsModalClose}
-        size="2xl"
-        isCentered
-      >
+      <Modal isOpen={settingsModal.isTrue} onClose={settingsModal.setFalse} size="2xl" isCentered useInert={false}>
         <ModalOverlay />
         <ModalContent maxH="80vh" h="68rem">
           <ModalHeader bg="none">{t('common.settingsLabel')}</ModalHeader>
@@ -221,107 +199,84 @@ const SettingsModal = ({ children, config }: SettingsModalProps) => {
                   <StickyScrollable title={t('settings.general')}>
                     <FormControl>
                       <FormLabel>{t('settings.confirmOnDelete')}</FormLabel>
-                      <Switch
-                        isChecked={shouldConfirmOnDelete}
-                        onChange={handleChangeShouldConfirmOnDelete}
-                      />
+                      <Switch isChecked={shouldConfirmOnDelete} onChange={handleChangeShouldConfirmOnDelete} />
+                    </FormControl>
+                    <FormControl>
+                      <FormLabel>{t('settings.confirmOnNewSession')}</FormLabel>
+                      <Switch isChecked={shouldConfirmOnNewSession} onChange={onToggleConfirmOnNewSession} />
                     </FormControl>
                   </StickyScrollable>
 
                   <StickyScrollable title={t('settings.generation')}>
                     <FormControl isDisabled={!isNSFWCheckerAvailable}>
                       <FormLabel>{t('settings.enableNSFWChecker')}</FormLabel>
-                      <Switch
-                        isChecked={shouldUseNSFWChecker}
-                        onChange={handleChangeShouldUseNSFWChecker}
-                      />
+                      <Switch isChecked={shouldUseNSFWChecker} onChange={handleChangeShouldUseNSFWChecker} />
                     </FormControl>
                     <FormControl isDisabled={!isWatermarkerAvailable}>
-                      <FormLabel>
-                        {t('settings.enableInvisibleWatermark')}
-                      </FormLabel>
-                      <Switch
-                        isChecked={shouldUseWatermarker}
-                        onChange={handleChangeShouldUseWatermarker}
-                      />
+                      <FormLabel>{t('settings.enableInvisibleWatermark')}</FormLabel>
+                      <Switch isChecked={shouldUseWatermarker} onChange={handleChangeShouldUseWatermarker} />
                     </FormControl>
                   </StickyScrollable>
 
                   <StickyScrollable title={t('settings.ui')}>
                     <FormControl>
-                      <FormLabel>
-                        {t('settings.showProgressInViewer')}
-                      </FormLabel>
+                      <FormLabel>{t('settings.showProgressInViewer')}</FormLabel>
                       <Switch
                         isChecked={shouldShowProgressInViewer}
                         onChange={handleChangeShouldShowProgressInViewer}
                       />
                     </FormControl>
                     <FormControl>
-                      <FormLabel>
-                        {t('settings.antialiasProgressImages')}
-                      </FormLabel>
+                      <FormLabel>{t('settings.antialiasProgressImages')}</FormLabel>
                       <Switch
                         isChecked={shouldAntialiasProgressImage}
                         onChange={handleChangeShouldAntialiasProgressImage}
                       />
                     </FormControl>
+                    {Boolean(config?.shouldShowInvocationProgressDetailSetting) && (
+                      <FormControl>
+                        <FormLabel>{t('settings.showDetailedInvocationProgress')}</FormLabel>
+                        <Switch
+                          isChecked={shouldShowInvocationProgressDetail}
+                          onChange={handleChangeShouldShowInvocationProgressDetail}
+                        />
+                      </FormControl>
+                    )}
                     <FormControl>
-                      <InformationalPopover
-                        feature="noiseUseCPU"
-                        inPortal={false}
-                      >
+                      <InformationalPopover feature="noiseUseCPU" inPortal={false}>
                         <FormLabel>{t('parameters.useCpuNoise')}</FormLabel>
                       </InformationalPopover>
-                      <Switch
-                        isChecked={shouldUseCpuNoise}
-                        onChange={handleChangeShouldUseCpuNoise}
-                      />
+                      <Switch isChecked={shouldUseCpuNoise} onChange={handleChangeShouldUseCpuNoise} />
                     </FormControl>
-                    {shouldShowLocalizationToggle && <SettingsLanguageSelect />}
+                    {Boolean(config?.shouldShowLocalizationToggle) && <SettingsLanguageSelect />}
                     <FormControl>
-                      <FormLabel>
-                        {t('settings.enableInformationalPopovers')}
-                      </FormLabel>
+                      <FormLabel>{t('settings.enableInformationalPopovers')}</FormLabel>
                       <Switch
                         isChecked={shouldEnableInformationalPopovers}
                         onChange={handleChangeShouldEnableInformationalPopovers}
                       />
                     </FormControl>
+                    <FormControl>
+                      <FormLabel>{t('settings.enableModelDescriptions')}</FormLabel>
+                      <Switch
+                        isChecked={shouldEnableModelDescriptions}
+                        onChange={handleChangeShouldEnableModelDescriptions}
+                      />
+                    </FormControl>
                   </StickyScrollable>
 
-                  {shouldShowDeveloperSettings && (
+                  {Boolean(config?.shouldShowDeveloperSettings) && (
                     <StickyScrollable title={t('settings.developer')}>
-                      <FormControl>
-                        <FormLabel>
-                          {t('settings.shouldLogToConsole')}
-                        </FormLabel>
-                        <Switch
-                          isChecked={shouldLogToConsole}
-                          onChange={handleLogToConsoleChanged}
-                        />
-                      </FormControl>
-                      <SettingsLogLevelSelect />
-                      <FormControl>
-                        <FormLabel>
-                          {t('settings.enableImageDebugging')}
-                        </FormLabel>
-                        <Switch
-                          isChecked={enableImageDebugging}
-                          onChange={handleChangeEnableImageDebugging}
-                        />
-                      </FormControl>
+                      <SettingsDeveloperLogIsEnabled />
+                      <SettingsDeveloperLogLevel />
+                      <SettingsDeveloperLogNamespaces />
                     </StickyScrollable>
                   )}
 
-                  {shouldShowClearIntermediates && (
+                  {Boolean(config?.shouldShowClearIntermediates) && (
                     <StickyScrollable title={t('settings.clearIntermediates')}>
                       <Button
-                        tooltip={
-                          hasPendingItems
-                            ? t('settings.clearIntermediatesDisabled')
-                            : undefined
-                        }
+                        tooltip={hasPendingItems ? t('settings.clearIntermediatesDisabled') : undefined}
                         colorScheme="warning"
                         onClick={clearIntermediates}
                         isLoading={isLoadingClearIntermediates}
@@ -331,15 +286,9 @@ const SettingsModal = ({ children, config }: SettingsModalProps) => {
                           count: intermediatesCount ?? 0,
                         })}
                       </Button>
-                      <Text fontWeight="bold">
-                        {t('settings.clearIntermediatesDesc1')}
-                      </Text>
-                      <Text variant="subtext">
-                        {t('settings.clearIntermediatesDesc2')}
-                      </Text>
-                      <Text variant="subtext">
-                        {t('settings.clearIntermediatesDesc3')}
-                      </Text>
+                      <Text fontWeight="bold">{t('settings.clearIntermediatesDesc1')}</Text>
+                      <Text variant="subtext">{t('settings.clearIntermediatesDesc2')}</Text>
+                      <Text variant="subtext">{t('settings.clearIntermediatesDesc3')}</Text>
                     </StickyScrollable>
                   )}
 
@@ -347,14 +296,10 @@ const SettingsModal = ({ children, config }: SettingsModalProps) => {
                     <Button colorScheme="error" onClick={handleClickResetWebUI}>
                       {t('settings.resetWebUI')}
                     </Button>
-                    {shouldShowResetWebUiText && (
+                    {Boolean(config?.shouldShowResetWebUiText) && (
                       <>
-                        <Text variant="subtext">
-                          {t('settings.resetWebUIDesc1')}
-                        </Text>
-                        <Text variant="subtext">
-                          {t('settings.resetWebUIDesc2')}
-                        </Text>
+                        <Text variant="subtext">{t('settings.resetWebUIDesc1')}</Text>
+                        <Text variant="subtext">{t('settings.resetWebUIDesc2')}</Text>
                       </>
                     )}
                   </StickyScrollable>
@@ -363,30 +308,6 @@ const SettingsModal = ({ children, config }: SettingsModalProps) => {
             </ScrollableContent>
           </ModalBody>
 
-          <ModalFooter />
-        </ModalContent>
-      </Modal>
-
-      <Modal
-        closeOnOverlayClick={false}
-        isOpen={isRefreshModalOpen}
-        onClose={onRefreshModalClose}
-        isCentered
-        closeOnEsc={false}
-      >
-        <ModalOverlay backdropFilter="blur(40px)" />
-        <ModalContent>
-          <ModalHeader />
-          <ModalBody>
-            <Flex justifyContent="center">
-              <Text fontSize="lg">
-                <Text>
-                  {t('settings.resetComplete')} {t('settings.reloadingIn')}{' '}
-                  {countdown}...
-                </Text>
-              </Text>
-            </Flex>
-          </ModalBody>
           <ModalFooter />
         </ModalContent>
       </Modal>
