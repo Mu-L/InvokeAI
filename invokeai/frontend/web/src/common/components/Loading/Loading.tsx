@@ -1,4 +1,4 @@
-import { Flex, Image, Spinner } from '@invoke-ai/ui';
+import { Flex, Image, Spinner } from '@invoke-ai/ui-library';
 import InvokeLogoWhite from 'public/assets/images/invoke-symbol-wht-lrg.svg';
 import { memo } from 'react';
 
@@ -7,12 +7,16 @@ import { memo } from 'react';
 const Loading = () => {
   return (
     <Flex
-      position="relative"
-      width="100vw"
-      height="100vh"
+      position="absolute"
+      width="100dvw"
+      height="100dvh"
       alignItems="center"
       justifyContent="center"
       bg="#151519"
+      top={0}
+      right={0}
+      bottom={0}
+      left={0}
     >
       <Image src={InvokeLogoWhite} w="8rem" h="8rem" />
       <Spinner

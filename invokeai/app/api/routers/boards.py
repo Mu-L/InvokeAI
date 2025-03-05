@@ -4,11 +4,12 @@ from fastapi import Body, HTTPException, Path, Query
 from fastapi.routing import APIRouter
 from pydantic import BaseModel, Field
 
-from invokeai.app.services.board_records.board_records_common import BoardChanges
+from invokeai.app.api.dependencies import ApiDependencies
+from invokeai.app.services.board_records.board_records_common import BoardChanges, BoardRecordOrderBy
 from invokeai.app.services.boards.boards_common import BoardDTO
+from invokeai.app.services.image_records.image_records_common import ImageCategory
 from invokeai.app.services.shared.pagination import OffsetPaginatedResults
-
-from ..dependencies import ApiDependencies
+from invokeai.app.services.shared.sqlite.sqlite_common import SQLiteDirection
 
 boards_router = APIRouter(prefix="/v1/boards", tags=["boards"])
 
@@ -31,7 +32,8 @@ class DeleteBoardResult(BaseModel):
     response_model=BoardDTO,
 )
 async def create_board(
-    board_name: str = Query(description="The name of the board to create"),
+    board_name: str = Query(description="The name of the board to create", max_length=300),
+    is_private: bool = Query(default=False, description="Whether the board is private"),
 ) -> BoardDTO:
     """Creates a board"""
     try:
@@ -86,7 +88,9 @@ async def delete_board(
     try:
         if include_images is True:
             deleted_images = ApiDependencies.invoker.services.board_images.get_all_board_image_names_for_board(
-                board_id=board_id
+                board_id=board_id,
+                categories=None,
+                is_intermediate=None,
             )
             ApiDependencies.invoker.services.images.delete_images_on_board(board_id=board_id)
             ApiDependencies.invoker.services.boards.delete(board_id=board_id)
@@ -97,7 +101,9 @@ async def delete_board(
             )
         else:
             deleted_board_images = ApiDependencies.invoker.services.board_images.get_all_board_image_names_for_board(
-                board_id=board_id
+                board_id=board_id,
+                categories=None,
+                is_intermediate=None,
             )
             ApiDependencies.invoker.services.boards.delete(board_id=board_id)
             return DeleteBoardResult(
@@ -115,18 +121,18 @@ async def delete_board(
     response_model=Union[OffsetPaginatedResults[BoardDTO], list[BoardDTO]],
 )
 async def list_boards(
+    order_by: BoardRecordOrderBy = Query(default=BoardRecordOrderBy.CreatedAt, description="The attribute to order by"),
+    direction: SQLiteDirection = Query(default=SQLiteDirection.Descending, description="The direction to order by"),
     all: Optional[bool] = Query(default=None, description="Whether to list all boards"),
     offset: Optional[int] = Query(default=None, description="The page offset"),
     limit: Optional[int] = Query(default=None, description="The number of boards per page"),
+    include_archived: bool = Query(default=False, description="Whether or not to include archived boards in list"),
 ) -> Union[OffsetPaginatedResults[BoardDTO], list[BoardDTO]]:
     """Gets a list of boards"""
     if all:
-        return ApiDependencies.invoker.services.boards.get_all()
+        return ApiDependencies.invoker.services.boards.get_all(order_by, direction, include_archived)
     elif offset is not None and limit is not None:
-        return ApiDependencies.invoker.services.boards.get_many(
-            offset,
-            limit,
-        )
+        return ApiDependencies.invoker.services.boards.get_many(order_by, direction, offset, limit, include_archived)
     else:
         raise HTTPException(
             status_code=400,
@@ -141,10 +147,14 @@ async def list_boards(
 )
 async def list_all_board_image_names(
     board_id: str = Path(description="The id of the board"),
+    categories: list[ImageCategory] | None = Query(default=None, description="The categories of image to include."),
+    is_intermediate: bool | None = Query(default=None, description="Whether to list intermediate images."),
 ) -> list[str]:
     """Gets a list of images for a board"""
 
     image_names = ApiDependencies.invoker.services.board_images.get_all_board_image_names_for_board(
         board_id,
+        categories,
+        is_intermediate,
     )
     return image_names

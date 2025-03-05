@@ -1,4 +1,4 @@
-import { Flex } from '@invoke-ai/ui';
+import { Flex } from '@invoke-ai/ui-library';
 import { useStore } from '@nanostores/react';
 import DataViewer from 'features/gallery/components/ImageMetadataViewer/DataViewer';
 import { $builtWorkflow } from 'features/nodes/hooks/useWorkflowWatcher';
@@ -11,7 +11,7 @@ const WorkflowJSONTab = () => {
 
   return (
     <Flex flexDir="column" alignItems="flex-start" gap={2} h="full">
-      <DataViewer data={workflow ?? {}} label={t('nodes.workflow')} />
+      <DataViewer data={workflow ?? {}} label={t('nodes.workflow')} bg="base.850" color="base.200" />
     </Flex>
   );
 };
