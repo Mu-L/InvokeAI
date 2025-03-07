@@ -1,26 +1,21 @@
-import { useLogger } from 'app/logging/useLogger';
 import { useAppDispatch } from 'app/store/storeHooks';
-import { workflowLoadRequested } from 'features/nodes/store/actions';
-import { addToast } from 'features/system/store/systemSlice';
-import { makeToast } from 'features/system/util/makeToast';
+import type { WorkflowV3 } from 'features/nodes/types/workflow';
+import { useLoadWorkflow } from 'features/workflowLibrary/hooks/useLoadWorkflow';
+import { workflowLoadedFromFile } from 'features/workflowLibrary/store/actions';
 import type { RefObject } from 'react';
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+import { assert } from 'tsafe';
 
 type useLoadWorkflowFromFileOptions = {
   resetRef: RefObject<() => void>;
+  onSuccess?: (workflow: WorkflowV3) => void;
 };
 
-type UseLoadWorkflowFromFile = (
-  options: useLoadWorkflowFromFileOptions
-) => (file: File | null) => void;
+type UseLoadWorkflowFromFile = (options: useLoadWorkflowFromFileOptions) => (file: File | null) => void;
 
-export const useLoadWorkflowFromFile: UseLoadWorkflowFromFile = ({
-  resetRef,
-}) => {
+export const useLoadWorkflowFromFile: UseLoadWorkflowFromFile = ({ resetRef, onSuccess }) => {
   const dispatch = useAppDispatch();
-  const logger = useLogger('nodes');
-  const { t } = useTranslation();
+  const loadWorkflow = useLoadWorkflow();
   const loadWorkflowFromFile = useCallback(
     (file: File | null) => {
       if (!file) {
@@ -31,21 +26,11 @@ export const useLoadWorkflowFromFile: UseLoadWorkflowFromFile = ({
         const rawJSON = reader.result;
 
         try {
-          const parsedJSON = JSON.parse(String(rawJSON));
-          dispatch(
-            workflowLoadRequested({ workflow: parsedJSON, asCopy: true })
-          );
+          const workflow = await loadWorkflow({ workflow: String(rawJSON), graph: null });
+          assert(workflow !== null);
+          dispatch(workflowLoadedFromFile());
+          onSuccess && onSuccess(workflow);
         } catch (e) {
-          // There was a problem reading the file
-          logger.error(t('nodes.unableToLoadWorkflow'));
-          dispatch(
-            addToast(
-              makeToast({
-                title: t('nodes.unableToLoadWorkflow'),
-                status: 'error',
-              })
-            )
-          );
           reader.abort();
         }
       };
@@ -55,7 +40,7 @@ export const useLoadWorkflowFromFile: UseLoadWorkflowFromFile = ({
       // Reset the file picker internal state so that the same file can be loaded again
       resetRef.current?.();
     },
-    [dispatch, logger, resetRef, t]
+    [resetRef, loadWorkflow, dispatch, onSuccess]
   );
 
   return loadWorkflowFromFile;

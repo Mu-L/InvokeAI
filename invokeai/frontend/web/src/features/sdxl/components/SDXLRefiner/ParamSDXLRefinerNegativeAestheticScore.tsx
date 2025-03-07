@@ -1,30 +1,26 @@
-import {
-  CompositeNumberInput,
-  CompositeSlider,
-  FormControl,
-  FormLabel,
-} from '@invoke-ai/ui';
+import { CompositeNumberInput, CompositeSlider, FormControl, FormLabel } from '@invoke-ai/ui-library';
 import { useAppDispatch, useAppSelector } from 'app/store/storeHooks';
-import { setRefinerNegativeAestheticScore } from 'features/sdxl/store/sdxlSlice';
+import { InformationalPopover } from 'common/components/InformationalPopover/InformationalPopover';
+import {
+  selectRefinerNegativeAestheticScore,
+  setRefinerNegativeAestheticScore,
+} from 'features/controlLayers/store/paramsSlice';
 import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const ParamSDXLRefinerNegativeAestheticScore = () => {
-  const refinerNegativeAestheticScore = useAppSelector(
-    (s) => s.sdxl.refinerNegativeAestheticScore
-  );
+  const refinerNegativeAestheticScore = useAppSelector(selectRefinerNegativeAestheticScore);
 
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
-  const handleChange = useCallback(
-    (v: number) => dispatch(setRefinerNegativeAestheticScore(v)),
-    [dispatch]
-  );
+  const handleChange = useCallback((v: number) => dispatch(setRefinerNegativeAestheticScore(v)), [dispatch]);
 
   return (
     <FormControl>
-      <FormLabel>{t('sdxl.negAestheticScore')}</FormLabel>
+      <InformationalPopover feature="refinerNegativeAestheticScore">
+        <FormLabel>{t('sdxl.negAestheticScore')}</FormLabel>
+      </InformationalPopover>
       <CompositeSlider
         min={1}
         max={10}
