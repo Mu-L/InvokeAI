@@ -1,6 +1,5 @@
-import { useAppToaster } from 'app/components/Toaster';
-import { useAppDispatch } from 'app/store/storeHooks';
-import { workflowLoadRequested } from 'features/nodes/store/actions';
+import { toast } from 'features/toast/toast';
+import { useLoadWorkflow } from 'features/workflowLibrary/hooks/useLoadWorkflow';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLazyGetImageWorkflowQuery } from 'services/api/endpoints/images';
@@ -10,45 +9,36 @@ type UseGetAndLoadEmbeddedWorkflowOptions = {
   onError?: () => void;
 };
 
-type UseGetAndLoadEmbeddedWorkflowReturn = {
-  getAndLoadEmbeddedWorkflow: (imageName: string) => Promise<void>;
-  getAndLoadEmbeddedWorkflowResult: ReturnType<
-    typeof useLazyGetImageWorkflowQuery
-  >[1];
-};
-
-type UseGetAndLoadEmbeddedWorkflow = (
-  options: UseGetAndLoadEmbeddedWorkflowOptions
-) => UseGetAndLoadEmbeddedWorkflowReturn;
-
-export const useGetAndLoadEmbeddedWorkflow: UseGetAndLoadEmbeddedWorkflow = ({
-  onSuccess,
-  onError,
-}) => {
-  const dispatch = useAppDispatch();
-  const toaster = useAppToaster();
+export const useGetAndLoadEmbeddedWorkflow = (options?: UseGetAndLoadEmbeddedWorkflowOptions) => {
   const { t } = useTranslation();
-  const [_getAndLoadEmbeddedWorkflow, getAndLoadEmbeddedWorkflowResult] =
-    useLazyGetImageWorkflowQuery();
+  const [_getAndLoadEmbeddedWorkflow, result] = useLazyGetImageWorkflowQuery();
+  const loadWorkflow = useLoadWorkflow();
   const getAndLoadEmbeddedWorkflow = useCallback(
     async (imageName: string) => {
       try {
-        const workflow = await _getAndLoadEmbeddedWorkflow(imageName);
-        dispatch(
-          workflowLoadRequested({ workflow: workflow.data, asCopy: true })
-        );
-        // No toast - the listener for this action does that after the workflow is loaded
-        onSuccess && onSuccess();
+        const { data } = await _getAndLoadEmbeddedWorkflow(imageName);
+        if (data) {
+          loadWorkflow(data);
+          // No toast - the listener for this action does that after the workflow is loaded
+          options?.onSuccess && options?.onSuccess();
+        } else {
+          toast({
+            id: 'PROBLEM_RETRIEVING_WORKFLOW',
+            title: t('toast.problemRetrievingWorkflow'),
+            status: 'error',
+          });
+        }
       } catch {
-        toaster({
+        toast({
+          id: 'PROBLEM_RETRIEVING_WORKFLOW',
           title: t('toast.problemRetrievingWorkflow'),
           status: 'error',
         });
-        onError && onError();
+        options?.onError && options?.onError();
       }
     },
-    [_getAndLoadEmbeddedWorkflow, dispatch, onSuccess, toaster, t, onError]
+    [_getAndLoadEmbeddedWorkflow, loadWorkflow, options, t]
   );
 
-  return { getAndLoadEmbeddedWorkflow, getAndLoadEmbeddedWorkflowResult };
+  return [getAndLoadEmbeddedWorkflow, result] as const;
 };
